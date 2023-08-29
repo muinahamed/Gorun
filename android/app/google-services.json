@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "780769836420",
+    "project_id": "gorun-c677a",
+    "storage_bucket": "gorun-c677a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780769836420:android:c2a9db2e72b2bbe470f1d1",
+        "android_client_info": {
+          "package_name": "com.gorun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780769836420-bro71voeq5ufofvbrrkbqjes5jvgfdbn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANryk3j5feXcmedFhDeacoPhd6HvujIgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780769836420-bro71voeq5ufofvbrrkbqjes5jvgfdbn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
