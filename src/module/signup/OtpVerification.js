@@ -26,7 +26,6 @@ import {
 import ScreenWrapper from '../../common/ScreenWrapper';
 import Header from '../../common/Header';
 import OtpInputs from '../../common/OtpInputs';
-
 const windowWidth = Dimensions.get('window').width;
 
 const OtpVerification = () => {
@@ -37,11 +36,25 @@ const OtpVerification = () => {
 
   // console.log(route.params);
 
+  function onAuthStateChanged(user) {
+    if (user) {
+      console.log(user);
+    }
+  }
+
   useEffect(() => {
     setStartTimer(false);
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
   }, []);
 
-  async function confirmOtpCode() {}
+  async function confirmCode() {
+    try {
+      await confirm.confirm(otpCode);
+    } catch (error) {
+      console.log('Invalid code.');
+    }
+  }
 
   return (
     <ScreenWrapper>
