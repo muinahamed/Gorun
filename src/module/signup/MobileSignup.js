@@ -43,8 +43,6 @@ const MobileSignup = () => {
   const [loading, setLoading] = useState(false);
 
   async function signInWithPhoneNumber() {
-    navigation.navigate('otpVerification');
-    return;
     setLoading(true);
     const confirmation = await auth().signInWithPhoneNumber(
       formattedPhoneNumber,
@@ -148,7 +146,7 @@ const MobileSignup = () => {
 
           <MButton
             title="Send Code"
-            // disabled={!phoneInput.current?.isValidNumber(formattedPhoneNumber)}
+            disabled={!phoneInput.current?.isValidNumber(formattedPhoneNumber)}
             color={
               phoneInput.current?.isValidNumber(formattedPhoneNumber)
                 ? RED

@@ -3,6 +3,7 @@ import {useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {
   Dimensions,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -45,6 +46,7 @@ const OtpVerification = () => {
 
   useEffect(() => {
     setStartTimer(false);
+    Keyboard.dismiss();
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
@@ -98,35 +100,13 @@ const OtpVerification = () => {
 
               <OTPInputView
                 style={{width: '80%', height: 200}}
-                pinCount={4}
-                code={otpCode} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-                onCodeChanged={setOtpCode}
-                // autoFocusOnLoad={true}
+                pinCount={6}
+                autoFocusOnLoad={true}
                 codeInputFieldStyle={styles.underlineStyleBase}
                 codeInputHighlightStyle={styles.underlineStyleHighLighted}
                 onCodeFilled={code => {
                   console.log(`Code is ${code}, you are good to go!`);
                 }}
-              />
-              {/* <View
-                style={{
-                  flex: 1,
-                  marginTop: 40,
-                }}>
-                <OtpInputs getOtp={code => setOtpCode(code)} />
-              </View> */}
-
-              <MButton
-                title="Continue"
-                textColor={WHITE}
-                marginTop={40}
-                marginBottom={5}
-                borderRadius={10}
-                onPress={() => {
-                  // confirmOtpCode();
-                }}
-                width={windowWidth - 30}
-                loading={loading}
               />
             </View>
           </View>
