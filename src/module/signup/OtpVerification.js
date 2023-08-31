@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  StyleSheet,
   View,
 } from 'react-native';
 import {MButton} from '../../common/MButton';
@@ -25,14 +26,14 @@ import {
 } from '../../utils/Color';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import Header from '../../common/Header';
-import OtpInputs from '../../common/OtpInputs';
-const windowWidth = Dimensions.get('window').width;
+import auth from '@react-native-firebase/auth';
+import {windowWidth} from '../../utils/Measure';
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 const OtpVerification = () => {
-  const route = useRoute();
   const [loading, setLoading] = useState(false);
   const [startTimer, setStartTimer] = useState(true);
-  const [otpCode, setOtpCode] = useState(null);
+  const [otpCode, setOtpCode] = useState('');
 
   // console.log(route.params);
 
@@ -95,13 +96,25 @@ const OtpVerification = () => {
                 Enter the 6-digit code sent via SMS
               </MText>
 
-              <View
+              <OTPInputView
+                style={{width: '80%', height: 200}}
+                pinCount={4}
+                code={otpCode} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
+                onCodeChanged={setOtpCode}
+                // autoFocusOnLoad={true}
+                codeInputFieldStyle={styles.underlineStyleBase}
+                codeInputHighlightStyle={styles.underlineStyleHighLighted}
+                onCodeFilled={code => {
+                  console.log(`Code is ${code}, you are good to go!`);
+                }}
+              />
+              {/* <View
                 style={{
                   flex: 1,
                   marginTop: 40,
                 }}>
                 <OtpInputs getOtp={code => setOtpCode(code)} />
-              </View>
+              </View> */}
 
               <MButton
                 title="Continue"
@@ -110,7 +123,7 @@ const OtpVerification = () => {
                 marginBottom={5}
                 borderRadius={10}
                 onPress={() => {
-                  confirmOtpCode();
+                  // confirmOtpCode();
                 }}
                 width={windowWidth - 30}
                 loading={loading}
@@ -154,3 +167,25 @@ const OtpVerification = () => {
 };
 
 export default OtpVerification;
+
+const styles = StyleSheet.create({
+  borderStyleBase: {
+    width: 30,
+    height: 45,
+  },
+
+  borderStyleHighLighted: {
+    borderColor: '#03DAC6',
+  },
+
+  underlineStyleBase: {
+    width: 30,
+    height: 45,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+  },
+
+  underlineStyleHighLighted: {
+    borderColor: '#03DAC6',
+  },
+});

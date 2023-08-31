@@ -34,20 +34,28 @@ import {PHONE_CIRCLE} from '../../image/SvgPath';
 import {windowWidth} from '../../utils/Measure';
 import Header from '../../common/Header';
 import auth from '@react-native-firebase/auth';
+import {showErrorMessage, showSuccessMessage} from '../../utils/BaseUtils';
 
 const MobileSignup = () => {
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [formattedPhoneNumber, setFormattedPhoneNumber] = useState('');
-  const [data, setData] = useState({countryShortName: 'NG'});
-  const [confirm, setConfirm] = useState(null);
-  const [code, setCode] = useState('');
   const phoneInput = useRef(null);
+  const [formattedPhoneNumber, setFormattedPhoneNumber] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  async function signInWithPhoneNumber(phoneNumber) {
-    const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-    setConfirm(confirmation);
+  async function signInWithPhoneNumber() {
+    navigation.navigate('otpVerification');
+    return;
+    setLoading(true);
+    const confirmation = await auth().signInWithPhoneNumber(
+      formattedPhoneNumber,
+    );
+    setLoading(false);
+    if (confirmation) {
+      showSuccessMessage('You will get a verification Code!');
+      navigation.navigate('otpVerification');
+    } else {
+      showErrorMessage('There is an error!');
+    }
   }
 
   return (
@@ -109,20 +117,14 @@ const MobileSignup = () => {
             }}>
             <PhoneInput
               ref={phoneInput}
-              defaultValue={phoneNumber}
-              defaultCode="LB"
+              defaultCode="BD"
               layout="first"
               containerStyle={styles.containerStyle}
               flagButtonStyle={styles.flagButtonStyle}
               textContainerStyle={styles.textContainerStyle}
               textInputStyle={styles.textInputStyle}
+              onChangeCountry={e => console.log(e)}
               codeTextStyle={{fontSize: 14, position: 'absolute'}}
-              onChangeCountry={e => {
-                setData({countryShortName: e.cca2});
-              }}
-              onChangeText={text => {
-                setPhoneNumber(text);
-              }}
               onChangeFormattedText={text => {
                 setFormattedPhoneNumber(text);
               }}
@@ -130,7 +132,7 @@ const MobileSignup = () => {
             />
           </View>
 
-          {!phoneInput.current?.isValidNumber(phoneNumber) && (
+          {!phoneInput.current?.isValidNumber(formattedPhoneNumber) && (
             <MText
               size={semiSmall}
               fontType={interRegular}
@@ -146,9 +148,11 @@ const MobileSignup = () => {
 
           <MButton
             title="Send Code"
-            disabled={!phoneInput.current?.isValidNumber(phoneNumber)}
+            // disabled={!phoneInput.current?.isValidNumber(formattedPhoneNumber)}
             color={
-              phoneInput.current?.isValidNumber(phoneNumber) ? RED : GRAY_400
+              phoneInput.current?.isValidNumber(formattedPhoneNumber)
+                ? RED
+                : GRAY_400
             }
             textColor={WHITE}
             marginTop={40}
