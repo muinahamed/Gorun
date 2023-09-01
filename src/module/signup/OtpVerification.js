@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {
   Dimensions,
@@ -30,32 +30,33 @@ import Header from '../../common/Header';
 import auth from '@react-native-firebase/auth';
 import {windowWidth} from '../../utils/Measure';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
+import {showErrorMessage, showSuccessMessage} from '../../utils/BaseUtils';
 
 const OtpVerification = () => {
-  const [loading, setLoading] = useState(false);
-  const [startTimer, setStartTimer] = useState(true);
-  const [otpCode, setOtpCode] = useState('');
-
-  // console.log(route.params);
+  const navigation = useNavigation();
+  const route = useRoute();
+  const [startTimer, setStartTimer] = useState(false);
+  const confirm = route?.params?.confirmation;
 
   function onAuthStateChanged(user) {
     if (user) {
-      console.log(user);
+      showSuccessMessage('Otp verified!');
+      navigation.navigate('home');
     }
   }
 
   useEffect(() => {
-    setStartTimer(false);
-    Keyboard.dismiss();
+    // setStartTimer(true);
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    Keyboard.dismiss();
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  async function confirmCode() {
+  async function confirmCode(otpCode) {
     try {
-      await confirm.confirm(otpCode);
+      await confirm.confirm('123456');
     } catch (error) {
-      console.log('Invalid code.');
+      showErrorMessage('Invalid code.');
     }
   }
 
@@ -105,7 +106,7 @@ const OtpVerification = () => {
                 codeInputFieldStyle={styles.underlineStyleBase}
                 codeInputHighlightStyle={styles.underlineStyleHighLighted}
                 onCodeFilled={code => {
-                  console.log(`Code is ${code}, you are good to go!`);
+                  confirmCode(code);
                 }}
               />
             </View>

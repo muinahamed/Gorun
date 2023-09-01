@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Onboarding from './module/onboarding/Onboarding';
 import MobileSignup from './module/signup/MobileSignup';
 import OtpVerification from './module/signup/OtpVerification';
+import Home from './module/homeScreen/Home';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -22,6 +23,11 @@ const StackScreen = () => {
       <Stack.Screen
         name="otpVerification"
         component={OtpVerification}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="home"
+        component={Home}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

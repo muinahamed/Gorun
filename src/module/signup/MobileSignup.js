@@ -43,14 +43,18 @@ const MobileSignup = () => {
   const [loading, setLoading] = useState(false);
 
   async function signInWithPhoneNumber() {
+    navigation.navigate('home');
+    return;
+    // await auth().signOut();
     setLoading(true);
     const confirmation = await auth().signInWithPhoneNumber(
       formattedPhoneNumber,
     );
+
     setLoading(false);
     if (confirmation) {
       showSuccessMessage('You will get a verification Code!');
-      navigation.navigate('otpVerification');
+      navigation.navigate('otpVerification', {confirmation});
     } else {
       showErrorMessage('There is an error!');
     }
@@ -146,7 +150,7 @@ const MobileSignup = () => {
 
           <MButton
             title="Send Code"
-            disabled={!phoneInput.current?.isValidNumber(formattedPhoneNumber)}
+            // disabled={!phoneInput.current?.isValidNumber(formattedPhoneNumber)}
             color={
               phoneInput.current?.isValidNumber(formattedPhoneNumber)
                 ? RED
