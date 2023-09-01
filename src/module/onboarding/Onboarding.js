@@ -17,6 +17,7 @@ const Onboarding = () => {
       />
       <OnboardingFooter
         currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         horizontalRef={horizontalRef}
       />
     </ScreenWrapper>

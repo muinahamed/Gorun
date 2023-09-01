@@ -5,7 +5,7 @@ import {GRAY, INACTIVE_DOT, PRIMARY_COLOR} from '../../utils/Color';
 import {windowWidth} from '../../utils/Measure';
 import {useNavigation} from '@react-navigation/native';
 
-const OnboardingFooter = ({currentPage, horizontalRef}) => {
+const OnboardingFooter = ({currentPage, setCurrentPage, horizontalRef}) => {
   const navigation = useNavigation();
   const array = [1, 2];
 
@@ -13,6 +13,7 @@ const OnboardingFooter = ({currentPage, horizontalRef}) => {
 
   const goTo = index => {
     horizontalRef?.current?.scrollToIndex({index: index});
+    setCurrentPage(index);
     if (index == 1 && currentPage == 1) {
       navigation.navigate('mobileSignup');
     }
@@ -20,7 +21,9 @@ const OnboardingFooter = ({currentPage, horizontalRef}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={() => goTo(0)}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('mobileSignup')}>
         <MText
           size={medium}
           fontType={interRegular}
