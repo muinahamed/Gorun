@@ -40,7 +40,7 @@ const HomeSearch = ({setFilterDialog, setReset}) => {
         {
           zIndex: 0,
           backgroundColor: WHITE,
-          marginTop: 8,
+          marginTop: 4,
         },
       ]}>
       <TouchableOpacity
@@ -66,27 +66,17 @@ const HomeSearch = ({setFilterDialog, setReset}) => {
             </MText>
 
             <View style={{height: 17, minWidth: 80}}>
-              <FlatList
-                ref={listRef}
-                data={array}
-                estimatedItemSize={21}
-                nestedScrollEnabled={true}
-                renderItem={({item, index}) => {
-                  return (
-                    <MText
-                      size={medium}
-                      fontType={interRegular}
-                      color={'#828282'}
-                      style={{
-                        fontWeight: '500',
-                        lineHeight: 17,
-                        marginLeft: 4,
-                      }}>
-                      {item}
-                    </MText>
-                  );
-                }}
-              />
+              <MText
+                size={medium}
+                fontType={interRegular}
+                color={'#828282'}
+                style={{
+                  fontWeight: '500',
+                  lineHeight: 17,
+                  marginLeft: 4,
+                }}>
+                Product
+              </MText>
             </View>
           </View>
         </View>
