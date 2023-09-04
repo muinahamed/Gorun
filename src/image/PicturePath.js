@@ -5,4 +5,4 @@ export const FOOD2 = require('./picture/food2.jpg');
 
 export const BURGER = require('./picture/burger.jpeg');
 export const CHILLI = require('./picture/chilli.jpeg');
-export const NAPA = require('./picture/napa.png');
+export const NAPA = require('./picture/napa.jpg');
