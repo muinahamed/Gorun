@@ -43,8 +43,6 @@ const MobileSignup = () => {
   const [loading, setLoading] = useState(false);
 
   async function signInWithPhoneNumber() {
-    navigation.navigate('home');
-    return;
     // await auth().signOut();
     setLoading(true);
     const confirmation = await auth().signInWithPhoneNumber(
