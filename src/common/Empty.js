@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import MText, {interRegular, medium} from './MText';
-import {ORDER_ID_GRAY} from '../utils/Colors';
-import {WHITE} from '../utils/Color';
+
+import {ORDER_ID_GRAY, WHITE} from '../utils/Color';
 
 const Empty = ({msg}) => {
   return (

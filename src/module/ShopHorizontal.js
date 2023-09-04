@@ -7,8 +7,6 @@ import {LITE_BLACK} from '../utils/Color';
 import ShopHorizontalListChild from '../common/ShopHorizontalListChild';
 
 const ShopHorizontalList = ({title, data, type, category}) => {
-  const navigation = useNavigation();
-
   const renderItem = ({item, index}) => <ShopHorizontalListChild item={item} />;
 
   return (

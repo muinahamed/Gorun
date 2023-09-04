@@ -5,6 +5,7 @@ import Onboarding from './module/onboarding/Onboarding';
 import MobileSignup from './module/signup/MobileSignup';
 import OtpVerification from './module/signup/OtpVerification';
 import Home from './module/homeScreen/Home';
+import ShopDetails from './module/shopDetails/ShopDetails';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -28,6 +29,11 @@ const StackScreen = () => {
       <Stack.Screen
         name="home"
         component={Home}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="shopDetails"
+        component={ShopDetails}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

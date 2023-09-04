@@ -1,11 +1,12 @@
 import {SectionList, StyleSheet, View} from 'react-native';
 import React from 'react';
-import MText, {interRegular, large} from '../common/MText';
+import MText, {interRegular, large} from '../../common/MText';
+import {} from '../../utils/Colors';
 
-import LineBreak from '../common/LineBreak';
-import Empty from '../common/Empty';
-import {LITE_BLACK} from '../utils/Color';
-import ProductView from './shopDetails/ProductView';
+import LineBreak from '../../common/LineBreak';
+import Empty from '../../common/Empty';
+import {LITE_BLACK} from '../../utils/Color';
+import ProductView from './ProductView';
 
 const NewRestaurantProductList = ({
   filterData,
@@ -41,7 +42,7 @@ const NewRestaurantProductList = ({
 
   return (
     <SectionList
-      sections={categoryItems}
+      sections={filterData === null ? categoryItems : filterData}
       style={{marginTop: 20}}
       keyExtractor={(item, index) => index + 'child'}
       ListEmptyComponent={() => <Empty msg={'No Product available!'} />}

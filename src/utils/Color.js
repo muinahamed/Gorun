@@ -15,3 +15,5 @@ export const GRAY_700 = '#616161';
 export const GRAY_800 = '#424242';
 export const GRAY_900 = '#212121';
 export const RED = '#FF0000';
+export const ORDER_ID_GRAY = '#737373';
+export const RATTING_GREEN = '#417C45';

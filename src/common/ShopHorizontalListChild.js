@@ -10,7 +10,9 @@ const ShopHorizontalListChild = ({item}) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => {}} style={styles.container}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('shopDetails')}
+      style={styles.container}>
       <Image
         style={styles.image}
         resizeMethod={'scale'}
