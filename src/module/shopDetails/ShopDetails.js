@@ -14,6 +14,7 @@ import RestaurantDetailsCart from '../../common/RestaurantDetailsCart';
 import {categoryItem} from '../../utils/Dummy';
 import NewRestaurantProductList from '../NewRestaurantProductList';
 import {windowWidth} from '../../utils/Measure';
+import {useSelector} from 'react-redux';
 const {StatusBarManager} = NativeModules;
 const height = StatusBarManager.HEIGHT;
 const AnimatedStatusBar = Animated.createAnimatedComponent(StatusBar);
@@ -32,6 +33,7 @@ const ShopDetails = props => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const startAnim = React.useRef(new Animated.Value(0)).current;
   const [barStyle, setBarStyle] = useState('light-content');
+  const {cart} = useSelector(state => state.orders);
 
   const horizotalRef = useRef();
   const verticalRef = useRef();

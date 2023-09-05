@@ -4,13 +4,21 @@ import MText, {interRegular, medium, semiMedium} from './MText';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {LITE_BLACK, RED} from '../utils/Color';
+import {useDispatch, useSelector} from 'react-redux';
+import {generateCartHelper} from '../store/reduxHelperFunction';
+import {generateCart} from '../store/slices/orderSlice';
 
 const ShopHorizontalListChild = ({item}) => {
+  const {cart} = useSelector(state => state.orders);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('shopDetails')}
+      onPress={() => {
+        dispatch(generateCart(generateCartHelper(cart, item)));
+        navigation.navigate('shopDetails');
+      }}
       style={styles.container}>
       <Image
         style={styles.image}

@@ -7,16 +7,22 @@ import DELETE from '../../image/svg/trash.svg';
 import MINUS from '../../image/svg/minusOnly.svg';
 import {TouchableOpacity} from 'react-native';
 import ImageBackgroundLazy from '../../common/ImageBackgroundLazy';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Animated, {
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import {
+  addToCartHelper,
+  removeFromCartHelper,
+} from '../../store/reduxHelperFunction';
+import {addToCart, removeFromCart} from '../../store/slices/orderSlice';
 
 const ProductView = ({item}) => {
   const dispatch = useDispatch();
+  const {cart, subTotal} = useSelector(state => state.orders);
   const [expand, setExpand] = useState(false);
   const timer = useRef();
   const totalWidth = useSharedValue(36);
@@ -42,7 +48,15 @@ const ProductView = ({item}) => {
     };
   });
 
-  const count = 2;
+  const countFunction = () => {
+    let result = 0;
+    cart?.map(child => {
+      if (child?._id == item?._id) result += child.quantity;
+    });
+    return result;
+  };
+
+  let count = countFunction();
 
   return (
     <TouchableOpacity
@@ -93,6 +107,10 @@ const ProductView = ({item}) => {
           <Animated.View style={[styles.flex, deleteStyle]}>
             <TouchableOpacity
               onPress={() => {
+                if (expand && count > 0) {
+                  console.log();
+                  dispatch(removeFromCart(removeFromCartHelper(cart, item)));
+                }
                 if (count == 1) {
                   totalWidth.value = withTiming(36);
                   return;
@@ -127,6 +145,9 @@ const ProductView = ({item}) => {
           <TouchableOpacity
             style={[styles.plus]}
             onPress={() => {
+              if (expand) {
+                dispatch(addToCart(addToCartHelper(cart, item)));
+              }
               totalWidth.value = withTiming(92);
               setExpand(true);
               takeActionAfterSomeTime();

@@ -3,19 +3,19 @@ import {BURGER, CHILLI, FOOD1, FOOD2, NAPA} from '../image/PicturePath';
 export const banner = [{image: FOOD1}, {image: FOOD2}];
 
 export const FOOD_DATA = [
-  {name: 'Burger', image: BURGER, price: `৳100`},
-  {name: 'Burger', image: BURGER, price: `৳100`},
-  {name: 'Burger', image: BURGER, price: `৳100`},
+  {_id: 1, name: 'Burger', image: BURGER, price: `৳100`},
+  {_id: 2, name: 'Burger', image: BURGER, price: `৳100`},
+  {_id: 3, name: 'Burger', image: BURGER, price: `৳100`},
 ];
 export const GROCERY_DATA = [
-  {name: 'CHilli', image: CHILLI, price: `৳200`},
-  {name: 'CHilli', image: CHILLI, price: `৳200`},
-  {name: 'CHilli', image: CHILLI, price: `৳200`},
+  {_id: 4, name: 'CHilli', image: CHILLI, price: `৳200`},
+  {_id: 5, name: 'CHilli', image: CHILLI, price: `৳200`},
+  {_id: 6, name: 'CHilli', image: CHILLI, price: `৳200`},
 ];
 export const PHARMACY_DATA = [
-  {name: 'Napa', image: NAPA, price: `৳20`},
-  {name: 'Napa', image: NAPA, price: `৳20`},
-  {name: 'Napa', image: NAPA, price: `৳20`},
+  {_id: 7, name: 'Napa', image: NAPA, price: `৳20`},
+  {_id: 8, name: 'Napa', image: NAPA, price: `৳20`},
+  {_id: 9, name: 'Napa', image: NAPA, price: `৳20`},
 ];
 
 export const categoryItem = [
