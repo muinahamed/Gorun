@@ -51,7 +51,6 @@ const MobileSignup = () => {
 
     setLoading(false);
     if (confirmation) {
-      showSuccessMessage('You will get a verification Code!');
       navigation.navigate('otpVerification', {confirmation});
     } else {
       showErrorMessage('There is an error!');
