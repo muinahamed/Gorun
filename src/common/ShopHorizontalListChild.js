@@ -3,7 +3,6 @@ import React from 'react';
 import MText, {interRegular, medium, semiMedium} from './MText';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import LazyImage from './LazyImage';
 import {LITE_BLACK, RED} from '../utils/Color';
 
 const ShopHorizontalListChild = ({item}) => {

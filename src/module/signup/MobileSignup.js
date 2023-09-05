@@ -44,7 +44,6 @@ const MobileSignup = () => {
 
   async function signInWithPhoneNumber() {
     navigation.navigate('otpVerification', {});
-
     return;
     // await auth().signOut();
     setLoading(true);

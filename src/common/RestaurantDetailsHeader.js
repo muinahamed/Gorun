@@ -1,27 +1,20 @@
-import {Animated, StyleSheet, View} from 'react-native';
+import {Animated, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {NativeModules} from 'react-native';
 const {StatusBarManager} = NativeModules;
 const height = StatusBarManager.HEIGHT;
 import React from 'react';
 import ARROW from '../image/svg/arrow.svg';
 import {LITE_BLACK, RED, WHITE} from '../utils/Color';
-
 import MText, {interRegular, semiMedium} from './MText';
-
-import {TouchableOpacity} from 'react-native';
-
 import {useNavigation} from '@react-navigation/native';
 
 const RestaurantDetailsHeader = ({scrollY}) => {
   const navigation = useNavigation();
 
-  // console.log(shop);
-
-  let Item = ({Image, marginLeft, onPress}) => {
+  let Item = ({Image, marginLeft}) => {
     return (
       <TouchableOpacity
-        activeOpacity={0.3}
-        onPress={() => onPress()}
+        onPress={() => navigation.navigate('home')}
         style={[styles.round, {marginLeft}]}>
         {Image}
       </TouchableOpacity>
@@ -46,10 +39,7 @@ const RestaurantDetailsHeader = ({scrollY}) => {
           },
         ]}>
         <View style={styles.childFlex}>
-          <Item
-            onPress={() => navigation.goBack()}
-            Image={<ARROW stroke={RED} />}
-          />
+          <Item Image={<ARROW stroke={RED} />} />
           <Animated.View
             style={{
               marginLeft: 10,

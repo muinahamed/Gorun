@@ -1,7 +1,6 @@
 import {SectionList, StyleSheet, View} from 'react-native';
 import React from 'react';
 import MText, {interRegular, large} from '../common/MText';
-
 import LineBreak from '../common/LineBreak';
 import Empty from '../common/Empty';
 import {LITE_BLACK} from '../utils/Color';

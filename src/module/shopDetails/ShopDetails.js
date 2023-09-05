@@ -1,15 +1,12 @@
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {Button, StatusBar, StyleSheet, View} from 'react-native';
 import React, {useRef} from 'react';
 import {NativeModules} from 'react-native';
-const {StatusBarManager} = NativeModules;
-const height = StatusBarManager.HEIGHT;
 import {SafeAreaView} from 'react-native';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import {Animated} from 'react-native';
 import HeaderAnimated from './HeaderAnimated';
 import {RefreshControl} from 'react-native';
-
 import {WHITE} from '../../utils/Color';
 import RestaurantDetailsHeader from '../../common/RestaurantDetailsHeader';
 import RestaurantBanner from '../../common/RestaurantBanner';
@@ -17,6 +14,8 @@ import RestaurantDetailsCart from '../../common/RestaurantDetailsCart';
 import {categoryItem} from '../../utils/Dummy';
 import NewRestaurantProductList from '../NewRestaurantProductList';
 import {windowWidth} from '../../utils/Measure';
+const {StatusBarManager} = NativeModules;
+const height = StatusBarManager.HEIGHT;
 const AnimatedStatusBar = Animated.createAnimatedComponent(StatusBar);
 
 let array = {};
