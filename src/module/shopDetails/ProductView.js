@@ -1,11 +1,49 @@
 import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import MText, {interRegular, medium, small} from '../../common/MText';
 import {LITE_BLACK, RED, TEXT_GRAY, WHITE} from '../../utils/Color';
+import PLUSBOLD from '../../image/svg/boldPlus.svg';
+import DELETE from '../../image/svg/trash.svg';
+import MINUS from '../../image/svg/minusOnly.svg';
 import {TouchableOpacity} from 'react-native';
-import LazyImage from '../../common/LazyImage';
+import ImageBackgroundLazy from '../../common/ImageBackgroundLazy';
+import {useDispatch} from 'react-redux';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
-const ProductView = ({item, shopId, shopMaxDiscount}) => {
+const ProductView = ({item}) => {
+  const dispatch = useDispatch();
+  const [expand, setExpand] = useState(false);
+  const timer = useRef();
+  const totalWidth = useSharedValue(36);
+
+  const takeActionAfterSomeTime = () => {
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      totalWidth.value = withTiming(36);
+      setExpand(false);
+    }, 4000);
+  };
+
+  const widthStyle = useAnimatedStyle(() => {
+    return {
+      width: interpolate(totalWidth.value, [0, 36, 92], [0, 36, 92]),
+    };
+  });
+
+  const deleteStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(totalWidth.value, [0, 36, 80, 92], [0, 0, 0, 1]),
+      width: interpolate(totalWidth.value, [0, 36, 92], [0, 0, 56]),
+    };
+  });
+
+  const count = 2;
+
   return (
     <TouchableOpacity
       onPress={() => {}}
@@ -43,14 +81,75 @@ const ProductView = ({item, shopId, shopMaxDiscount}) => {
           </MText>
         </View>
       </View>
-      <LazyImage
+      <ImageBackgroundLazy
         source={{uri: item.images[0]}}
         imageStyle={{borderRadius: 7}}
         style={{
           width: 96,
           height: 85,
           alignItems: 'flex-end',
-        }}></LazyImage>
+        }}>
+        <Animated.View style={[styles.flex, styles.container, widthStyle]}>
+          <Animated.View style={[styles.flex, deleteStyle]}>
+            <TouchableOpacity
+              onPress={() => {
+                if (count == 1) {
+                  totalWidth.value = withTiming(36);
+                  return;
+                }
+                takeActionAfterSomeTime();
+              }}
+              style={styles.plus}>
+              {count == 1 ? (
+                <DELETE width={13} height={13} />
+              ) : (
+                <MINUS stroke={RED} fill={RED} />
+              )}
+            </TouchableOpacity>
+
+            <View
+              style={{
+                width: 21,
+              }}>
+              <MText
+                size={small}
+                fontType={interRegular}
+                color={RED}
+                style={{
+                  fontWeight: '600',
+                  textAlign: 'center',
+                }}>
+                {count}
+              </MText>
+            </View>
+          </Animated.View>
+
+          <TouchableOpacity
+            style={[styles.plus]}
+            onPress={() => {
+              totalWidth.value = withTiming(92);
+              setExpand(true);
+              takeActionAfterSomeTime();
+            }}>
+            <PLUSBOLD stroke={RED} fill={RED} />
+
+            {!expand && count > 0 && (
+              <MText
+                size={small}
+                fontType={interRegular}
+                color={RED}
+                style={{
+                  fontWeight: '600',
+                  textAlign: 'center',
+                  position: 'absolute',
+                  backgroundColor: 'white',
+                }}>
+                {count}
+              </MText>
+            )}
+          </TouchableOpacity>
+        </Animated.View>
+      </ImageBackgroundLazy>
     </TouchableOpacity>
   );
 };
