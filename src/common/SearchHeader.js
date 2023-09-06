@@ -20,7 +20,7 @@ const SearchHeader = props => {
   } = props;
 
   return (
-    <Animated.View style={[styles.flex]}>
+    <Animated.View style={[styles.flex, {marginTop: 10}]}>
       <TouchableOpacity
         style={{padding: 10, marginHorizontal: 10}}
         onPress={() => navigation.goBack()}>

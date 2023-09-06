@@ -1,6 +1,6 @@
 import React from 'react';
 import {ActivityIndicator, View, StyleSheet, Dimensions} from 'react-native';
-import {WHITE} from '../utils/Color';
+import {SECOND_PRIMARY, WHITE} from '../utils/Color';
 
 const LoaderIndicator = props => {
   const {loading, backColor, top, loaderColor, size} = props;
@@ -9,7 +9,7 @@ const LoaderIndicator = props => {
       style={[
         styles.loaderContainer,
         {
-          backgroundColor: backColor ? backColor : 'rgba(0,0,0,.2)',
+          backgroundColor: WHITE,
           top: top ? top : 0,
         },
       ]}>
@@ -21,7 +21,7 @@ const LoaderIndicator = props => {
         <ActivityIndicator
           size={size ? size : 'large'}
           animating={loading}
-          color={loaderColor ? loaderColor : WHITE}
+          color={SECOND_PRIMARY}
         />
       </View>
     </View>

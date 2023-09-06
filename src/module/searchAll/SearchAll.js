@@ -219,138 +219,140 @@ const SearchAll = props => {
             marginTop: 10,
             flex: 1,
           }}>
-          <ItemAndStoreHeader
-            listRef={listRef}
-            selectItemOrStores={selectItemOrStores}
-            setSelectItemOrStores={setSelectItemOrStores}
-            scrollX={scrollX}
-            stableStatus={stableStatus}
-            itemLength={selectedItemsList?.paginate?.total}
-            storeLength={selectedStoresList?.paginate?.total}
-          />
           {stableStatus && (
-            <Animated.FlatList
-              data={[1, 2]}
-              ref={listRef}
-              horizontal
-              onScroll={Animated.event(
-                [{nativeEvent: {contentOffset: {x: scrollX}}}],
-                {useNativeDriver: true},
-              )}
-              onMomentumScrollEnd={e => {
-                Math.round(e.nativeEvent.contentOffset.x / windowWidth) === 0
-                  ? setSelectItemOrStores('Items')
-                  : setSelectItemOrStores('Stores');
-              }}
-              getItemLayout={(_, index) => ({
-                length: windowWidth, //  WIDTH + (MARGIN_HORIZONTAL * 2)
-                offset: windowWidth * index, //  ( WIDTH + (MARGIN_HORIZONTAL*2) ) * (index)
-                index,
-              })}
-              initialScrollIndex={selectItemOrStores === 'Items' ? 0 : 1}
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(item, index) => 'muinahamed123457657766' + index}
-              renderItem={({item, index}) => {
-                if (index === 0) {
-                  return (
-                    <FlatList
-                      data={selectedItemsList?.products}
-                      listKey={'nafisa123456'}
-                      renderItem={renderItem}
-                      contentContainerStyle={{
-                        paddingHorizontal: 15,
-                        width: windowWidth,
-                        paddingTop: 26,
-                        paddingBottom: 10,
-                      }}
-                      showsVerticalScrollIndicator={false}
-                      ItemSeparatorComponent={() => <LineBreak margin={15} />}
-                      ListEmptyComponent={() => (
-                        <Empty msg={'No Item is available!'} />
-                      )}
-                      ListFooterComponent={() => {
-                        return (
-                          selectedItemsList?.status === 'paginate' && (
-                            <ActivityIndicator
-                              style={{paddingBottom: 10}}
-                              color={RED}
-                            />
-                          )
-                        );
-                      }}
-                      onEndReached={() => {
-                        if (
-                          selectedItemsList?.paginate?.metadata?.hasNextPage ===
-                          true
-                        ) {
-                          getSearchResultItem(
-                            'all',
-                            searchText,
-                            selectedItemsList?.paginate?.metadata?.page
-                              ?.currentPage + 1,
-                            setSelectedItemsList,
-                            selectedItemsList,
-                            lat,
-                            lon,
+            <>
+              <ItemAndStoreHeader
+                listRef={listRef}
+                selectItemOrStores={selectItemOrStores}
+                setSelectItemOrStores={setSelectItemOrStores}
+                scrollX={scrollX}
+                stableStatus={stableStatus}
+                itemLength={selectedItemsList?.paginate?.total}
+                storeLength={selectedStoresList?.paginate?.total}
+              />
+              <Animated.FlatList
+                data={[1, 2]}
+                ref={listRef}
+                horizontal
+                onScroll={Animated.event(
+                  [{nativeEvent: {contentOffset: {x: scrollX}}}],
+                  {useNativeDriver: true},
+                )}
+                onMomentumScrollEnd={e => {
+                  Math.round(e.nativeEvent.contentOffset.x / windowWidth) === 0
+                    ? setSelectItemOrStores('Items')
+                    : setSelectItemOrStores('Stores');
+                }}
+                getItemLayout={(_, index) => ({
+                  length: windowWidth, //  WIDTH + (MARGIN_HORIZONTAL * 2)
+                  offset: windowWidth * index, //  ( WIDTH + (MARGIN_HORIZONTAL*2) ) * (index)
+                  index,
+                })}
+                initialScrollIndex={selectItemOrStores === 'Items' ? 0 : 1}
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item, index) => 'muinahamed123457657766' + index}
+                renderItem={({item, index}) => {
+                  if (index === 0) {
+                    return (
+                      <FlatList
+                        data={selectedItemsList?.products}
+                        listKey={'nafisa123456'}
+                        renderItem={renderItem}
+                        contentContainerStyle={{
+                          paddingHorizontal: 15,
+                          width: windowWidth,
+                          paddingTop: 26,
+                          paddingBottom: 10,
+                        }}
+                        showsVerticalScrollIndicator={false}
+                        ItemSeparatorComponent={() => <LineBreak margin={15} />}
+                        ListEmptyComponent={() => (
+                          <Empty msg={'No Item is available!'} />
+                        )}
+                        ListFooterComponent={() => {
+                          return (
+                            selectedItemsList?.status === 'paginate' && (
+                              <ActivityIndicator
+                                style={{paddingBottom: 10}}
+                                color={RED}
+                              />
+                            )
                           );
-                        }
-                        // console.log(selectedItemsList);
-                      }}
-                      onEndReachedThreshold={0.1}
-                      keyExtractor={(item, index) => index + 'items'}
-                    />
-                  );
-                } else {
-                  return (
-                    <FlatList
-                      data={selectedStoresList?.shops}
-                      listKey={'nafisa123gfdg456'}
-                      renderItem={renderItem}
-                      showsVerticalScrollIndicator={false}
-                      contentContainerStyle={{
-                        paddingTop: 26,
-                        paddingHorizontal: 15,
-                        width: windowWidth,
-                        paddingBottom: 10,
-                      }}
-                      ListEmptyComponent={() => (
-                        <Empty msg={'No Shop is available!'} />
-                      )}
-                      ListFooterComponent={() => {
-                        return (
-                          selectedStoresList?.status === 'paginate' && (
-                            <ActivityIndicator
-                              style={{paddingBottom: 10}}
-                              color={RED}
-                            />
-                          )
-                        );
-                      }}
-                      onEndReached={() => {
-                        if (
-                          selectedStoresList?.paginate?.metadata
-                            ?.hasNextPage === true
-                        ) {
-                          getSearchResultStores(
-                            'all',
-                            searchText,
-                            selectedStoresList?.paginate?.metadata?.page
-                              ?.currentPage + 1,
-                            setSelectedStoresList,
-                            selectedStoresList,
-                            lat,
-                            lon,
+                        }}
+                        onEndReached={() => {
+                          if (
+                            selectedItemsList?.paginate?.metadata
+                              ?.hasNextPage === true
+                          ) {
+                            getSearchResultItem(
+                              'all',
+                              searchText,
+                              selectedItemsList?.paginate?.metadata?.page
+                                ?.currentPage + 1,
+                              setSelectedItemsList,
+                              selectedItemsList,
+                              lat,
+                              lon,
+                            );
+                          }
+                          // console.log(selectedItemsList);
+                        }}
+                        onEndReachedThreshold={0.1}
+                        keyExtractor={(item, index) => index + 'items'}
+                      />
+                    );
+                  } else {
+                    return (
+                      <FlatList
+                        data={selectedStoresList?.shops}
+                        listKey={'nafisa123gfdg456'}
+                        renderItem={renderItem}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{
+                          paddingTop: 26,
+                          paddingHorizontal: 15,
+                          width: windowWidth,
+                          paddingBottom: 10,
+                        }}
+                        ListEmptyComponent={() => (
+                          <Empty msg={'No Shop is available!'} />
+                        )}
+                        ListFooterComponent={() => {
+                          return (
+                            selectedStoresList?.status === 'paginate' && (
+                              <ActivityIndicator
+                                style={{paddingBottom: 10}}
+                                color={RED}
+                              />
+                            )
                           );
-                        }
-                      }}
-                      onEndReachedThreshold={0.1}
-                      keyExtractor={(item, index) => index}
-                    />
-                  );
-                }
-              }}
-            />
+                        }}
+                        onEndReached={() => {
+                          if (
+                            selectedStoresList?.paginate?.metadata
+                              ?.hasNextPage === true
+                          ) {
+                            getSearchResultStores(
+                              'all',
+                              searchText,
+                              selectedStoresList?.paginate?.metadata?.page
+                                ?.currentPage + 1,
+                              setSelectedStoresList,
+                              selectedStoresList,
+                              lat,
+                              lon,
+                            );
+                          }
+                        }}
+                        onEndReachedThreshold={0.1}
+                        keyExtractor={(item, index) => index}
+                      />
+                    );
+                  }
+                }}
+              />
+            </>
           )}
         </View>
 

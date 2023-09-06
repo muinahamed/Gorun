@@ -1,14 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
-  Button,
   KeyboardAvoidingView,
   Platform,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
-  TextInput,
   View,
 } from 'react-native';
 import MText, {
@@ -34,7 +31,7 @@ import {PHONE_CIRCLE} from '../../image/SvgPath';
 import {windowWidth} from '../../utils/Measure';
 import Header from '../../common/Header';
 import auth from '@react-native-firebase/auth';
-import {showErrorMessage, showSuccessMessage} from '../../utils/BaseUtils';
+import {showErrorMessage} from '../../utils/BaseUtils';
 
 const MobileSignup = () => {
   const navigation = useNavigation();
@@ -43,8 +40,6 @@ const MobileSignup = () => {
   const [loading, setLoading] = useState(false);
 
   async function signInWithPhoneNumber() {
-    navigation.navigate('otpVerification', {});
-    return;
     // await auth().signOut();
     setLoading(true);
     const confirmation = await auth().signInWithPhoneNumber(
@@ -149,7 +144,7 @@ const MobileSignup = () => {
 
           <MButton
             title="Send Code"
-            // disabled={!phoneInput.current?.isValidNumber(formattedPhoneNumber)}
+            disabled={!phoneInput.current?.isValidNumber(formattedPhoneNumber)}
             color={
               phoneInput.current?.isValidNumber(formattedPhoneNumber)
                 ? RED
