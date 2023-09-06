@@ -6,6 +6,7 @@ import MobileSignup from './module/signup/MobileSignup';
 import OtpVerification from './module/signup/OtpVerification';
 import Home from './module/homeScreen/Home';
 import ShopDetails from './module/shopDetails/ShopDetails';
+import SearchAll from './module/searchAll/SearchAll';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -34,6 +35,11 @@ const StackScreen = () => {
       <Stack.Screen
         name="shopDetails"
         component={ShopDetails}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="searchAll"
+        component={SearchAll}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

@@ -1,5 +1,7 @@
 export const WHITE = '#FFFFFF';
 export const PRIMARY_COLOR = '#52A755';
+
+export const SECOND_PRIMARY = '#52A755';
 // Pigment Green
 export const LITE_BLACK = '#262626';
 export const GRAY = '#737373';
@@ -17,3 +19,6 @@ export const GRAY_900 = '#212121';
 export const RED = '#FF0000';
 export const ORDER_ID_GRAY = '#737373';
 export const RATTING_GREEN = '#417C45';
+export const RATTING_RED = '#DD5B63';
+export const YELLOW = '#eac300';
+export const CHAT_ICON_BG = '#323736';

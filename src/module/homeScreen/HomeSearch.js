@@ -21,19 +21,6 @@ const HomeSearch = ({setFilterDialog, setReset}) => {
   const listRef = useRef();
   const active = useRef(0);
 
-  let executingFunction = () => {
-    listRef?.current?.scrollToIndex({
-      index: active?.current,
-      animated: true,
-    });
-    if (active.current % 3 == 2) {
-      setArray(state => {
-        return [...state, 'Food', 'Grocery', 'Pharmacy'];
-      });
-    }
-    active.current = active.current + 1;
-  };
-
   return (
     <Animated.View
       style={[
@@ -46,7 +33,7 @@ const HomeSearch = ({setFilterDialog, setReset}) => {
       <TouchableOpacity
         style={styles.container}
         onPress={() => {
-          navigation.navigate('SearchAll', {
+          navigation.navigate('searchAll', {
             type: 'common',
           });
         }}>
