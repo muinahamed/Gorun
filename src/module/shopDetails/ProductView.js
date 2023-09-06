@@ -91,7 +91,7 @@ const ProductView = ({item}) => {
             style={{
               fontWeight: '600',
             }}>
-            $100
+            ${item?.price}
           </MText>
         </View>
       </View>

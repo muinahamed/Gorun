@@ -15,6 +15,7 @@ import {categoryItem} from '../../utils/Dummy';
 import NewRestaurantProductList from '../NewRestaurantProductList';
 import {windowWidth} from '../../utils/Measure';
 import {useSelector} from 'react-redux';
+import ViewCard from '../../common/ViewCard';
 const {StatusBarManager} = NativeModules;
 const height = StatusBarManager.HEIGHT;
 const AnimatedStatusBar = Animated.createAnimatedComponent(StatusBar);
@@ -185,6 +186,7 @@ const ShopDetails = props => {
           backgroundColor: WHITE,
         }}
       />
+      <ViewCard />
     </View>
   );
 };
