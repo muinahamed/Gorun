@@ -17,6 +17,7 @@ const SearchHeader = props => {
     setSelectedStoresList,
     searchQuery,
     storeData,
+    inputRef,
   } = props;
 
   return (
@@ -31,6 +32,7 @@ const SearchHeader = props => {
         style={[styles.flex, styles.search, {flexGrow: 1, marginRight: 12}]}>
         <SEARCH />
         <TextInput
+          ref={inputRef}
           placeholder="Search"
           placeholderTextColor={'#ccc'}
           returnKeyType="search"

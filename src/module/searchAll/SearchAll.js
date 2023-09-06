@@ -32,6 +32,7 @@ const SearchAll = props => {
   const [searchText, setSearchText] = useState('');
   const [recentData, setRecentData] = useState([]);
   const [selectItemOrStores, setSelectItemOrStores] = useState('Items');
+  const inputRef = useRef();
   const [selectedItemsList, setSelectedItemsList] = useState({
     products: [],
     error: false,
@@ -190,6 +191,7 @@ const SearchAll = props => {
 
   useEffect(() => {
     getData();
+    inputRef.current.focus();
   }, []);
 
   let stableStatus =
@@ -211,6 +213,7 @@ const SearchAll = props => {
             setSelectedStoresList={setSelectedStoresList}
             searchQuery={searchQuery}
             storeData={storeData}
+            inputRef={inputRef}
           />
         </Animated.View>
 

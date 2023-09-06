@@ -20,23 +20,26 @@ const HomeTopCategories = ({}) => {
   ];
 
   const goToCategory = (item, index) => {
-    let screen = '',
-      props = {categoryName: item.name};
-    switch (index) {
-      case 0:
-        screen = 'food';
-        break;
-      case 1:
-        screen = 'grocery';
-        props.type = 1;
-        break;
-      case 2:
-        screen = 'pharmacy';
-        props.type = 2;
-        break;
-    }
+    // let screen = '',
+    //   props = {categoryName: item.name};
+    // switch (index) {
+    //   case 0:
+    //     screen = 'food';
+    //     break;
+    //   case 1:
+    //     screen = 'grocery';
+    //     props.type = 1;
+    //     break;
+    //   case 2:
+    //     screen = 'pharmacy';
+    //     props.type = 2;
+    //     break;
+    // }
 
-    navigation.navigate(screen, props);
+    // navigation.navigate(screen, props);
+    navigation.navigate('searchAll', {
+      type: 'common',
+    });
   };
 
   return (
