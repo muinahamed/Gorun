@@ -36,7 +36,7 @@ const SearchHeader = props => {
           placeholder="Search"
           placeholderTextColor={'#ccc'}
           returnKeyType="search"
-          style={{flexGrow: 1, marginStart: 12}}
+          style={{flexGrow: 1, marginStart: 12, color: LITE_BLACK}}
           value={searchText}
           onSubmitEditing={e => {
             if (searchText === '') {
