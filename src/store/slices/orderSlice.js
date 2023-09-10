@@ -8,6 +8,7 @@ export const orderSlice = createSlice({
   },
   reducers: {
     getCart: state => state.cart,
+
     generateCart: (state, action) => {
       state.cart = action.payload;
       state.subTotal = action.payload[0].price;

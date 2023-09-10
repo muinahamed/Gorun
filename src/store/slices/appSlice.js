@@ -3,17 +3,15 @@ import {createSlice} from '@reduxjs/toolkit';
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    darkMode: false,
+    confirmation: null,
   },
   reducers: {
-    toggleTheme: (state, actions) => {
-      console.log('log-actions.payload', actions.payload);
-      state.darkMode = actions.payload;
-      console.log('log-state.darkMode', state.darkMode);
+    setConfirmation: (state, action) => {
+      state.confirmation = action.payload;
     },
   },
 });
 
-export const {toggleTheme} = appSlice.actions;
+export const {toggleTheme, setConfirmation} = appSlice.actions;
 
 export default appSlice.reducer;

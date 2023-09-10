@@ -15,7 +15,10 @@ const OnboardingFooter = ({currentPage, setCurrentPage, horizontalRef}) => {
     horizontalRef?.current?.scrollToIndex({index: index});
     setCurrentPage(index);
     if (index == 1 && currentPage == 1) {
-      navigation.navigate('mobileSignup');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'mobileSignup'}],
+      });
     }
   };
 

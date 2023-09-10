@@ -31,17 +31,19 @@ import auth from '@react-native-firebase/auth';
 import {windowWidth} from '../../utils/Measure';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {showErrorMessage, showSuccessMessage} from '../../utils/BaseUtils';
+import {useSelector} from 'react-redux';
 
 const OtpVerification = () => {
   const navigation = useNavigation();
-  const route = useRoute();
+  const {confirmation} = useSelector(state => state.app);
+
   const [startTimer, setStartTimer] = useState(false);
-  const confirm = route?.params?.confirmation;
+  // console.log(data);
 
   function onAuthStateChanged(user) {
     if (user) {
       showSuccessMessage('Otp verified!');
-      navigation.navigate('home');
+      // navigation.navigate('home');
     }
   }
 
@@ -54,7 +56,7 @@ const OtpVerification = () => {
 
   async function confirmCode(otpCode) {
     try {
-      await confirm.confirm('123456');
+      await confirmation.confirm('123456');
     } catch (error) {
       showErrorMessage('Invalid code.');
     }
@@ -65,7 +67,7 @@ const OtpVerification = () => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{flex: 1}}>
-        <Header />
+        <Header back={false} />
         <ScrollView style={{flex: 1}}>
           <View style={{flex: 1, alignItems: 'center'}}>
             <View

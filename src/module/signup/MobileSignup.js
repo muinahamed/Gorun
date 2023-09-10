@@ -32,23 +32,31 @@ import {windowWidth} from '../../utils/Measure';
 import Header from '../../common/Header';
 import auth from '@react-native-firebase/auth';
 import {showErrorMessage} from '../../utils/BaseUtils';
+import {useDispatch} from 'react-redux';
+import {setConfirmation} from '../../store/slices/appSlice';
 
 const MobileSignup = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const phoneInput = useRef(null);
   const [formattedPhoneNumber, setFormattedPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function signInWithPhoneNumber() {
+    // navigation.navigate('otpVerification', {confirmation});
+    // return;
     // await auth().signOut();
     setLoading(true);
     const confirmation = await auth().signInWithPhoneNumber(
       formattedPhoneNumber,
     );
-
     setLoading(false);
     if (confirmation) {
-      navigation.navigate('otpVerification', {confirmation});
+      dispatch(setConfirmation(confirmation));
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'otpVerification'}],
+      });
     } else {
       showErrorMessage('There is an error!');
     }
@@ -59,7 +67,7 @@ const MobileSignup = () => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{flex: 1}}>
-        <Header />
+        <Header back={false} />
         <ScrollView>
           <View style={styles.phoneCircle}>
             <PHONE_CIRCLE />

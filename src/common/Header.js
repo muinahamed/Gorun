@@ -5,7 +5,7 @@ import MText, {interRegular, large} from './MText';
 import {LITE_BLACK} from '../utils/Color';
 import {useNavigation} from '@react-navigation/native';
 
-const Header = () => {
+const Header = ({back = true}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -16,9 +16,11 @@ const Header = () => {
         style={styles.title}>
         Verify Number
       </MText>
+
       <TouchableOpacity
+        disabled={!back}
         onPress={() => navigation.goBack()}
-        style={styles.button}>
+        style={[styles.button, {opacity: back ? 1 : 0}]}>
         <ARROW />
       </TouchableOpacity>
     </View>
