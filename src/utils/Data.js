@@ -11,3 +11,14 @@ export const onBoardingImage = [
     des: 'Find your Grocery items with best delivery experience.',
   },
 ];
+
+export const userType = [
+  {
+    title: 'User Login',
+    des: 'As a user you will get exiting offer.',
+  },
+  {
+    title: 'Shop Login',
+    des: 'As a shop yu will get more facilities.',
+  },
+];

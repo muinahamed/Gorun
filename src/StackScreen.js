@@ -7,11 +7,23 @@ import OtpVerification from './module/signup/OtpVerification';
 import Home from './module/homeScreen/Home';
 import ShopDetails from './module/shopDetails/ShopDetails';
 import SearchAll from './module/searchAll/SearchAll';
+import Splash from './module/splash/Splash';
+import ChooseUser from './module/chooseUser/ChooseUser';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="splash"
+        component={Splash}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="chooseUser"
+        component={ChooseUser}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="onboarding"
         component={Onboarding}
