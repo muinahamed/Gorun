@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -43,9 +43,6 @@ const MobileSignup = () => {
   const [loading, setLoading] = useState(false);
 
   async function signInWithPhoneNumber() {
-    // navigation.navigate('otpVerification', {confirmation});
-    // return;
-    // await auth().signOut();
     setLoading(true);
     const confirmation = await auth().signInWithPhoneNumber(
       formattedPhoneNumber,
@@ -61,6 +58,21 @@ const MobileSignup = () => {
       showErrorMessage('There is an error!');
     }
   }
+
+  function onAuthStateChanged(user) {
+    if (user) {
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'home'}],
+      });
+    }
+  }
+
+  useEffect(() => {
+    // setStartTimer(true);
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
   return (
     <ScreenWrapper>

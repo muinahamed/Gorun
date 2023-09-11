@@ -43,7 +43,10 @@ const OtpVerification = () => {
   function onAuthStateChanged(user) {
     if (user) {
       showSuccessMessage('Otp verified!');
-      // navigation.navigate('home');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'home'}],
+      });
     }
   }
 
