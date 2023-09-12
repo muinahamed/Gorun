@@ -11,7 +11,10 @@ const ChooseUser = () => {
   const navigation = useNavigation();
   const onPress = index => {
     if (index == 0) {
-      navigation.navigate('onboarding');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'onboarding'}],
+      });
     } else {
       navigation.navigate('');
     }
