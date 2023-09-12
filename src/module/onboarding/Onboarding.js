@@ -1,14 +1,21 @@
 import {Button, StyleSheet, Text, View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import OnBoardingBody from './OnBoardingBody';
 import OnboardingFooter from './OnboardingFooter';
+import {useDispatch} from 'react-redux';
+import {setFirstTimeLaunch} from '../../store/slices/appSlice';
 
 const Onboarding = () => {
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(0);
   const horizontalRef = useRef();
+
+  useEffect(() => {
+    dispatch(setFirstTimeLaunch());
+  }, []);
+
   return (
     <ScreenWrapper>
       <OnBoardingBody

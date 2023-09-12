@@ -4,14 +4,18 @@ export const appSlice = createSlice({
   name: 'app',
   initialState: {
     confirmation: null,
+    firstTimeLaunch: true,
   },
   reducers: {
     setConfirmation: (state, action) => {
       state.confirmation = action.payload;
     },
+    setFirstTimeLaunch: (state, action) => {
+      state.firstTimeLaunch = false;
+    },
   },
 });
 
-export const {toggleTheme, setConfirmation} = appSlice.actions;
+export const {setFirstTimeLaunch, setConfirmation} = appSlice.actions;
 
 export default appSlice.reducer;

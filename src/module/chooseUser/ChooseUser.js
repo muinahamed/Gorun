@@ -6,17 +6,30 @@ import {userType} from '../../utils/Data';
 import Child from './Child';
 import {BLACK} from '../../utils/Color';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const ChooseUser = () => {
   const navigation = useNavigation();
+  const {firstTimeLaunch} = useSelector(state => state.app);
+
   const onPress = index => {
     if (index == 0) {
+      if (firstTimeLaunch) {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'onboarding'}],
+        });
+      } else {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'mobileSignup'}],
+        });
+      }
+    } else {
       navigation.reset({
         index: 0,
-        routes: [{name: 'onboarding'}],
+        routes: [{name: 'mobileSignup'}],
       });
-    } else {
-      navigation.navigate('');
     }
   };
 

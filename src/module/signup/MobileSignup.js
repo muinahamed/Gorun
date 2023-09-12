@@ -70,8 +70,8 @@ const MobileSignup = () => {
 
   useEffect(() => {
     // setStartTimer(true);
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    // const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    // return subscriber; // unsubscribe on unmount
   }, []);
 
   return (
