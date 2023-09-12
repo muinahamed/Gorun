@@ -22,3 +22,8 @@ export const userType = [
     des: 'As a shop yu will get more facilities.',
   },
 ];
+
+export const GENDER_ARRAY = [
+  {id: '1', name: 'male'},
+  {id: '2', name: 'female'},
+];

@@ -5,7 +5,7 @@ import MText, {interRegular, large} from './MText';
 import {LITE_BLACK} from '../utils/Color';
 import {useNavigation} from '@react-navigation/native';
 
-const Header = ({back = true}) => {
+const Header = ({back = true, title = 'Verify Number'}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -14,7 +14,7 @@ const Header = ({back = true}) => {
         fontType={interRegular}
         color={LITE_BLACK}
         style={styles.title}>
-        Verify Number
+        {title}
       </MText>
 
       <TouchableOpacity

@@ -1,8 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {
-  Dimensions,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -10,21 +9,13 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {MButton} from '../../common/MButton';
 import MText, {
   interRegular,
   medium,
   openSansRegular,
   semiXLarge,
 } from '../../common/MText';
-import {
-  BLACK,
-  LITE_BLACK,
-  ORDER_ID_GRAY,
-  RED,
-  TEXT_GRAY,
-  WHITE,
-} from '../../utils/Color';
+import {BLACK, LITE_BLACK, ORDER_ID_GRAY, TEXT_GRAY} from '../../utils/Color';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import Header from '../../common/Header';
 import auth from '@react-native-firebase/auth';
@@ -32,25 +23,40 @@ import {windowWidth} from '../../utils/Measure';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {showErrorMessage, showSuccessMessage} from '../../utils/BaseUtils';
 import {useSelector} from 'react-redux';
+import API from '../../service/API';
+import {GET_USER_BY_PHONE_NUMBER} from '../../service/ApiEndPoint';
 
 const OtpVerification = () => {
   const navigation = useNavigation();
   const {confirmation} = useSelector(state => state.app);
-
   const [startTimer, setStartTimer] = useState(false);
-  // console.log(data);
+
+  const findShopByPhoneNumber = async phone_number => {
+    let response = await API(GET_USER_BY_PHONE_NUMBER + phone_number);
+    if (response?.status) {
+      if (response?.data?.newUser) {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'userRegistration'}],
+        });
+      } else {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'home'}],
+        });
+      }
+    }
+  };
 
   function onAuthStateChanged(user) {
     if (user) {
       showSuccessMessage('Otp verified!');
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'home'}],
-      });
+      findShopByPhoneNumber(user?.phoneNumber);
     }
   }
 
   useEffect(() => {
+    findShopByPhoneNumber('+8801926030478');
     // setStartTimer(true);
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     Keyboard.dismiss();
@@ -107,7 +113,6 @@ const OtpVerification = () => {
               <OTPInputView
                 style={{width: '80%', height: 200}}
                 pinCount={6}
-                autoFocusOnLoad={true}
                 codeInputFieldStyle={styles.underlineStyleBase}
                 codeInputHighlightStyle={styles.underlineStyleHighLighted}
                 onCodeFilled={code => {

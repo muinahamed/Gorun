@@ -59,21 +59,6 @@ const MobileSignup = () => {
     }
   }
 
-  function onAuthStateChanged(user) {
-    if (user) {
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'home'}],
-      });
-    }
-  }
-
-  useEffect(() => {
-    // setStartTimer(true);
-    // const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    // return subscriber; // unsubscribe on unmount
-  }, []);
-
   return (
     <ScreenWrapper>
       <KeyboardAvoidingView

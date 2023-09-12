@@ -9,6 +9,7 @@ import ShopDetails from './module/shopDetails/ShopDetails';
 import SearchAll from './module/searchAll/SearchAll';
 import Splash from './module/splash/Splash';
 import ChooseUser from './module/chooseUser/ChooseUser';
+import UserRegistration from './module/signup/UserRegistration';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -52,6 +53,11 @@ const StackScreen = () => {
       <Stack.Screen
         name="searchAll"
         component={SearchAll}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="userRegistration"
+        component={UserRegistration}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
