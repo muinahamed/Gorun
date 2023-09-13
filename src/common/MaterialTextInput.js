@@ -32,7 +32,7 @@ export const MaterialTextInput = props => {
     rightIcon,
     textLeftIcon,
     autoCapitalize = 'none',
-    fontFamily = 'OpenSans-Regular',
+    fontFamily = 'Inter-Regular',
     pointerEvents = 'auto',
     onSubmitEditing,
     passwordRules,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   editableText: {
     paddingVertical: 7,
     flex: 1,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'Inter-Regular',
   },
   unEditableText: {
     flex: 1,

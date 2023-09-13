@@ -28,13 +28,15 @@ import {MButton} from '../../common/MButton';
 import {USER_PHOTO} from '../../image/PicturePath';
 import DOBpicker from '../../common/DOBpicker';
 import CommonDialog from '../../common/CommonDialog';
+import API from '../../service/API';
+import {REGISTER_WITH_DATA} from '../../service/ApiEndPoint';
 
 const UserRegistration = ({route}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [showDate, setShowDate] = useState(false);
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [phoneNumber, setPhoneNumber] = useState('+8801926030478');
   const [fullName, setFullName] = useState('');
   const [gender, setGender] = useState('male');
   const [genderDialog, setGenderDialog] = useState(false);
@@ -97,22 +99,19 @@ const UserRegistration = ({route}) => {
       firstNameResult === '' &&
       emailResult === '' &&
       passwordResult === '' &&
-      rePasswordResult === '' &&
-      addressResult === ''
+      rePasswordResult === ''
     ) {
       let registrationDetail = {
         name: fullName,
+        image: 'image',
         gender,
         dob: `${year}-${month}-${day}`,
+        phoneNumber,
         email,
-        phone_number: phoneNumber,
-        password,
-        profilePhoto: profileImageUrl,
       };
 
-      navigation.navigate('UploadDocuments', {
-        registration: registrationDetail,
-      });
+      let res = await API.post(REGISTER_WITH_DATA, registrationDetail);
+      console.log(res);
     } else {
       return;
     }
