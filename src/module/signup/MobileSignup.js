@@ -35,7 +35,8 @@ import {showErrorMessage} from '../../utils/BaseUtils';
 import {useDispatch} from 'react-redux';
 import {setConfirmation} from '../../store/slices/appSlice';
 
-const MobileSignup = () => {
+const MobileSignup = ({route}) => {
+  const {type} = route?.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const phoneInput = useRef(null);
@@ -52,7 +53,7 @@ const MobileSignup = () => {
       dispatch(setConfirmation(confirmation));
       navigation.reset({
         index: 0,
-        routes: [{name: 'otpVerification'}],
+        routes: [{name: 'otpVerification', params: {type}}],
       });
     } else {
       showErrorMessage('There is an error!');

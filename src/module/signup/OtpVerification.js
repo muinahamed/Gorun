@@ -27,22 +27,33 @@ import API from '../../service/API';
 import {GET_USER_BY_PHONE_NUMBER} from '../../service/ApiEndPoint';
 import {setToken, setUser} from '../../store/slices/appSlice';
 
-const OtpVerification = () => {
+const OtpVerification = ({route}) => {
+  const {type} = route?.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {confirmation} = useSelector(state => state.app);
   const [startTimer, setStartTimer] = useState(false);
 
   const findShopByPhoneNumber = async phone_number => {
-    phone_number = phone_number.slice(3);
-    let response = await API(GET_USER_BY_PHONE_NUMBER + phone_number);
+    let data = {
+      phoneNumber: phone_number,
+    };
+
+    let response = await API.post(GET_USER_BY_PHONE_NUMBER, data);
 
     if (response?.status) {
       if (response?.data?.newUser) {
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'userRegistration', params: {phone_number}}],
-        });
+        if (type == 'user') {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'userRegistration', params: {phone_number}}],
+          });
+        } else {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'shopRegistration', params: {phone_number}}],
+          });
+        }
       } else {
         dispatch(setUser(response?.data?.user));
         dispatch(setToken(response?.data?.user?.token));

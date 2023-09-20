@@ -41,6 +41,9 @@ class FormValidation {
       case 'firstName':
         result = this.nameValidate(formData);
         break;
+      case 'ownerName':
+        result = this.ownerNameValidate(formData);
+        break;
       case 'lastName':
         result = this.lastNameValidate(formData);
         break;
@@ -75,6 +78,18 @@ class FormValidation {
         break;
       case 'address':
         result = this.address(formData);
+        break;
+
+      case 'nid':
+        result = this.nid(formData);
+        break;
+
+      case 'passport':
+        result = this.passport(formData);
+        break;
+
+      case 'trade':
+        result = this.trade(formData);
         break;
 
       default:
@@ -210,12 +225,27 @@ class FormValidation {
 
     if (name != null && name !== '' && name !== undefined) {
       if (name.length > 50) {
-        return 'Your first name should be less than 50 characters.';
+        return 'Your name should be less than 50 characters.';
       } else if (!name.match('^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$')) {
-        return 'We need a valid first name to continue.';
+        return 'We need a valid name to continue.';
       }
     } else {
-      return 'We need your first name to continue.';
+      return 'We need your name to continue.';
+    }
+    return '';
+  };
+
+  static ownerNameValidate = formData => {
+    let name = formData != null ? formData.trim() : '';
+
+    if (name != null && name !== '' && name !== undefined) {
+      if (name.length > 50) {
+        return 'Owner name should be less than 50 characters.';
+      } else if (!name.match('^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$')) {
+        return 'We need a valid owner name to continue.';
+      }
+    } else {
+      return 'We need owner name to continue.';
     }
     return '';
   };
@@ -351,6 +381,33 @@ class FormValidation {
 
     if (address === null || address === '' || address === undefined) {
       return 'We need your address  to continue.';
+    }
+    return '';
+  };
+
+  static nid = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your NID  to continue.';
+    }
+    return '';
+  };
+
+  static passport = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your passport ID  to continue.';
+    }
+    return '';
+  };
+
+  static trade = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your tradeLicense ID to continue.';
     }
     return '';
   };

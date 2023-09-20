@@ -34,7 +34,13 @@ export const userType = [
 
 export const GENDER_ARRAY = [
   {id: '1', name: 'male'},
-  {id: '2', name: 'female'},
+  {id: '2', name: 'offline'},
+];
+
+export const ACTIVE_STATUS = [
+  {id: '1', name: 'online'},
+  {id: '2', name: 'offline'},
+  {id: 3, name: 'both'},
 ];
 
 export const moreFirst = [

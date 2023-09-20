@@ -446,9 +446,9 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNDateTimePicker (7.5.0):
+  - RNDateTimePicker (7.6.0):
     - React-Core
-  - RNDeviceInfo (10.9.0):
+  - RNDeviceInfo (10.11.0):
     - React-Core
   - RNFBApp (14.12.0):
     - Firebase/CoreOnly (= 8.15.0)
@@ -457,9 +457,9 @@ PODS:
     - Firebase/Auth (= 8.15.0)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.12.1):
+  - RNGestureHandler (2.13.1):
     - React-Core
-  - RNReanimated (3.5.1):
+  - RNReanimated (3.5.3):
     - DoubleConversion
     - FBLazyVector
     - glog
@@ -489,7 +489,7 @@ PODS:
   - RNScreens (3.25.0):
     - React-Core
     - React-RCTImage
-  - RNSVG (13.13.0):
+  - RNSVG (13.14.0):
     - React-Core
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
@@ -727,14 +727,14 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: c913ede1fa163a71cea118ed4670bbaaa4b511bb
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNDateTimePicker: b722c23030b744763cf51d80fc22f354653f65e0
-  RNDeviceInfo: 02ea8b23e2280fa18e00a06d7e62804d74028579
+  RNDateTimePicker: ccd988deb223cbb2e669e157ec576c2c6217128c
+  RNDeviceInfo: bf8a32acbcb875f568217285d1793b0e8588c974
   RNFBApp: e4439717c23252458da2b41b81b4b475c86f90c4
   RNFBAuth: 50ac123123b27241927e639c0ac9c8af17f05aa1
-  RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
-  RNReanimated: b8117ecf4e6f787533aa2e4c9c531b999103e54e
+  RNGestureHandler: 38aa38413896620338948fbb5c90579a7b1c3fde
+  RNReanimated: 5ce298660a0eb7ae36448a1237788a86b1310530
   RNScreens: 85d3880b52d34db7b8eeebe2f1a0e807c05e69fa
-  RNSVG: ed492aaf3af9ca01bc945f7a149d76d62e73ec82
+  RNSVG: d00c8f91c3cbf6d476451313a18f04d220d4f396
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
 

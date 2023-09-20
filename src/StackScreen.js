@@ -12,6 +12,7 @@ import ChooseUser from './module/chooseUser/ChooseUser';
 import UserRegistration from './module/signup/UserRegistration';
 import More from './module/more/More';
 import MyProfile from './module/profile/MyProfile';
+import ShopRegistration from './module/signup/ShopRegistration';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -70,6 +71,11 @@ const StackScreen = () => {
       <Stack.Screen
         name="userRegistration"
         component={UserRegistration}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="shopRegistration"
+        component={ShopRegistration}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
