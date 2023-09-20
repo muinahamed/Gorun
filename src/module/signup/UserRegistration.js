@@ -22,7 +22,7 @@ import Header from '../../common/Header';
 import {MaterialTextInput} from '../../common/MaterialTextInput';
 import {showErrorMessage} from '../../utils/BaseUtils';
 import FormValidation from '../../common/FormValidation';
-import {uploadImage} from '../../store/slices/appSlice';
+import {setToken, setUser, uploadImage} from '../../store/slices/appSlice';
 import {windowWidth} from '../../utils/Measure';
 import {MButton} from '../../common/MButton';
 import {USER_PHOTO} from '../../image/PicturePath';
@@ -30,13 +30,14 @@ import DOBpicker from '../../common/DOBpicker';
 import CommonDialog from '../../common/CommonDialog';
 import API from '../../service/API';
 import {REGISTER_WITH_DATA} from '../../service/ApiEndPoint';
+import LoaderIndicator from '../../common/LoaderIndicator';
 
 const UserRegistration = ({route}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [showDate, setShowDate] = useState(false);
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('+8801926030478');
+  const [phoneNumber, setPhoneNumber] = useState('+8801926030469');
   const [fullName, setFullName] = useState('');
   const [gender, setGender] = useState('male');
   const [genderDialog, setGenderDialog] = useState(false);
@@ -48,13 +49,14 @@ const UserRegistration = ({route}) => {
   const [confirmPasswordErrMsg, setConfirmPasswordErrMsg] = useState();
   const [showImagePicker, setShowImagePicker] = useState(false);
   const [imageUrl, setImageUrl] = useState();
-  const [profileImageUrl, setProfileImageUrl] = useState();
+
   const [temp, setTemp] = useState(new Date());
   const DateTime = useRef();
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
   const [isLoading, setLoading] = useState(false);
+  const [signUpLoading, setSignUpLoading] = useState(false);
   const [render, setRender] = useState(false);
 
   const validate = (name, value) => {
@@ -103,15 +105,21 @@ const UserRegistration = ({route}) => {
     ) {
       let registrationDetail = {
         name: fullName,
-        image: 'image',
+        image: imageUrl,
         gender,
         dob: `${year}-${month}-${day}`,
         phoneNumber,
         email,
       };
-
+      setSignUpLoading(true);
       let res = await API.post(REGISTER_WITH_DATA, registrationDetail);
-      console.log(res);
+      setSignUpLoading(false);
+      if (res?.status) {
+        dispatch(setUser(res?.data?.user));
+        navigation.navigate('home');
+      } else {
+        showErrorMessage(res?.message);
+      }
     } else {
       return;
     }
@@ -134,7 +142,6 @@ const UserRegistration = ({route}) => {
         .then(imageResp => {
           setLoading(false);
           setImageUrl(imageResp?.data?.url);
-          setProfileImageUrl(imageResp?.data?.url);
         });
     } catch (e) {
       setLoading(false);
@@ -279,6 +286,7 @@ const UserRegistration = ({route}) => {
             marginTop={40}
             marginBottom={30}
             borderRadius={10}
+            loading={signUpLoading}
             onPress={validatePersonalInfoAndMoveNext}
             width={windowWidth - 40}
           />

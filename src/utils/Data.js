@@ -1,4 +1,13 @@
 import {ONLINE_BUY, ONLINE_DELIVERY} from '../image/PicturePath';
+
+import MYORDERS from '../image/svg/myOrder.svg';
+
+import ADDRESS from '../image/svg/address.svg';
+import MYFAVOURITE from '../image/svg/favourite.svg';
+
+import GETSUPPORT from '../image/svg/getSuppport.svg';
+import LEGAL from '../image/svg/legal.svg';
+
 export const onBoardingImage = [
   {
     image: ONLINE_BUY,
@@ -26,4 +35,35 @@ export const userType = [
 export const GENDER_ARRAY = [
   {id: '1', name: 'male'},
   {id: '2', name: 'female'},
+];
+
+export const moreFirst = [
+  {
+    id: 1,
+    IMAGE: MYORDERS,
+    name: 'My Orders',
+  },
+  {
+    id: 5,
+    IMAGE: ADDRESS,
+    name: 'Address',
+  },
+  {
+    id: 6,
+    IMAGE: MYFAVOURITE,
+    name: 'My Favourite',
+  },
+];
+
+export const moreThird = [
+  {
+    id: 8,
+    IMAGE: GETSUPPORT,
+    name: 'Get Support',
+  },
+  {
+    id: 11,
+    IMAGE: LEGAL,
+    name: 'Legal',
+  },
 ];

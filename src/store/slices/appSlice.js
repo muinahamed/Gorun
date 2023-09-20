@@ -5,13 +5,17 @@ import {IMAGE_UPLOAD_ENDPOINT} from '../../service/ApiEndPoint';
 export const uploadImage = createAsyncThunk(
   'image/uploadSingle',
   async imageData => {
-    const response = await API.post(IMAGE_UPLOAD_ENDPOINT, imageData, {
-      noAuth: true,
+    const data = {
+      body: imageData,
+      method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-    });
-    console.log(response);
+    };
+
+    const fetchResponse = await fetch(IMAGE_UPLOAD_ENDPOINT, data);
+    const response = await fetchResponse.json();
+
     return response || {};
   },
 );
@@ -21,6 +25,8 @@ export const appSlice = createSlice({
   initialState: {
     confirmation: null,
     firstTimeLaunch: true,
+    user: null,
+    token: null,
   },
   reducers: {
     setConfirmation: (state, action) => {
@@ -29,9 +35,17 @@ export const appSlice = createSlice({
     setFirstTimeLaunch: (state, action) => {
       state.firstTimeLaunch = false;
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+      state.token = action.payload.token;
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
   },
 });
 
-export const {setFirstTimeLaunch, setConfirmation} = appSlice.actions;
+export const {setFirstTimeLaunch, setConfirmation, setUser, setToken} =
+  appSlice.actions;
 
 export default appSlice.reducer;

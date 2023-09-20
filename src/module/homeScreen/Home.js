@@ -15,8 +15,11 @@ import HomeTopCategories from './HomeTopCategories';
 import HomeScreenBanner from './HomeScreenBanner';
 import ShopHorizontalList from '../ShopHorizontal';
 import {FOOD_DATA, GROCERY_DATA, PHARMACY_DATA} from '../../utils/Dummy';
+import {useSelector} from 'react-redux';
 
 const Home = () => {
+  const {user} = useSelector(state => state.app);
+
   return (
     <ScreenWrapper>
       <StatusBar

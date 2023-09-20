@@ -9,7 +9,7 @@ const LoaderIndicator = props => {
       style={[
         styles.loaderContainer,
         {
-          backgroundColor: WHITE,
+          backgroundColor: 'rgba(0,0,0,.2)',
           top: top ? top : 0,
         },
       ]}>
@@ -18,11 +18,7 @@ const LoaderIndicator = props => {
           styles.indicator,
           {top: top ? top : 0, position: top ? 'absolute' : 'relative'},
         ]}>
-        <ActivityIndicator
-          size={size ? size : 'large'}
-          animating={loading}
-          color={SECOND_PRIMARY}
-        />
+        <ActivityIndicator size={size ? size : 'large'} animating={loading} />
       </View>
     </View>
   ) : null;

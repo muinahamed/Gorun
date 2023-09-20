@@ -10,6 +10,7 @@ import SearchAll from './module/searchAll/SearchAll';
 import Splash from './module/splash/Splash';
 import ChooseUser from './module/chooseUser/ChooseUser';
 import UserRegistration from './module/signup/UserRegistration';
+import More from './module/more/More';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -43,6 +44,11 @@ const StackScreen = () => {
       <Stack.Screen
         name="home"
         component={Home}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="more"
+        component={More}
         options={{headerShown: false}}
       />
       <Stack.Screen

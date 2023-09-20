@@ -1,12 +1,14 @@
-import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import USER from '../../image/svg/user.svg';
 import LOCATION from '../../image/svg/location.svg';
 import ARROW from '../../image/svg/arrowDown.svg';
 import MText, {interRegular, large, small} from '../../common/MText';
 import {RED, WHITE} from '../../utils/Color';
+import {useNavigation} from '@react-navigation/native';
 
 const HomeHeader = ({}) => {
+  const navigation = useNavigation();
   return (
     <View style={[styles.container]}>
       <TouchableOpacity style={[styles.flex, {flex: 1}]}>
@@ -41,7 +43,7 @@ const HomeHeader = ({}) => {
       </TouchableOpacity>
 
       <View style={styles.flex}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('more')}>
           <USER fill={RED} />
         </TouchableOpacity>
       </View>
