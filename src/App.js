@@ -3,7 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import StackScreen from './StackScreen';
 import {PersistGate} from 'redux-persist/integration/react';
-import {Provider, useSelector} from 'react-redux';
+import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import store from './store';
 

@@ -2,15 +2,28 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import React, {useContext} from 'react';
-import MText, {interRegular, small, xLarge, xLarge20} from '../../common/MText';
+import MText, {
+  interRegular,
+  semiMedium,
+  small,
+  xLarge,
+} from '../../common/MText';
 import ARROW from '../../image/svg/arrow.svg';
-import {LITE_BLACK, RED, WHITE} from '../../utils/Color';
+import {
+  GRAY_600,
+  LITE_BLACK,
+  PRIMARY_COLOR,
+  RED,
+  WHITE,
+} from '../../utils/Color';
 import {moreFirst, moreThird} from '../../utils/Data';
 import RenderItem from './RenderItem';
 
 const MoreUser = () => {
   const navigation = useNavigation();
   const {user} = useSelector(state => state.app);
+
+  // console.log(user);
 
   return (
     <>
@@ -30,13 +43,20 @@ const MoreUser = () => {
             style={{fontWeight: '700'}}>
             {user.name}
           </MText>
+          <MText
+            size={semiMedium}
+            fontType={interRegular}
+            color={GRAY_600}
+            style={{fontWeight: '600', marginTop: 4}}>
+            {user.phoneNumber}
+          </MText>
 
-          <TouchableOpacity onPress={() => navigation.navigate('ViewProfile')}>
+          <TouchableOpacity onPress={() => navigation.navigate('myProfile')}>
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginTop: 8,
+                marginTop: 4,
               }}>
               <MText
                 size={small}
@@ -90,13 +110,15 @@ const styles = StyleSheet.create({
     padding: 2.5,
     backgroundColor: 'white',
     borderRadius: 80,
+    padding: 3,
+    backgroundColor: PRIMARY_COLOR,
   },
   profile: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    borderWidth: 2.5,
-    borderColor: RED,
+    borderWidth: 3,
+    borderColor: WHITE,
   },
   flex: {
     flexDirection: 'row',

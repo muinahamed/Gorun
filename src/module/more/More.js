@@ -1,16 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import MoreUser from './MoreUser';
-import MoreHeader from './MoreHeader';
 import Login from './Login';
+import Header from '../../common/Header';
 
 const More = () => {
   return (
     <ScreenWrapper>
-      <MoreHeader />
-      <MoreUser />
-      <Login />
+      <Header title="Account" />
+      <ScrollView>
+        <MoreUser />
+        <Login />
+      </ScrollView>
     </ScreenWrapper>
   );
 };
