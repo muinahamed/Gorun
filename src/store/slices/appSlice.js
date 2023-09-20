@@ -37,7 +37,6 @@ export const appSlice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload;
-      state.token = action.payload.token;
     },
     setToken: (state, action) => {
       state.token = action.payload;

@@ -30,14 +30,14 @@ import DOBpicker from '../../common/DOBpicker';
 import CommonDialog from '../../common/CommonDialog';
 import API from '../../service/API';
 import {REGISTER_WITH_DATA} from '../../service/ApiEndPoint';
-import LoaderIndicator from '../../common/LoaderIndicator';
 
 const UserRegistration = ({route}) => {
+  const {phone_number} = route?.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [showDate, setShowDate] = useState(false);
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('+8801926030469');
+  const [phoneNumber, setPhoneNumber] = useState(phone_number);
   const [fullName, setFullName] = useState('');
   const [gender, setGender] = useState('male');
   const [genderDialog, setGenderDialog] = useState(false);
@@ -49,7 +49,6 @@ const UserRegistration = ({route}) => {
   const [confirmPasswordErrMsg, setConfirmPasswordErrMsg] = useState();
   const [showImagePicker, setShowImagePicker] = useState(false);
   const [imageUrl, setImageUrl] = useState();
-
   const [temp, setTemp] = useState(new Date());
   const DateTime = useRef();
   const [day, setDay] = useState('');
@@ -111,11 +110,16 @@ const UserRegistration = ({route}) => {
         phoneNumber,
         email,
       };
+
+      console.log(registrationDetail);
+
       setSignUpLoading(true);
       let res = await API.post(REGISTER_WITH_DATA, registrationDetail);
       setSignUpLoading(false);
+
       if (res?.status) {
         dispatch(setUser(res?.data?.user));
+        dispatch(setToken(res?.data?.user?.token));
         navigation.navigate('home');
       } else {
         showErrorMessage(res?.message);

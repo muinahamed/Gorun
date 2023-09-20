@@ -1,9 +1,10 @@
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import React, {useContext} from 'react';
+import React from 'react';
 import MText, {
   interRegular,
+  large,
   semiMedium,
   small,
   xLarge,
@@ -11,9 +12,9 @@ import MText, {
 import ARROW from '../../image/svg/arrow.svg';
 import {
   GRAY_600,
+  GRAY_700,
   LITE_BLACK,
   PRIMARY_COLOR,
-  RED,
   WHITE,
 } from '../../utils/Color';
 import {moreFirst, moreThird} from '../../utils/Data';
@@ -22,8 +23,6 @@ import RenderItem from './RenderItem';
 const MoreUser = () => {
   const navigation = useNavigation();
   const {user} = useSelector(state => state.app);
-
-  // console.log(user);
 
   return (
     <>
@@ -37,18 +36,18 @@ const MoreUser = () => {
             marginLeft: 15,
           }}>
           <MText
-            size={xLarge}
+            size={large}
             fontType={interRegular}
             color={LITE_BLACK}
             style={{fontWeight: '700'}}>
-            {user.name}
+            {user?.name}
           </MText>
           <MText
             size={semiMedium}
             fontType={interRegular}
-            color={GRAY_600}
+            color={GRAY_700}
             style={{fontWeight: '600', marginTop: 4}}>
-            {user.phoneNumber}
+            {user?.phoneNumber}
           </MText>
 
           <TouchableOpacity onPress={() => navigation.navigate('myProfile')}>
@@ -61,7 +60,7 @@ const MoreUser = () => {
               <MText
                 size={small}
                 fontType={interRegular}
-                color={LITE_BLACK}
+                color={GRAY_700}
                 style={{fontWeight: '600'}}>
                 View or Edit Profile
               </MText>

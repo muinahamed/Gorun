@@ -22,24 +22,30 @@ import auth from '@react-native-firebase/auth';
 import {windowWidth} from '../../utils/Measure';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {showErrorMessage, showSuccessMessage} from '../../utils/BaseUtils';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import API from '../../service/API';
 import {GET_USER_BY_PHONE_NUMBER} from '../../service/ApiEndPoint';
+import {setToken, setUser} from '../../store/slices/appSlice';
 
 const OtpVerification = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const {confirmation} = useSelector(state => state.app);
   const [startTimer, setStartTimer] = useState(false);
 
   const findShopByPhoneNumber = async phone_number => {
+    phone_number = phone_number.slice(3);
     let response = await API(GET_USER_BY_PHONE_NUMBER + phone_number);
+
     if (response?.status) {
       if (response?.data?.newUser) {
         navigation.reset({
           index: 0,
-          routes: [{name: 'userRegistration'}],
+          routes: [{name: 'userRegistration', params: {phone_number}}],
         });
       } else {
+        dispatch(setUser(response?.data?.user));
+        dispatch(setToken(response?.data?.user?.token));
         navigation.reset({
           index: 0,
           routes: [{name: 'home'}],
@@ -56,8 +62,6 @@ const OtpVerification = () => {
   }
 
   useEffect(() => {
-    findShopByPhoneNumber('+8801926030478');
-    // setStartTimer(true);
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     Keyboard.dismiss();
     return subscriber; // unsubscribe on unmount

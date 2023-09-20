@@ -16,12 +16,12 @@ const MyProfile = () => {
 
     categoryData.push({
       title: 'Full Name',
-      value: user.name,
+      value: user?.name,
     });
 
     categoryData.push({
       title: 'Email ID',
-      value: user.email,
+      value: user?.email,
     });
 
     if (user?.gender) {
@@ -34,7 +34,7 @@ const MyProfile = () => {
     if (user?.dob) {
       categoryData.push({
         title: 'Date of Birth',
-        value: parseDate(user.dob),
+        value: parseDate(user?.dob),
       });
     }
 

@@ -22,8 +22,8 @@ const ChooseUser = () => {
       } else {
         navigation.reset({
           index: 0,
-          // routes: [{name: 'mobileSignup'}],
-          routes: [{name: 'userRegistration'}],
+          routes: [{name: 'mobileSignup'}],
+          // routes: [{name: 'userRegistration'}],
         });
       }
     } else {

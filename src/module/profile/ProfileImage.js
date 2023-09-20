@@ -9,13 +9,12 @@ const ProfileImage = ({user}) => {
       <View style={styles.userImageMiddle}>
         <Image source={{uri: user?.image}} style={styles.userImage} />
       </View>
-
       <MText
         size={large}
         fontType={interRegular}
         color={LITE_BLACK}
         style={{fontWeight: '700', marginTop: 12}}>
-        {user.name}
+        {user?.name}
       </MText>
     </View>
   );

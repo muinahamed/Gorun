@@ -6,6 +6,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import API from '../../service/API';
 import {RED} from '../../utils/Color';
+import {setToken, setUser} from '../../store/slices/appSlice';
+import auth from '@react-native-firebase/auth';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -13,9 +15,17 @@ const Login = () => {
 
   let letDoLogOut = async () => {
     API.defaults.headers.common['Authorization'] = ``;
+
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+
+    dispatch(setUser(null));
+    dispatch(setToken(null));
+
     navigation.reset({
       index: 0,
-      routes: [{name: 'ChooseUser'}],
+      routes: [{name: 'chooseUser'}],
     });
   };
 

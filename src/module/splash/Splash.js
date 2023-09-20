@@ -9,9 +9,15 @@ const Splash = () => {
 
   useEffect(() => {
     if (user) {
-      navigation.navigate('home');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'home'}],
+      });
     } else {
-      navigation.navigate('chooseUser');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'chooseUser'}],
+      });
     }
   }, []);
 
