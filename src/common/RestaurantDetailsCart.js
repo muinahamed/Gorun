@@ -4,30 +4,28 @@ import {LITE_BLACK, ORDER_ID_GRAY, RATTING_GREEN, WHITE} from '../utils/Color';
 import EXCLAMATORY from '../image/svg/exclamatorysign.svg';
 import MText, {extraSmall, interRegular, semiXLarge} from './MText';
 import START from '../image/svg/star.svg';
-
-import {useNavigation} from '@react-navigation/native';
-import {FOOD_DATA, banner} from '../utils/Dummy';
 import {windowWidth} from '../utils/Measure';
+import {useSelector} from 'react-redux';
 
-const RestaurantDetailsCart = () => {
-  const navigation = useNavigation();
-
-  const [cardHeight, setCardHeight] = useState(121);
-
+const RestaurantDetailsCart = ({details, setModalVisible}) => {
+  const {user} = useSelector(state => state.app);
   return (
     <View
       style={{
         position: 'absolute',
         left: 0,
         right: 0,
-        top: 212 - cardHeight + 60,
+        top: 212 - 121 + 60,
       }}>
       <View style={styles.container}>
         <View style={styles.flex}>
-          <Image source={FOOD_DATA[0].image} style={styles.logo} />
+          <Image source={{uri: details?.image}} style={styles.logo} />
 
           <View style={{marginLeft: 10}}>
-            <TouchableOpacity onPress={() => {}} style={[styles.flex]}>
+            <TouchableOpacity
+              disabled={!user?.shopType}
+              onPress={() => setModalVisible(true)}
+              style={[styles.flex]}>
               <MText
                 size={semiXLarge}
                 fontType={interRegular}
@@ -37,12 +35,12 @@ const RestaurantDetailsCart = () => {
                   fontWeight: '600',
                   marginRight: 5,
                 }}>
-                Kfc Shop
+                {details?.name}
               </MText>
               <EXCLAMATORY />
             </TouchableOpacity>
 
-            <View style={[styles.flex, {marginTop: 4}]}>
+            <View style={[styles.flex]}>
               <TouchableOpacity onPress={() => {}} style={[styles.flex]}>
                 <START fill={RATTING_GREEN} width={8.5} height={8.5} />
 
@@ -64,21 +62,20 @@ const RestaurantDetailsCart = () => {
                       fontWeight: '500',
                       textDecorationLine: 'underline',
                     }}>
-                    {` (${10}+ Ratings)`}
+                    {` ${details?.phoneNumber}`}
                   </MText>
                 </MText>
               </TouchableOpacity>
-
-              <MText
-                size={extraSmall}
-                fontType={interRegular}
-                style={{
-                  color: ORDER_ID_GRAY,
-                  fontWeight: '400',
-                }}>
-                $100
-              </MText>
             </View>
+            <MText
+              size={extraSmall}
+              fontType={interRegular}
+              style={{
+                color: ORDER_ID_GRAY,
+                fontWeight: '400',
+              }}>
+              {details?.shopOwnerName}
+            </MText>
           </View>
         </View>
       </View>

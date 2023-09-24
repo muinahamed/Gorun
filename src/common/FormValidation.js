@@ -13,13 +13,6 @@ class FormValidation {
       case 'shop':
         result = this.shopValidate(formData);
         break;
-
-      case 'vehicleNumber':
-        result = this.vehicleNumberValidate(formData);
-        break;
-      case 'vehicleType':
-        result = this.vehicleTypeValidate(formData);
-        break;
       case 'profileImageUrl':
         result = this.profileImageUrlValidate(formData);
         break;
@@ -92,6 +85,31 @@ class FormValidation {
         result = this.trade(formData);
         break;
 
+      case 'shopTypeID':
+        result = this.shopTypeID(formData);
+        break;
+
+      case 'productName':
+        result = this.productName(formData);
+        break;
+      case 'price':
+        result = this.price(formData);
+        break;
+      case 'unit':
+        result = this.unit(formData);
+        break;
+      case 'quantity':
+        result = this.quantity(formData);
+        break;
+      case 'des':
+        result = this.des(formData);
+        break;
+      case 'category':
+        result = this.category(formData);
+        break;
+      case 'title':
+        result = this.title(formData);
+        break;
       default:
         break;
     }
@@ -408,6 +426,83 @@ class FormValidation {
 
     if (address === null || address === '' || address === undefined) {
       return 'We need your tradeLicense ID to continue.';
+    }
+    return '';
+  };
+
+  static shopTypeID = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your  Shop Type ID to continue.';
+    }
+    return '';
+  };
+
+  static productName = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your  productName to continue.';
+    }
+    return '';
+  };
+
+  static price = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (
+      address === null ||
+      address === '' ||
+      address === undefined ||
+      isNaN(address)
+    ) {
+      return 'We need your Product Price to continue.';
+    }
+    return '';
+  };
+
+  static unit = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your Product Unit to continue.';
+    }
+    return '';
+  };
+
+  static quantity = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your Product Quantity to continue.';
+    }
+    return '';
+  };
+
+  static des = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your Product description to continue.';
+    }
+    return '';
+  };
+
+  static category = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your Product category to continue.';
+    }
+    return '';
+  };
+
+  static title = formData => {
+    let address = formData != null ? formData.trim() : '';
+
+    if (address === null || address === '' || address === undefined) {
+      return 'We need your Product Title to continue.';
     }
     return '';
   };

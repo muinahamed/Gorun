@@ -13,6 +13,7 @@ import UserRegistration from './module/signup/UserRegistration';
 import More from './module/more/More';
 import MyProfile from './module/profile/MyProfile';
 import ShopRegistration from './module/signup/ShopRegistration';
+import CartScreen from './module/cart/CartScreen';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -76,6 +77,11 @@ const StackScreen = () => {
       <Stack.Screen
         name="shopRegistration"
         component={ShopRegistration}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="cartScreen"
+        component={CartScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

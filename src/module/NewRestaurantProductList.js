@@ -11,6 +11,7 @@ const NewRestaurantProductList = ({
   categoryItems,
   setTitleHeight,
   details,
+  loading,
 }) => {
   const Header = ({category}) => {
     return (
@@ -43,7 +44,9 @@ const NewRestaurantProductList = ({
       sections={categoryItems}
       style={{marginTop: 20}}
       keyExtractor={(item, index) => index + 'child'}
-      ListEmptyComponent={() => <Empty msg={'No Product available!'} />}
+      ListEmptyComponent={() =>
+        !loading && <Empty msg={'No Product available!'} />
+      }
       ItemSeparatorComponent={() => (
         <View style={{marginHorizontal: 15}}>
           <LineBreak margin={20} />

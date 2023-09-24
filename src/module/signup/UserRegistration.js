@@ -30,6 +30,7 @@ import DOBpicker from '../../common/DOBpicker';
 import CommonDialog from '../../common/CommonDialog';
 import API from '../../service/API';
 import {REGISTER_WITH_DATA} from '../../service/ApiEndPoint';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UserRegistration = ({route}) => {
   const {phone_number} = route?.params;
@@ -111,8 +112,6 @@ const UserRegistration = ({route}) => {
         email,
       };
 
-      console.log(registrationDetail);
-
       setSignUpLoading(true);
       let res = await API.post(REGISTER_WITH_DATA, registrationDetail);
       setSignUpLoading(false);
@@ -121,6 +120,7 @@ const UserRegistration = ({route}) => {
         dispatch(setUser(res?.data?.user));
         dispatch(setToken(res?.data?.user?.token));
         navigation.navigate('home');
+        AsyncStorage.setItem('token', response?.data?.user?.token);
       } else {
         showErrorMessage(res?.message);
       }

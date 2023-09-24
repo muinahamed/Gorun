@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import HomeSearch from './HomeSearch';
 import HomeHeader from './HomeHeader';
@@ -16,9 +16,21 @@ import HomeScreenBanner from './HomeScreenBanner';
 import ShopHorizontalList from '../ShopHorizontal';
 import {FOOD_DATA, GROCERY_DATA, PHARMACY_DATA} from '../../utils/Dummy';
 import {useSelector} from 'react-redux';
+import API from '../../service/API';
+import {GET_ALL_SHOP_LIST} from '../../service/ApiEndPoint';
 
 const Home = () => {
   const {user} = useSelector(state => state.app);
+  const [shop, setShop] = useState();
+
+  let getAllShop = async () => {
+    let res = await API.get(GET_ALL_SHOP_LIST);
+    setShop(res?.data);
+  };
+
+  useEffect(() => {
+    getAllShop();
+  }, []);
 
   return (
     <ScreenWrapper>
@@ -39,17 +51,7 @@ const Home = () => {
               <ShopHorizontalList
                 type={'grocery'}
                 title={'Nearby Food'}
-                data={FOOD_DATA}
-              />
-              <ShopHorizontalList
-                type={'grocery'}
-                title={'Nearby Grocery'}
-                data={GROCERY_DATA}
-              />
-              <ShopHorizontalList
-                type={'grocery'}
-                title={'Nearby Pharmacy'}
-                data={PHARMACY_DATA}
+                data={shop?.shops}
               />
             </>
           );

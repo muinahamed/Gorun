@@ -1,11 +1,12 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {ARROW} from '../image/SvgPath';
+import CROSS from '../image/svg/cross.svg';
 import MText, {interRegular, large} from './MText';
 import {LITE_BLACK} from '../utils/Color';
 import {useNavigation} from '@react-navigation/native';
 
-const Header = ({back = true, title = 'Verify Number'}) => {
+const Header = ({back = true, title = 'Verify Number', cross, crossPress}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -19,9 +20,15 @@ const Header = ({back = true, title = 'Verify Number'}) => {
 
       <TouchableOpacity
         disabled={!back}
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          if (back && cross) {
+            crossPress();
+          } else {
+            navigation.goBack();
+          }
+        }}
         style={[styles.button, {opacity: back ? 1 : 0}]}>
-        <ARROW />
+        {cross ? <CROSS /> : <ARROW />}
       </TouchableOpacity>
     </View>
   );

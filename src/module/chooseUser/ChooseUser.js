@@ -31,9 +31,9 @@ const ChooseUser = () => {
         index: 0,
         routes: [
           {
-            name: 'shopRegistration',
-            // name: 'mobileSignup',
-            params: {type: 'shop'},
+            // name: 'shopRegistration',
+            name: 'mobileSignup',
+            params: {type: 'shop', params: {type: 'shop'}},
           },
         ],
       });

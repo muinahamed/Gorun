@@ -8,3 +8,4 @@ export const CHILLI = require('./picture/chilli.jpeg');
 export const NAPA = require('./picture/napa.jpg');
 
 export const USER_PHOTO = require('./picture/UserPhoto.png');
+export const PRODUCT_PHOTO = require('./picture/defaultProduct.png');

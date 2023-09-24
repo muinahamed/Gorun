@@ -108,7 +108,6 @@ const ProductView = ({item}) => {
             <TouchableOpacity
               onPress={() => {
                 if (expand && count > 0) {
-                  console.log();
                   dispatch(removeFromCart(removeFromCartHelper(cart, item)));
                 }
                 if (count == 1) {

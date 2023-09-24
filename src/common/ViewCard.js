@@ -1,6 +1,12 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {RED, WHITE, LITE_BLACK, ORDER_ID_GRAY} from '../utils/Color';
+import {
+  RED,
+  WHITE,
+  LITE_BLACK,
+  ORDER_ID_GRAY,
+  PRIMARY_COLOR,
+} from '../utils/Color';
 import MText, {
   interRegular,
   medium,
@@ -13,8 +19,11 @@ import BASKETIMAGE from '../image/svg/myOrder.svg';
 import {windowWidth} from '../utils/Measure';
 import {MButton} from './MButton';
 import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const ViewCard = props => {
+  const navigation = useNavigation();
+
   const {cart} = useSelector(state => state.orders);
 
   const countTotal = () => {
@@ -97,13 +106,13 @@ const ViewCard = props => {
           <View style={{flexDirection: 'row', justifyContent: 'center'}}>
             <MButton
               title="View cart"
-              color={RED}
+              color={PRIMARY_COLOR}
               textColor={WHITE}
               borderRadius={10}
               fontFamily={interRegular}
               fontWeight={'600'}
               fontSize={moderateScale(14)}
-              onPress={() => {}}
+              onPress={() => navigation.navigate('cartScreen')}
               paddingVertical={7}
               width={162}
             />
@@ -132,7 +141,7 @@ const styles = StyleSheet.create({
     height: 30,
     borderColor: WHITE,
     borderWidth: 3,
-    backgroundColor: RED,
+    backgroundColor: PRIMARY_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,

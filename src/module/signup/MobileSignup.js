@@ -44,6 +44,10 @@ const MobileSignup = ({route}) => {
   const [loading, setLoading] = useState(false);
 
   async function signInWithPhoneNumber() {
+    // auth()
+    //   .signOut()
+    //   .then(() => console.log('User signed out!'));
+
     setLoading(true);
     const confirmation = await auth().signInWithPhoneNumber(
       formattedPhoneNumber,

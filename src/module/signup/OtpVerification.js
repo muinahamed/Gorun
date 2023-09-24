@@ -24,8 +24,12 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {showErrorMessage, showSuccessMessage} from '../../utils/BaseUtils';
 import {useDispatch, useSelector} from 'react-redux';
 import API from '../../service/API';
-import {GET_USER_BY_PHONE_NUMBER} from '../../service/ApiEndPoint';
+import {
+  GET_SHOP_BY_PHONE_NUMBER,
+  GET_USER_BY_PHONE_NUMBER,
+} from '../../service/ApiEndPoint';
 import {setToken, setUser} from '../../store/slices/appSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const OtpVerification = ({route}) => {
   const {type} = route?.params;
@@ -38,8 +42,12 @@ const OtpVerification = ({route}) => {
     let data = {
       phoneNumber: phone_number,
     };
+    console.log(data);
 
-    let response = await API.post(GET_USER_BY_PHONE_NUMBER, data);
+    let response = await API.post(
+      type == 'user' ? GET_USER_BY_PHONE_NUMBER : GET_SHOP_BY_PHONE_NUMBER,
+      data,
+    );
 
     if (response?.status) {
       if (response?.data?.newUser) {
@@ -55,12 +63,27 @@ const OtpVerification = ({route}) => {
           });
         }
       } else {
-        dispatch(setUser(response?.data?.user));
-        dispatch(setToken(response?.data?.user?.token));
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'home'}],
-        });
+        if (type == 'user') {
+          dispatch(setUser(response?.data?.user));
+          dispatch(setToken(response?.data?.user?.token));
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'home'}],
+          });
+          AsyncStorage.setItem('token', response?.data?.user?.token);
+        } else {
+          if (response?.data?.shop?.token) {
+            dispatch(setUser(response?.data?.shop));
+            dispatch(setToken(response?.data?.shop?.token));
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'home'}],
+            });
+            AsyncStorage.setItem('token', response?.data?.shop?.token);
+          } else {
+            showSuccessMessage(response.message);
+          }
+        }
       }
     }
   };
@@ -80,7 +103,7 @@ const OtpVerification = ({route}) => {
 
   async function confirmCode(otpCode) {
     try {
-      await confirmation.confirm('123456');
+      await confirmation.confirm(otpCode);
     } catch (error) {
       showErrorMessage('Invalid code.');
     }

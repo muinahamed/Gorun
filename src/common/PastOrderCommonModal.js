@@ -1,12 +1,10 @@
-import React, {Component, useEffect, useRef, useState} from 'react';
-import {Animated, StyleSheet, View, Dimensions, Button} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Animated, StyleSheet, View} from 'react-native';
 import {
   PanGestureHandler,
   NativeViewGestureHandler,
   State,
   TapGestureHandler,
-  LongPressGestureHandler,
-  RefreshControl,
 } from 'react-native-gesture-handler';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -17,6 +15,7 @@ const HEADER_HEIGHT = 50;
 
 const PastOrderCommonModal = props => {
   const insets = useSafeAreaInsets();
+
   const {
     onRefresh,
     pointerEvents,
@@ -25,7 +24,9 @@ const PastOrderCommonModal = props => {
     Body,
     setVisible,
     visible,
+    setShopType,
   } = props;
+
   const [openHeight, setOpenHeight] = useState(300);
   const totalHeight = windowHeight - insets?.top - insets?.bottom;
   let lastScrollYValue = useRef(0).current;

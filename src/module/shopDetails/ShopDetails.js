@@ -1,4 +1,4 @@
-import {Button, StatusBar, StyleSheet, View} from 'react-native';
+import {Modal, StatusBar, StyleSheet, View} from 'react-native';
 import React, {useRef} from 'react';
 import {NativeModules} from 'react-native';
 import {SafeAreaView} from 'react-native';
@@ -14,8 +14,14 @@ import RestaurantDetailsCart from '../../common/RestaurantDetailsCart';
 import {categoryItem} from '../../utils/Dummy';
 import NewRestaurantProductList from '../NewRestaurantProductList';
 import {windowWidth} from '../../utils/Measure';
-import {useSelector} from 'react-redux';
 import ViewCard from '../../common/ViewCard';
+import {
+  getAllCategories,
+  shopDetailManipulate,
+  shopWiseProductForUser,
+} from './ShopDetailsHelper';
+import {useSelector} from 'react-redux';
+import AddShopProduct from './AddShopProduct';
 const {StatusBarManager} = NativeModules;
 const height = StatusBarManager.HEIGHT;
 const AnimatedStatusBar = Animated.createAnimatedComponent(StatusBar);
@@ -24,23 +30,37 @@ let array = {};
 let barStatus = false;
 
 const ShopDetails = props => {
+  const shopDetails = props?.route?.params?.shopDetails;
+  const shopId = shopDetails?._id;
+  const {user} = useSelector(state => state.app);
   const [details, setDetails] = useState(null);
-  const [categoryItems, setCategoryItems] = useState(categoryItem);
+  const [categoryItems, setCategoryItems] = useState([]);
   const [width, setWidth] = React.useState(null);
   const [animObj, setAnimObj] = React.useState({});
   const [horizontal, setHorizontal] = React.useState(300);
+  const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [titleHeight, setTitleHeight] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [allCategories, setAllCategories] = useState();
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const startAnim = React.useRef(new Animated.Value(0)).current;
   const [barStyle, setBarStyle] = useState('light-content');
-  const {cart} = useSelector(state => state.orders);
-
   const horizotalRef = useRef();
   const verticalRef = useRef();
-
   let obj = Object.keys(animObj);
   let active = -1;
+
+  useEffect(() => {
+    if (user?.shopType) {
+      setDetails({...user});
+      getAllCategories(setAllCategories);
+      shopDetailManipulate(setCategoryItems, setLoading);
+    } else {
+      setDetails({...shopDetails});
+      shopWiseProductForUser(shopId, setCategoryItems, setLoading);
+    }
+  }, [modalVisible == true]);
 
   useEffect(() => {
     if (width !== null && titleHeight !== null) {
@@ -152,7 +172,10 @@ const ShopDetails = props => {
                   <View style={{height: 20}} />
                 </View>
 
-                <RestaurantDetailsCart />
+                <RestaurantDetailsCart
+                  details={details}
+                  setModalVisible={setModalVisible}
+                />
 
                 <View style={{height: 44}} />
 
@@ -160,6 +183,7 @@ const ShopDetails = props => {
                   categoryItems={categoryItems}
                   setTitleHeight={setTitleHeight}
                   details={details}
+                  loading={loading}
                 />
 
                 <HeaderAnimated
@@ -186,7 +210,21 @@ const ShopDetails = props => {
           backgroundColor: WHITE,
         }}
       />
-      <ViewCard />
+
+      {!user?.shopType && <ViewCard />}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <AddShopProduct
+          setModalVisible={setModalVisible}
+          allCategories={allCategories}
+        />
+      </Modal>
     </View>
   );
 };

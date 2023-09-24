@@ -17,7 +17,7 @@ const OnboardingFooter = ({currentPage, setCurrentPage, horizontalRef}) => {
     if (index == 1 && currentPage == 1) {
       navigation.reset({
         index: 0,
-        routes: [{name: 'mobileSignup'}],
+        routes: [{name: 'mobileSignup', params: {type: 'user'}}],
       });
     }
   };
