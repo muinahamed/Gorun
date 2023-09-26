@@ -9,3 +9,6 @@ export const NAPA = require('./picture/napa.jpg');
 
 export const USER_PHOTO = require('./picture/UserPhoto.png');
 export const PRODUCT_PHOTO = require('./picture/defaultProduct.png');
+
+export const CATEGORY_MODAL_PIC = require('./picture/categoryModalPic.png');
+export const ETA = require('./picture/eta.png');

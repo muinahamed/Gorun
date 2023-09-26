@@ -18,7 +18,7 @@ import {
   removeFromCartHelper,
 } from '../store/reduxHelperFunction';
 
-const CartItem = ({item}) => {
+const CartItem = ({item, from}) => {
   const {cart} = useSelector(state => state.orders);
   const dispatch = useDispatch();
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -173,7 +173,7 @@ const CartItem = ({item}) => {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-            <Animation />
+            {from !== 'checkout' && <Animation />}
           </View>
         </View>
         <MText

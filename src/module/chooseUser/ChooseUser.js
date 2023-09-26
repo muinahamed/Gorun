@@ -7,12 +7,17 @@ import Child from './Child';
 import {BLACK} from '../../utils/Color';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import auth from '@react-native-firebase/auth';
 
 const ChooseUser = () => {
   const navigation = useNavigation();
   const {firstTimeLaunch} = useSelector(state => state.app);
 
   const onPress = index => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+
     if (index == 0) {
       if (firstTimeLaunch) {
         navigation.reset({
