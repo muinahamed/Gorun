@@ -52,12 +52,7 @@ const SearchHeader = props => {
                 products: [],
                 error: false,
                 status: 'start',
-              }),
-                setSelectedStoresList({
-                  shops: [],
-                  error: false,
-                  status: 'start',
-                });
+              });
             } else {
               searchQuery(text);
             }
@@ -74,11 +69,7 @@ const SearchHeader = props => {
                 error: false,
                 status: 'start',
               });
-              setSelectedStoresList({
-                shops: [],
-                error: false,
-                status: 'start',
-              });
+
               setSearchText();
             }}>
             <CROSS fill={RED} />

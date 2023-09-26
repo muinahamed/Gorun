@@ -11,27 +11,24 @@ import {
   Animated,
   KeyboardAvoidingView,
   Platform,
+  Button,
+  Alert,
 } from 'react-native';
 import LoaderIndicator from '../../common/LoaderIndicator';
 import MText from '../../common/MText';
-import {RED, TEXT_GRAY, WHITE} from '../../utils/Color';
+import {PRIMARY_COLOR, RED, TEXT_GRAY, WHITE} from '../../utils/Color';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {windowWidth} from '../../utils/Measure';
 import Empty from '../../common/Empty';
 import LineBreak from '../../common/LineBreak';
 import SearchHeader from '../../common/SearchHeader';
-import ItemAndStoreHeader from '../../common/ItemAndStoreHeader';
 import SearchItem from '../../common/SearchItem';
 import ShopListViewSmall from '../../common/ShopListViewSmall';
-import {
-  getSearchResultItem,
-  getSearchResultStores,
-} from '../../service/callApiFromSearch';
+import {getSearchResultItem} from '../../service/callApiFromSearch';
 
 const SearchAll = props => {
   const [searchText, setSearchText] = useState('');
   const [recentData, setRecentData] = useState([]);
-  const [selectItemOrStores, setSelectItemOrStores] = useState('Items');
   const inputRef = useRef();
   const [selectedItemsList, setSelectedItemsList] = useState({
     products: [],
@@ -39,14 +36,6 @@ const SearchAll = props => {
     status: 'start',
   });
 
-  const [selectedStoresList, setSelectedStoresList] = useState({
-    shops: [],
-    error: false,
-    status: 'start',
-  });
-
-  const scrollX = useRef(new Animated.Value(0)).current;
-  const listRef = React.useRef();
   const searchTime = useRef();
   const lon = 23.773135773267434;
   const lat = 90.41264378408951;
@@ -62,15 +51,6 @@ const SearchAll = props => {
             1,
             setSelectedItemsList,
             selectedItemsList,
-            lat,
-            lon,
-          );
-          getSearchResultStores(
-            'all',
-            item,
-            1,
-            setSelectedStoresList,
-            selectedStoresList,
             lat,
             lon,
           );
@@ -116,15 +96,7 @@ const SearchAll = props => {
     );
   };
 
-  const renderItem = ({item, index}) => (
-    <>
-      {!item?.shopName ? (
-        <SearchItem item={item} />
-      ) : (
-        <ShopListViewSmall item={item} />
-      )}
-    </>
-  );
+  const renderItem = ({item, index}) => <SearchItem item={item} />;
 
   const storeData = async value => {
     let updateValue;
@@ -165,7 +137,6 @@ const SearchAll = props => {
   };
 
   let searchQuery = async searchText => {
-    console.log(searchText);
     clearTimeout(searchTime.current);
     searchTime.current = setTimeout(() => {
       getSearchResultItem(
@@ -174,15 +145,6 @@ const SearchAll = props => {
         1,
         setSelectedItemsList,
         selectedItemsList,
-        lat,
-        lon,
-      );
-      getSearchResultStores(
-        'all',
-        searchText,
-        1,
-        setSelectedStoresList,
-        selectedStoresList,
         lat,
         lon,
       );
@@ -195,10 +157,8 @@ const SearchAll = props => {
   }, []);
 
   let stableStatus =
-    (selectedItemsList?.status === 'end' ||
-      selectedItemsList?.status === 'paginate') &&
-    (selectedStoresList?.status === 'end' ||
-      selectedStoresList?.status === 'paginate');
+    selectedItemsList?.status === 'end' ||
+    selectedItemsList?.status === 'paginate';
 
   return (
     <SafeAreaView style={styles.container}>
@@ -210,7 +170,6 @@ const SearchAll = props => {
             searchText={searchText}
             setSearchText={setSearchText}
             setSelectedItemsList={setSelectedItemsList}
-            setSelectedStoresList={setSelectedStoresList}
             searchQuery={searchQuery}
             storeData={storeData}
             inputRef={inputRef}
@@ -224,143 +183,68 @@ const SearchAll = props => {
           }}>
           {stableStatus && (
             <>
-              <ItemAndStoreHeader
-                listRef={listRef}
-                selectItemOrStores={selectItemOrStores}
-                setSelectItemOrStores={setSelectItemOrStores}
-                scrollX={scrollX}
-                stableStatus={stableStatus}
-                itemLength={selectedItemsList?.paginate?.total}
-                storeLength={selectedStoresList?.paginate?.total}
-              />
-              <Animated.FlatList
-                data={[1, 2]}
-                ref={listRef}
-                horizontal
-                onScroll={Animated.event(
-                  [{nativeEvent: {contentOffset: {x: scrollX}}}],
-                  {useNativeDriver: true},
-                )}
-                onMomentumScrollEnd={e => {
-                  Math.round(e.nativeEvent.contentOffset.x / windowWidth) === 0
-                    ? setSelectItemOrStores('Items')
-                    : setSelectItemOrStores('Stores');
+              <FlatList
+                data={selectedItemsList?.products}
+                listKey={'nafisa123456'}
+                renderItem={renderItem}
+                contentContainerStyle={{
+                  paddingHorizontal: 15,
+                  width: windowWidth,
+                  paddingTop: 26,
+                  paddingBottom: 10,
                 }}
-                getItemLayout={(_, index) => ({
-                  length: windowWidth, //  WIDTH + (MARGIN_HORIZONTAL * 2)
-                  offset: windowWidth * index, //  ( WIDTH + (MARGIN_HORIZONTAL*2) ) * (index)
-                  index,
-                })}
-                initialScrollIndex={selectItemOrStores === 'Items' ? 0 : 1}
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) => 'muinahamed123457657766' + index}
-                renderItem={({item, index}) => {
-                  if (index === 0) {
-                    return (
-                      <FlatList
-                        data={selectedItemsList?.products}
-                        listKey={'nafisa123456'}
-                        renderItem={renderItem}
-                        contentContainerStyle={{
-                          paddingHorizontal: 15,
-                          width: windowWidth,
-                          paddingTop: 26,
-                          paddingBottom: 10,
-                        }}
-                        showsVerticalScrollIndicator={false}
-                        ItemSeparatorComponent={() => <LineBreak margin={15} />}
-                        ListEmptyComponent={() => (
-                          <Empty msg={'No Item is available!'} />
-                        )}
-                        ListFooterComponent={() => {
-                          return (
-                            selectedItemsList?.status === 'paginate' && (
-                              <ActivityIndicator
-                                style={{paddingBottom: 10}}
-                                color={RED}
-                              />
-                            )
-                          );
-                        }}
-                        onEndReached={() => {
-                          if (
-                            selectedItemsList?.paginate?.metadata
-                              ?.hasNextPage === true
-                          ) {
-                            getSearchResultItem(
-                              'all',
-                              searchText,
-                              selectedItemsList?.paginate?.metadata?.page
-                                ?.currentPage + 1,
-                              setSelectedItemsList,
-                              selectedItemsList,
-                              lat,
-                              lon,
-                            );
-                          }
-                          // console.log(selectedItemsList);
-                        }}
-                        onEndReachedThreshold={0.1}
-                        keyExtractor={(item, index) => index + 'items'}
+                showsVerticalScrollIndicator={false}
+                ItemSeparatorComponent={() => <LineBreak margin={15} />}
+                ListEmptyComponent={() => (
+                  <Button
+                    title="Request this Item?"
+                    color={PRIMARY_COLOR}
+                    onPress={() => {
+                      Alert.alert('This Item is requested Successfully');
+                      setSearchText('');
+                      setSelectedItemsList({
+                        products: [],
+                        error: false,
+                        status: 'start',
+                      });
+                    }}
+                  />
+                )}
+                ListFooterComponent={() => {
+                  return (
+                    selectedItemsList?.status === 'paginate' && (
+                      <ActivityIndicator
+                        style={{paddingBottom: 10}}
+                        color={RED}
                       />
-                    );
-                  } else {
-                    return (
-                      <FlatList
-                        data={selectedStoresList?.shops}
-                        listKey={'nafisa123gfdg456'}
-                        renderItem={renderItem}
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{
-                          paddingTop: 26,
-                          paddingHorizontal: 15,
-                          width: windowWidth,
-                          paddingBottom: 10,
-                        }}
-                        ListEmptyComponent={() => (
-                          <Empty msg={'No Shop is available!'} />
-                        )}
-                        ListFooterComponent={() => {
-                          return (
-                            selectedStoresList?.status === 'paginate' && (
-                              <ActivityIndicator
-                                style={{paddingBottom: 10}}
-                                color={RED}
-                              />
-                            )
-                          );
-                        }}
-                        onEndReached={() => {
-                          if (
-                            selectedStoresList?.paginate?.metadata
-                              ?.hasNextPage === true
-                          ) {
-                            getSearchResultStores(
-                              'all',
-                              searchText,
-                              selectedStoresList?.paginate?.metadata?.page
-                                ?.currentPage + 1,
-                              setSelectedStoresList,
-                              selectedStoresList,
-                              lat,
-                              lon,
-                            );
-                          }
-                        }}
-                        onEndReachedThreshold={0.1}
-                        keyExtractor={(item, index) => index}
-                      />
+                    )
+                  );
+                }}
+                onEndReached={() => {
+                  if (
+                    selectedItemsList?.paginate?.metadata?.hasNextPage === true
+                  ) {
+                    getSearchResultItem(
+                      'all',
+                      searchText,
+                      selectedItemsList?.paginate?.metadata?.page?.currentPage +
+                        1,
+                      setSelectedItemsList,
+                      selectedItemsList,
+                      lat,
+                      lon,
                     );
                   }
+                  // console.log(selectedItemsList);
                 }}
+                onEndReachedThreshold={0.1}
+                keyExtractor={(item, index) => index + 'items'}
               />
             </>
           )}
         </View>
 
-        {(selectedItemsList?.status === 'apiCalling' ||
-          selectedStoresList?.status === 'apiCalling') && (
+        {selectedItemsList?.status === 'apiCalling' && (
           <LoaderIndicator loading={true} backColor={WHITE} top={50} />
         )}
 

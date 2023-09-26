@@ -9,7 +9,7 @@ const LoaderIndicator = props => {
       style={[
         styles.loaderContainer,
         {
-          backgroundColor: 'rgba(0,0,0,.2)',
+          backgroundColor: backColor || 'rgba(0,0,0,.2)',
           top: top ? top : 0,
         },
       ]}>

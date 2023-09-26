@@ -7,7 +7,7 @@ import {useDispatch} from 'react-redux';
 import {Image} from 'react-native';
 
 const SearchItem = ({item, from}) => {
-  const dispatch = useDispatch();
+  console.log(item);
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => {}}>
@@ -32,8 +32,16 @@ const SearchItem = ({item, from}) => {
           numberOfLines={1}
           fontType={interRegular}
           color={LITE_BLACK}
+          style={{fontWeight: '500', lineHeight: 18, marginRight: 10}}>
+          {item?.shop?.name}
+        </MText>
+        <MText
+          size={small}
+          numberOfLines={1}
+          fontType={interRegular}
+          color={LITE_BLACK}
           style={{fontWeight: '400', lineHeight: 18, marginRight: 10}}>
-          {item?.shop?.shopName}
+          {item?.description}
         </MText>
       </View>
       <View style={[]}>
@@ -43,7 +51,7 @@ const SearchItem = ({item, from}) => {
           fontType={interRegular}
           color={LITE_BLACK}
           style={{fontWeight: '600'}}>
-          {Math.round(item?.discountPrice * 100) / 100}
+          ${item?.price}
         </MText>
       </View>
     </TouchableOpacity>

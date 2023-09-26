@@ -26,4 +26,6 @@ export const GET_ALL_SHOP_LIST = BASE_URL + `app/user/shop?page=1&pageSize=50`;
 export const GET_PRODUCT_BY_SHOP =
   BASE_URL + `app/user/product?page=1&pageSize=50&shopId=`;
 
+export const SEARCH_ALL_PRODUCT = BASE_URL + `app/user/product?`;
+
 export const IMAGE_UPLOAD_ENDPOINT = `https://api.imgbb.com/1/upload?key=c104a310afcf00dd9cf4d3119c8e359c`;

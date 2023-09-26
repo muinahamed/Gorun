@@ -14,12 +14,9 @@ import {useRef} from 'react';
 import MText, {interRegular, medium} from '../../common/MText';
 import {WHITE} from '../../utils/Color';
 
-const HomeSearch = ({setFilterDialog, setReset}) => {
-  const focus = useIsFocused();
+const HomeSearch = () => {
   const navigation = useNavigation();
   const [array, setArray] = useState(['Food', 'Grocery', 'Pharmacy']);
-  const listRef = useRef();
-  const active = useRef(0);
 
   return (
     <Animated.View
