@@ -77,7 +77,7 @@ const OtpVerification = ({route}) => {
             dispatch(setToken(response?.data?.shop?.token));
             navigation.reset({
               index: 0,
-              routes: [{name: 'home'}],
+              routes: [{name: 'shopDetails'}],
             });
             AsyncStorage.setItem('token', response?.data?.shop?.token);
           } else {
