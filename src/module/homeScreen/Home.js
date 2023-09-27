@@ -45,7 +45,6 @@ const Home = () => {
           return (
             <>
               <HomeSearch placeHolder={'Search'} />
-
               <HomeTopCategories />
               <HomeScreenBanner />
               <ShopHorizontalList
