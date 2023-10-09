@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "androidrmode": "react-native run-android --variant=release",
+    "androidrmode": "react-native run-android --mode=release",
     "ios": "npx react-native run-ios --simulator='iPhone 15 Pro Max'",
     "lint": "eslint .",
     "start": "react-native start",

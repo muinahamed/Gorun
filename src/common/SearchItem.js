@@ -5,12 +5,17 @@ import MText, {interRegular, medium, small} from './MText';
 import {LITE_BLACK} from '../utils/Color';
 import {useDispatch} from 'react-redux';
 import {Image} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const SearchItem = ({item, from}) => {
-  console.log(item);
+  const navigation = useNavigation();
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => {}}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate('productDetails', {productDetails: item})
+      }>
       <View>
         <Image
           source={{uri: item.images[0]}}
