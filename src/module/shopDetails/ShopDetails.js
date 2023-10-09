@@ -11,7 +11,6 @@ import {WHITE} from '../../utils/Color';
 import RestaurantDetailsHeader from '../../common/RestaurantDetailsHeader';
 import RestaurantBanner from '../../common/RestaurantBanner';
 import RestaurantDetailsCart from '../../common/RestaurantDetailsCart';
-import {categoryItem} from '../../utils/Dummy';
 import NewRestaurantProductList from '../NewRestaurantProductList';
 import {windowWidth} from '../../utils/Measure';
 import ViewCard from '../../common/ViewCard';

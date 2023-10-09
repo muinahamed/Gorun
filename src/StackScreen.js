@@ -15,6 +15,8 @@ import MyProfile from './module/profile/MyProfile';
 import ShopRegistration from './module/signup/ShopRegistration';
 import CartScreen from './module/cart/CartScreen';
 import Checkout from './module/checkout/Checkout';
+import ProductDetails from './module/productDetails/ProductDetails';
+import CategoryDetails from './module/categoryDetails/CategoryDetails';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -51,6 +53,11 @@ const StackScreen = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
+        name="categoryDetails"
+        component={CategoryDetails}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
         name="more"
         component={More}
         options={{headerShown: false}}
@@ -63,6 +70,11 @@ const StackScreen = () => {
       <Stack.Screen
         name="shopDetails"
         component={ShopDetails}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="productDetails"
+        component={ProductDetails}
         options={{headerShown: false}}
       />
       <Stack.Screen

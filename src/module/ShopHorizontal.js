@@ -7,7 +7,9 @@ import {LITE_BLACK} from '../utils/Color';
 import ShopHorizontalListChild from '../common/ShopHorizontalListChild';
 
 const ShopHorizontalList = ({title, data, type, category}) => {
-  const renderItem = ({item, index}) => <ShopHorizontalListChild item={item} />;
+  const renderItem = ({item, index}) => (
+    <ShopHorizontalListChild item={item} index={index} />
+  );
 
   return (
     <View>
@@ -28,9 +30,8 @@ const ShopHorizontalList = ({title, data, type, category}) => {
       <FlatList
         data={data}
         renderItem={renderItem}
-        contentContainerStyle={{paddingRight: 15}}
         keyExtractor={(item, index) => index}
-        horizontal={true}
+        numColumns={2}
         showsHorizontalScrollIndicator={false}
       />
     </View>

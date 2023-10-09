@@ -1,12 +1,4 @@
-import {
-  FlatList,
-  Platform,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {FlatList, Platform, StatusBar, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import HomeSearch from './HomeSearch';
@@ -14,22 +6,27 @@ import HomeHeader from './HomeHeader';
 import HomeTopCategories from './HomeTopCategories';
 import HomeScreenBanner from './HomeScreenBanner';
 import ShopHorizontalList from '../ShopHorizontal';
-import {FOOD_DATA, GROCERY_DATA, PHARMACY_DATA} from '../../utils/Dummy';
 import {useSelector} from 'react-redux';
 import API from '../../service/API';
-import {GET_ALL_SHOP_LIST} from '../../service/ApiEndPoint';
+import {GET_ALL_SHOP_LIST, GET_ALL_SHOP_TYPE} from '../../service/ApiEndPoint';
 
 const Home = () => {
-  const {user} = useSelector(state => state.app);
   const [shop, setShop] = useState();
+  const [category, setCategory] = useState();
 
   let getAllShop = async () => {
     let res = await API.get(GET_ALL_SHOP_LIST);
     setShop(res?.data);
   };
 
+  let getCategory = async () => {
+    let res = await API.get(GET_ALL_SHOP_TYPE);
+    setCategory(res?.data?.shopTypes);
+  };
+
   useEffect(() => {
     getAllShop();
+    getCategory();
   }, []);
 
   return (
@@ -45,7 +42,7 @@ const Home = () => {
           return (
             <>
               <HomeSearch placeHolder={'Search'} />
-              <HomeTopCategories />
+              <HomeTopCategories category={category} />
               <HomeScreenBanner />
               <ShopHorizontalList
                 type={'grocery'}

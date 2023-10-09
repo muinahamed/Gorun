@@ -19,8 +19,10 @@ import {
   removeFromCartHelper,
 } from '../../store/reduxHelperFunction';
 import {addToCart, removeFromCart} from '../../store/slices/orderSlice';
+import {useNavigation} from '@react-navigation/native';
 
 const ProductView = ({item}) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const {cart, subTotal} = useSelector(state => state.orders);
   const [expand, setExpand] = useState(false);
@@ -60,7 +62,9 @@ const ProductView = ({item}) => {
 
   return (
     <TouchableOpacity
-      onPress={() => {}}
+      onPress={() =>
+        navigation.navigate('productDetails', {productDetails: item})
+      }
       style={[styles.flex, {marginHorizontal: 15, overflow: 'hidden'}]}>
       <View style={{flex: 1, marginRight: 20, maxHeight: 85}}>
         <MText

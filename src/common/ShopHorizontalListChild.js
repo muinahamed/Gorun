@@ -4,8 +4,9 @@ import MText, {interRegular, medium, semiMedium} from './MText';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {LITE_BLACK, RED} from '../utils/Color';
+import {windowWidth} from '../utils/Measure';
 
-const ShopHorizontalListChild = ({item}) => {
+const ShopHorizontalListChild = ({item, index}) => {
   const navigation = useNavigation();
 
   return (
@@ -13,7 +14,7 @@ const ShopHorizontalListChild = ({item}) => {
       onPress={() => {
         navigation.navigate('shopDetails', {shopDetails: item});
       }}
-      style={styles.container}>
+      style={styles.container(index)}>
       <Image
         style={styles.image}
         resizeMethod={'scale'}
@@ -31,6 +32,7 @@ const ShopHorizontalListChild = ({item}) => {
             flex: 1,
           }}>
           {item?.name}
+          {index}
         </MText>
         <MText
           size={semiMedium}
@@ -44,7 +46,6 @@ const ShopHorizontalListChild = ({item}) => {
           {item?.shopAddress?.address}
         </MText>
       </View>
-      {/* --------------------------------- */}
     </TouchableOpacity>
   );
 };
@@ -52,12 +53,13 @@ const ShopHorizontalListChild = ({item}) => {
 export default ShopHorizontalListChild;
 
 const styles = StyleSheet.create({
-  container: {
+  container: index => ({
     marginLeft: 15,
-    marginTop: 13,
-  },
+    marginRight: index % 2 == 1 ? 15 : 0,
+    marginTop: 10,
+  }),
   image: {
-    width: 243,
+    width: (windowWidth - 45) / 2,
     height: 137,
     borderRadius: 7,
     resizeMode: 'cover',
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
 
   content: {
     marginTop: 12,
-    width: 243,
+    width: (windowWidth - 45) / 2,
   },
   flex: {
     flexDirection: 'row',

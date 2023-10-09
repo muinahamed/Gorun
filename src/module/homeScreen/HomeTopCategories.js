@@ -18,10 +18,10 @@ import {windowWidth} from '../../utils/Measure';
 import RADIO_ON from '../../image/svg/radioOn.svg';
 import RADIO_OFF from '../../image/svg/radioOff.svg';
 import {useState} from 'react';
-const category = [
-  {Image: RADIO_ON, name: 'All', active: true},
-  {Image: RADIO_OFF, name: 'Online', active: false},
-  {Image: RADIO_OFF, name: 'Offline', active: false},
+const categoryType = [
+  {Image: RADIO_ON, name: 'All', active: true, slug: 'both'},
+  {Image: RADIO_OFF, name: 'Online', active: false, slug: 'online'},
+  {Image: RADIO_OFF, name: 'Offline', active: false, slug: 'offline'},
 ];
 
 if (Platform.OS === 'android') {
@@ -30,42 +30,15 @@ if (Platform.OS === 'android') {
   }
 }
 
-const HomeTopCategories = ({}) => {
+const HomeTopCategories = ({category}) => {
   const navigation = useNavigation();
   const width = (windowWidth - 30) / 4 - 40;
   const height = (42 / 46) * width;
-  const [selectCategory, setSelectCategory] = useState(category);
-
-  const array = [
-    {
-      Image: FOOD,
-      name: 'Food',
-      color: 'white',
-      type: ['All', 'Online', 'Offline'],
-    },
-    {
-      Image: GROCERY,
-      name: 'Grocery',
-      color: 'white',
-      type: ['All', 'Offline'],
-    },
-    {
-      Image: PHARMACY,
-      name: 'Pharmacy',
-      color: 'white',
-      type: ['All', 'Online'],
-    },
-    {
-      Image: FOOD,
-      name: 'Other',
-      color: 'white',
-      type: ['All', 'Offline'],
-    },
-  ];
+  const [selectCategory, setSelectCategory] = useState(categoryType);
 
   const goToCategory = (item, index) => {
-    navigation.navigate('searchAll', {
-      type: 'common',
+    navigation.navigate('categoryDetails', {
+      item,
     });
   };
 
@@ -84,8 +57,8 @@ const HomeTopCategories = ({}) => {
                   update: {type: 'spring', springDamping: 0.6},
                   delete: {type: 'linear', property: 'opacity'},
                 });
-                setSelectCategory(
-                  selectCategory?.map(child =>
+                setSelectCategory(state =>
+                  state?.map(child =>
                     child.name == Item.name
                       ? {...child, active: true, Image: RADIO_ON}
                       : {...child, active: false, Image: RADIO_OFF},
@@ -110,6 +83,7 @@ const HomeTopCategories = ({}) => {
           );
         })}
       </ScrollView>
+
       <View
         style={[
           {
@@ -120,14 +94,14 @@ const HomeTopCategories = ({}) => {
             marginTop: 10,
           },
         ]}>
-        {array?.map((Item, index) => {
+        {category?.map((Item, index) => {
           let active = selectCategory?.find(item => item.active);
-          if (!Item.type.includes(active?.name)) return null;
+          if (Item?.activeStatus !== active?.slug) return null;
           return (
             <TouchableOpacity
               onPress={() => goToCategory(Item, index)}
               style={{
-                backgroundColor: Item?.color,
+                backgroundColor: WHITE,
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderRadius: 10,
@@ -138,14 +112,13 @@ const HomeTopCategories = ({}) => {
                 paddingHorizontal: 10,
               }}
               key={index}>
-              <Animated.View>
-                <Item.Image
-                  fill={'#363636'}
-                  width={width}
-                  height={height}
-                  style={{marginTop: 10}}
-                />
-              </Animated.View>
+              <FOOD
+                fill={'#363636'}
+                width={width}
+                height={height}
+                style={{marginTop: 10}}
+              />
+
               <MText
                 size={semiMedium}
                 fontType={interRegular}
