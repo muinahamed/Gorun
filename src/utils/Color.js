@@ -23,3 +23,4 @@ export const RATTING_RED = '#DD5B63';
 export const YELLOW = '#eac300';
 export const CHAT_ICON_BG = '#323736';
 export const MODAL_HEADER = '#E5E7E9';
+export const CYAN_GRAY = '#8F93A0';

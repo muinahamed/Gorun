@@ -6,8 +6,16 @@ import MText, {interRegular, large} from './MText';
 import {LITE_BLACK} from '../utils/Color';
 import {useNavigation} from '@react-navigation/native';
 
-const Header = ({back = true, title = 'Verify Number', cross, crossPress}) => {
+const Header = ({
+  back = true,
+  title = 'Verify Number',
+  cross,
+  crossPress,
+  HeaderRightIcon,
+  onRightPress,
+}) => {
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <MText
@@ -30,6 +38,9 @@ const Header = ({back = true, title = 'Verify Number', cross, crossPress}) => {
         style={[styles.button, {opacity: back ? 1 : 0}]}>
         {cross ? <CROSS /> : <ARROW />}
       </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => onRightPress()}>
+        {HeaderRightIcon}
+      </TouchableOpacity>
     </View>
   );
 };
@@ -37,7 +48,12 @@ const Header = ({back = true, title = 'Verify Number', cross, crossPress}) => {
 export default Header;
 
 const styles = StyleSheet.create({
-  container: {flexDirection: 'row'},
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 80,
+  },
   title: {
     textAlign: 'center',
     fontWeight: '600',

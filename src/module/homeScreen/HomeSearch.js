@@ -1,22 +1,13 @@
-import {
-  Animated,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import SEARCH from '../../image/svg/search.svg';
 import FILTER from '../../image/svg/filter.svg';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
-import {useRef} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import MText, {interRegular, medium} from '../../common/MText';
 import {WHITE} from '../../utils/Color';
 
 const HomeSearch = () => {
   const navigation = useNavigation();
-  const [array, setArray] = useState(['Food', 'Grocery', 'Pharmacy']);
 
   return (
     <Animated.View
@@ -24,7 +15,8 @@ const HomeSearch = () => {
         {
           zIndex: 0,
           backgroundColor: WHITE,
-          marginTop: 4,
+          marginBottom: 4,
+          marginTop: 10,
         },
       ]}>
       <TouchableOpacity

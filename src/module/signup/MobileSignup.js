@@ -36,7 +36,7 @@ import {useDispatch} from 'react-redux';
 import {setConfirmation} from '../../store/slices/appSlice';
 
 const MobileSignup = ({route}) => {
-  const {type} = route?.params;
+  const type = route?.params?.type;
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const phoneInput = useRef(null);
@@ -44,10 +44,6 @@ const MobileSignup = ({route}) => {
   const [loading, setLoading] = useState(false);
 
   async function signInWithPhoneNumber() {
-    // auth()
-    //   .signOut()
-    //   .then(() => console.log('User signed out!'));
-
     setLoading(true);
     const confirmation = await auth().signInWithPhoneNumber(
       formattedPhoneNumber,

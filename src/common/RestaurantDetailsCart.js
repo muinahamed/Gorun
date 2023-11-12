@@ -6,9 +6,11 @@ import MText, {extraSmall, interRegular, semiXLarge} from './MText';
 import START from '../image/svg/star.svg';
 import {windowWidth} from '../utils/Measure';
 import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const RestaurantDetailsCart = ({details, setModalVisible}) => {
   const {user} = useSelector(state => state.app);
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -19,7 +21,9 @@ const RestaurantDetailsCart = ({details, setModalVisible}) => {
       }}>
       <View style={styles.container}>
         <View style={styles.flex}>
-          <Image source={{uri: details?.image}} style={styles.logo} />
+          <TouchableOpacity onPress={() => navigation.navigate('more')}>
+            <Image source={{uri: details?.image}} style={styles.logo} />
+          </TouchableOpacity>
 
           <View style={{marginLeft: 10}}>
             <TouchableOpacity

@@ -67,7 +67,7 @@ const ButlerCard = ({
             style={{
               fontWeight: '500',
             }}>
-            {addressValue?.latitude ? addressValue?.nickname : 'Add Address'}
+            {addressValue?.latitude ? addressValue?.address : 'Add Address'}
           </MText>
         </View>
       )}
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     borderWidth: 1,
     borderColor: '#EEEEEE',
-    marginVertical: 7.5,
+    marginVertical: 10,
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 15,

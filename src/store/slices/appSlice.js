@@ -27,6 +27,9 @@ export const appSlice = createSlice({
     firstTimeLaunch: true,
     user: null,
     token: null,
+    addressList: [],
+    selectedAddress: {},
+    activeLocation: {},
   },
   reducers: {
     setConfirmation: (state, action) => {
@@ -41,10 +44,26 @@ export const appSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    setAddressList: (state, action) => {
+      state.addressList = action.payload;
+    },
+    setSelectAddress: (state, action) => {
+      state.selectedAddress = action.payload;
+    },
+    setActiveLocation: (state, action) => {
+      state.activeLocation = action.payload;
+    },
   },
 });
 
-export const {setFirstTimeLaunch, setConfirmation, setUser, setToken} =
-  appSlice.actions;
+export const {
+  setFirstTimeLaunch,
+  setConfirmation,
+  setUser,
+  setToken,
+  setAddressList,
+  setSelectAddress,
+  setActiveLocation,
+} = appSlice.actions;
 
 export default appSlice.reducer;

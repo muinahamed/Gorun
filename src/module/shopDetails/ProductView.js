@@ -148,7 +148,7 @@ const ProductView = ({item}) => {
           <TouchableOpacity
             style={[styles.plus]}
             onPress={() => {
-              if (expand) {
+              if (expand || (!expand && count == 0)) {
                 dispatch(addToCart(addToCartHelper(cart, item)));
               }
               totalWidth.value = withTiming(92);

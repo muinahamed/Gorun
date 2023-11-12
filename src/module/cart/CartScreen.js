@@ -23,6 +23,7 @@ const CartScreen = ({navigation}) => {
   return (
     <ScreenWrapper>
       <Header title="My Basket" />
+
       {cart?.map((item, index) => {
         return (
           <View key={index} style={{marginTop: 16}}>

@@ -7,15 +7,18 @@ import ARROW from '../image/svg/arrow.svg';
 import {LITE_BLACK, RED, WHITE} from '../utils/Color';
 import MText, {interRegular, semiMedium} from './MText';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const RestaurantDetailsHeader = ({scrollY}) => {
   const navigation = useNavigation();
+  const {user} = useSelector(state => state.app);
 
   let Item = ({Image, marginLeft}) => {
     return (
       <TouchableOpacity
+        disabled={user?.shopType}
         onPress={() => navigation.navigate('home')}
-        style={[styles.round, {marginLeft}]}>
+        style={[styles.round, {marginLeft, opacity: user?.shopType ? 0 : 1}]}>
         {Image}
       </TouchableOpacity>
     );

@@ -18,7 +18,7 @@ const RenderItem = ({item, index}) => {
             // navigation.navigate('MyOrders');
             break;
           case 2:
-            navigation.navigate('DropPay');
+            navigation.navigate('MyAddress');
             break;
           case 3:
             navigation.navigate('Coupon');

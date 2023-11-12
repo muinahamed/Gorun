@@ -12,3 +12,10 @@ export const PRODUCT_PHOTO = require('./picture/defaultProduct.png');
 
 export const CATEGORY_MODAL_PIC = require('./picture/categoryModalPic.png');
 export const ETA = require('./picture/eta.png');
+
+export const LOGO = require('../image/picture/logo.jpeg');
+
+export const LOCATION_TRACER = require('./picture/locationTracker.png');
+
+export const USER_PIN = require('./picture/userPin.png');
+export const FOOD = require('./picture/restaurant.png');

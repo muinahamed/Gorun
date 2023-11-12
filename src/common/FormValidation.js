@@ -110,6 +110,15 @@ class FormValidation {
       case 'title':
         result = this.title(formData);
         break;
+      case 'apt':
+        result = this.aptValidate(formData);
+        break;
+      case 'nickname':
+        result = this.nickName(formData);
+        break;
+      case 'pin':
+        result = this.pinCodeValidate(formData);
+        break;
       default:
         break;
     }
@@ -390,7 +399,7 @@ class FormValidation {
     let nickName = formData != null ? formData.trim() : '';
 
     if (nickName === null || nickName === '' || nickName === undefined) {
-      return 'We need your name  to continue.';
+      return 'We need your nickname  to continue.';
     }
     return '';
   };
@@ -507,6 +516,33 @@ class FormValidation {
     return '';
   };
 
+  static aptValidate = formData => {
+    let stateName = formData != null ? formData.trim() : '';
+
+    if (stateName === null || stateName === '' || stateName === undefined) {
+      return 'We need your apartment to continue.';
+    }
+    return '';
+  };
+
+  static labelValidate = formData => {
+    let stateName = formData != null ? formData.trim() : '';
+
+    if (stateName === null || stateName === '' || stateName === undefined) {
+      return 'We need your nickname to continue.';
+    }
+    return '';
+  };
+
+  static pinValidate = formData => {
+    let stateName = formData != null ? formData.trim() : '';
+
+    if (stateName === null || stateName === '' || stateName === undefined) {
+      return 'We need your  Address Label to continue.';
+    }
+    return '';
+  };
+
   static cityValidate = formData => {
     let cityName = formData != null ? formData.trim() : '';
 
@@ -518,9 +554,9 @@ class FormValidation {
 
   static pinCodeValidate = formData => {
     // console.log('muin');
-    let pincode = formData != null ? formData.trim() : '';
+    let pinCode = formData != null ? formData.trim() : '';
 
-    if (pincode === null || pincode === '' || pincode === undefined) {
+    if (pinCode === null || pinCode === '' || pinCode === undefined) {
       return 'We need your postcode to continue.';
     }
     return '';

@@ -14,9 +14,11 @@ const ChooseUser = () => {
   const {firstTimeLaunch} = useSelector(state => state.app);
 
   const onPress = index => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
+    try {
+      auth()
+        .signOut()
+        .then(() => console.log('User signed out!'));
+    } catch (e) {}
 
     if (index == 0) {
       if (firstTimeLaunch) {

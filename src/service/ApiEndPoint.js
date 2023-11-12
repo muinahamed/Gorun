@@ -31,3 +31,15 @@ export const SEARCH_ALL_PRODUCT = BASE_URL + `app/user/product?`;
 export const GET_ALL_SHOP_TYPE = BASE_URL + `app/user/shopType`;
 
 export const IMAGE_UPLOAD_ENDPOINT = `https://api.imgbb.com/1/upload?key=c104a310afcf00dd9cf4d3119c8e359c`;
+
+export const GET_ALL_ADDRESS = BASE_URL + `app/user/address`;
+
+export const SAVE_ADDRESS = BASE_URL + `app/user/address/create`;
+
+export const EDIT_ADDRESS = BASE_URL + `app/user/address/update`;
+
+export const DELETE_ADDRESS = BASE_URL + `app/user/address/delete`;
+
+export const PLACED_ORDER = BASE_URL + `app/user/order/place-order`;
+
+export const CATEGORY_WISE_SHOP = BASE_URL + `app/user/shop/type-wise`;

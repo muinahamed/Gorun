@@ -6,6 +6,7 @@ import HomeHeader from '../homeScreen/HomeHeader';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import Header from '../../common/Header';
 import ShopHorizontalListChild from '../../common/ShopHorizontalListChild';
+import HomeSearch from '../homeScreen/HomeSearch';
 
 const CategoryDetails = ({route}) => {
   const {item} = route?.params;
@@ -27,6 +28,7 @@ const CategoryDetails = ({route}) => {
   return (
     <ScreenWrapper>
       <Header title={item.name} />
+      <HomeSearch placeHolder={'Search'} />
       <FlatList
         data={shopList}
         renderItem={renderItem}

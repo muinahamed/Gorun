@@ -70,7 +70,7 @@ export default HomeScreenBanner;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    marginTop: 20,
   },
   banner: {
     width: windowWidth,

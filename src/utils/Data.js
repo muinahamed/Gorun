@@ -50,7 +50,7 @@ export const moreFirst = [
     name: 'My Orders',
   },
   {
-    id: 5,
+    id: 2,
     IMAGE: ADDRESS,
     name: 'Address',
   },

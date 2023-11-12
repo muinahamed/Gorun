@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import Header from '../../common/Header';
 import ButlerCard from '../../common/ButlerCard';
@@ -10,9 +10,16 @@ import {PRIMARY_COLOR, WHITE} from '../../utils/Color';
 import {interRegular} from '../../common/MText';
 import {windowWidth} from '../../utils/Measure';
 import CartItem from '../../common/CartItem';
+import {placeOrder} from './Helper';
+import {GET_ALL_ADDRESS} from '../../service/ApiEndPoint';
+import API from '../../service/API';
 
-const Checkout = () => {
+const Checkout = ({navigation}) => {
   const {cart} = useSelector(state => state.orders);
+  const {activeLocation} = useSelector(state => state.app);
+  const [addressList, setAddressList] = useState([]);
+  const selected = activeLocation?.selected;
+
   const subTotal = () => {
     let count = 0;
     cart?.map(item => {
@@ -35,7 +42,7 @@ const Checkout = () => {
         <ButlerCard
           title={'Delivery Address'}
           address={true}
-          addressValue={{nickname: 'Niketan,road 6', latitude: 100}}
+          addressValue={{address: selected?.address, latitude: 100}}
           from={'checkout'}
           button={true}
           edit={false}
@@ -64,7 +71,7 @@ const Checkout = () => {
         borderRadius={10}
         fontFamily={interRegular}
         fontWeight={'600'}
-        onPress={() => {}}
+        onPress={() => placeOrder(cart, selected, navigation)}
         paddingVertical={7}
         width={windowWidth - 30}
       />

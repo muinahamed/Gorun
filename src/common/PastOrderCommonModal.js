@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Animated, StyleSheet, View} from 'react-native';
+import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
   PanGestureHandler,
   NativeViewGestureHandler,
@@ -186,6 +186,10 @@ const PastOrderCommonModal = props => {
       <View
         style={[StyleSheet.absoluteFill, {backgroundColor, zIndex: 1}]}
         pointerEvents={pointerEvents}>
+        <TouchableOpacity
+          style={[StyleSheet.absoluteFill]}
+          onPress={() => setVisible({status: true, anim: true})}
+        />
         <Animated.View
           style={[
             styles.modal,
@@ -221,7 +225,7 @@ const PastOrderCommonModal = props => {
                   stickyHeaderIndices={[0]}
                   contentContainerStyle={{paddingBottom: 20}}
                   style={[styles.scrollView]}
-                  bounces={state.longPress ? true : false}
+                  bounces={false}
                   keyExtractor={(item, index) => 'muinAhamed' + index}
                   onScrollBeginDrag={onRegisterLastScroll}
                   scrollEventThrottle={1}

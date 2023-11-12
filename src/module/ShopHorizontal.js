@@ -30,8 +30,8 @@ const ShopHorizontalList = ({title, data, type, category}) => {
       <FlatList
         data={data}
         renderItem={renderItem}
+        horizontal
         keyExtractor={(item, index) => index}
-        numColumns={2}
         showsHorizontalScrollIndicator={false}
       />
     </View>
