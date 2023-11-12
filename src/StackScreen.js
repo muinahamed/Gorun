@@ -47,6 +47,7 @@ const StackScreen = () => {
         component={OtpVerification}
         options={{headerShown: false}}
       />
+      
       <Stack.Screen
         name="home"
         component={Home}
