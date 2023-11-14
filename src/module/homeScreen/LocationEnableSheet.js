@@ -33,6 +33,12 @@ const LocationEnableSheet = props => {
         let checkPermission = await requestLocationPermission(false).catch(e =>
           Linking.openSettings(),
         );
+        if (checkPermission) {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'home'}],
+          });
+        }
       } else {
         showErrorMessage('Please turn on location.');
       }
