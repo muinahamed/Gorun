@@ -5,8 +5,33 @@ import {GOOGLE_KEY} from '../../utils/ApiKey';
 import {GET_ALL_ADDRESS} from '../../service/ApiEndPoint';
 import API from '../../service/API';
 import {setActiveLocation} from '../../store/slices/appSlice';
+import {
+  isLocationEnabled,
+  promptForEnableLocationIfNeeded,
+} from 'react-native-android-location-enabler';
 
-export const requestLocationPermission = () => {
+export const androidLocationEnable = async () => {
+  return new Promise(async (resolve, reject) => {
+    if (Platform.OS === 'ios') {
+      resolve('Success');
+    } else {
+      const checkEnabled = await isLocationEnabled();
+
+      if (checkEnabled) {
+        resolve(true);
+      } else {
+        try {
+          const enableResult = await promptForEnableLocationIfNeeded();
+          resolve(true);
+        } catch (error) {
+          resolve(false);
+        }
+      }
+    }
+  });
+};
+
+export const requestLocationPermission = (checkTheLocationModule = true) => {
   return new Promise(async (resolve, reject) => {
     if (Platform.OS === 'ios') {
       resolve('Success');
@@ -19,8 +44,15 @@ export const requestLocationPermission = () => {
             message: 'This App needs to Access your location',
           },
         );
-        console.log(granted);
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+
+        let enableLocationModule = checkTheLocationModule
+          ? await androidLocationEnable()
+          : true;
+
+        if (
+          granted === PermissionsAndroid.RESULTS.GRANTED &&
+          enableLocationModule
+        ) {
           resolve('Success');
         } else {
           reject('fail');

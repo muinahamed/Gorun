@@ -16,18 +16,26 @@ import MText, {
 
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {windowWidth} from '../../utils/Measure';
+import {androidLocationEnable, requestLocationPermission} from './HomeHelper';
+import {showErrorMessage} from '../../utils/BaseUtils';
+import {useNavigation} from '@react-navigation/native';
 
 const LocationEnableSheet = props => {
+  const navigation = useNavigation();
   const {refRBSheet} = props;
 
-  const openAppSettings = () => {
+  const openAppSettings = async () => {
     if (Platform.OS === 'ios') {
       Linking.openURL('app-settings:');
     } else {
-      // IntentLauncher.startActivity({
-      //   action: 'android.settings.APPLICATION_DETAILS_SETTINGS',
-      //   data: 'package:' + pkg,
-      // });
+      let androidLocationEnableModule = await androidLocationEnable();
+      if (androidLocationEnableModule) {
+        let checkPermission = await requestLocationPermission(false).catch(e =>
+          Linking.openSettings(),
+        );
+      } else {
+        showErrorMessage('Please turn on location.');
+      }
     }
   };
 

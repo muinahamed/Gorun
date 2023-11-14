@@ -48,7 +48,6 @@ const Home = () => {
   const onRefresh = async newLonLat => {
     requestLocationPermission()
       .then(e => {
-        conse;
         getOneTimeLocation(newLonLat, dispatch)
           .then(e => {
             refRBSheet.current.close();
@@ -60,7 +59,7 @@ const Home = () => {
 
   const getCategoryWWiseShop = async () => {
     let response = await API.get(CATEGORY_WISE_SHOP);
-    console.log(response);
+    // console.log(response);
   };
 
   useEffect(() => {
