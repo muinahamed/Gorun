@@ -48,6 +48,7 @@ const Home = () => {
   const onRefresh = async newLonLat => {
     requestLocationPermission()
       .then(e => {
+        conse;
         getOneTimeLocation(newLonLat, dispatch)
           .then(e => {
             refRBSheet.current.close();

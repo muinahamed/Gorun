@@ -1,7 +1,5 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
-  Dimensions,
   View,
   TouchableOpacity,
   Platform,

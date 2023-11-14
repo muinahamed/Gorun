@@ -19,6 +19,7 @@ export const requestLocationPermission = () => {
             message: 'This App needs to Access your location',
           },
         );
+        console.log(granted);
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           resolve('Success');
         } else {
