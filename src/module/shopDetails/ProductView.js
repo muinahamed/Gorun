@@ -21,7 +21,7 @@ import {
 import {addToCart, removeFromCart} from '../../store/slices/orderSlice';
 import {useNavigation} from '@react-navigation/native';
 
-const ProductView = ({item}) => {
+const ProductView = ({item, shopType}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {cart, subTotal} = useSelector(state => state.orders);
@@ -107,72 +107,74 @@ const ProductView = ({item}) => {
           height: 85,
           alignItems: 'flex-end',
         }}>
-        <Animated.View style={[styles.flex, styles.container, widthStyle]}>
-          <Animated.View style={[styles.flex, deleteStyle]}>
+        {!shopType && (
+          <Animated.View style={[styles.flex, styles.container, widthStyle]}>
+            <Animated.View style={[styles.flex, deleteStyle]}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (expand && count > 0) {
+                    dispatch(removeFromCart(removeFromCartHelper(cart, item)));
+                  }
+                  if (count == 1) {
+                    totalWidth.value = withTiming(36);
+                    return;
+                  }
+                  takeActionAfterSomeTime();
+                }}
+                style={styles.plus}>
+                {count == 1 ? (
+                  <DELETE width={13} height={13} />
+                ) : (
+                  <MINUS stroke={RED} fill={RED} />
+                )}
+              </TouchableOpacity>
+
+              <View
+                style={{
+                  width: 21,
+                }}>
+                <MText
+                  size={small}
+                  fontType={interRegular}
+                  color={RED}
+                  style={{
+                    fontWeight: '600',
+                    textAlign: 'center',
+                  }}>
+                  {count}
+                </MText>
+              </View>
+            </Animated.View>
+
             <TouchableOpacity
+              style={[styles.plus]}
               onPress={() => {
-                if (expand && count > 0) {
-                  dispatch(removeFromCart(removeFromCartHelper(cart, item)));
+                if (expand || (!expand && count == 0)) {
+                  dispatch(addToCart(addToCartHelper(cart, item)));
                 }
-                if (count == 1) {
-                  totalWidth.value = withTiming(36);
-                  return;
-                }
+                totalWidth.value = withTiming(92);
+                setExpand(true);
                 takeActionAfterSomeTime();
-              }}
-              style={styles.plus}>
-              {count == 1 ? (
-                <DELETE width={13} height={13} />
-              ) : (
-                <MINUS stroke={RED} fill={RED} />
+              }}>
+              <PLUSBOLD stroke={RED} fill={RED} />
+
+              {!expand && count > 0 && (
+                <MText
+                  size={small}
+                  fontType={interRegular}
+                  color={RED}
+                  style={{
+                    fontWeight: '600',
+                    textAlign: 'center',
+                    position: 'absolute',
+                    backgroundColor: 'white',
+                  }}>
+                  {count}
+                </MText>
               )}
             </TouchableOpacity>
-
-            <View
-              style={{
-                width: 21,
-              }}>
-              <MText
-                size={small}
-                fontType={interRegular}
-                color={RED}
-                style={{
-                  fontWeight: '600',
-                  textAlign: 'center',
-                }}>
-                {count}
-              </MText>
-            </View>
           </Animated.View>
-
-          <TouchableOpacity
-            style={[styles.plus]}
-            onPress={() => {
-              if (expand || (!expand && count == 0)) {
-                dispatch(addToCart(addToCartHelper(cart, item)));
-              }
-              totalWidth.value = withTiming(92);
-              setExpand(true);
-              takeActionAfterSomeTime();
-            }}>
-            <PLUSBOLD stroke={RED} fill={RED} />
-
-            {!expand && count > 0 && (
-              <MText
-                size={small}
-                fontType={interRegular}
-                color={RED}
-                style={{
-                  fontWeight: '600',
-                  textAlign: 'center',
-                  position: 'absolute',
-                  backgroundColor: 'white',
-                }}>
-                {count}
-              </MText>
-            )}
-          </TouchableOpacity>
-        </Animated.View>
+        )}
       </ImageBackgroundLazy>
     </TouchableOpacity>
   );

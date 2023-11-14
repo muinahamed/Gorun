@@ -16,8 +16,7 @@ const RestaurantDetailsHeader = ({scrollY}) => {
   let Item = ({Image, marginLeft}) => {
     return (
       <TouchableOpacity
-        disabled={user?.shopType}
-        onPress={() => navigation.navigate('home')}
+        onPress={() => !user?.shopType && navigation.navigate('home')}
         style={[styles.round, {marginLeft, opacity: user?.shopType ? 0 : 1}]}>
         {Image}
       </TouchableOpacity>

@@ -273,6 +273,7 @@ const AddShopProduct = ({setModalVisible, allCategories}) => {
               pointerEvents={'none'}
               errorMessage={categoryErrMsg}
             />
+            <View style={[StyleSheet.absoluteFill]} />
           </TouchableOpacity>
 
           <MaterialTextInput

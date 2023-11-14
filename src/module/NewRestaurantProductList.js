@@ -7,7 +7,6 @@ import {LITE_BLACK} from '../utils/Color';
 import ProductView from './shopDetails/ProductView';
 
 const NewRestaurantProductList = ({
-  filterData,
   categoryItems,
   setTitleHeight,
   details,
@@ -52,12 +51,13 @@ const NewRestaurantProductList = ({
           <LineBreak margin={20} />
         </View>
       )}
-      renderItem={({item, index}) => {
+      renderItem={({item}) => {
         return (
           <ProductView
             item={item}
             shopId={details?._id}
             shopMaxDiscount={details?.maxDiscount}
+            shopType={details?.shopType}
           />
         );
       }}
@@ -73,5 +73,3 @@ const NewRestaurantProductList = ({
 };
 
 export default NewRestaurantProductList;
-
-const styles = StyleSheet.create({});
