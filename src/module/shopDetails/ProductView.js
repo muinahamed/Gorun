@@ -21,11 +21,13 @@ import {
 import {addToCart, removeFromCart} from '../../store/slices/orderSlice';
 import {useNavigation} from '@react-navigation/native';
 
-const ProductView = ({item, shopType}) => {
+const ProductView = ({item}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {user} = useSelector(state => state.app);
   const {cart, subTotal} = useSelector(state => state.orders);
   const [expand, setExpand] = useState(false);
+  let shopType = user?.shopType;
   const timer = useRef();
   const totalWidth = useSharedValue(36);
 
@@ -62,6 +64,7 @@ const ProductView = ({item, shopType}) => {
 
   return (
     <TouchableOpacity
+      disabled={shopType ? true : false}
       onPress={() =>
         navigation.navigate('productDetails', {productDetails: item})
       }

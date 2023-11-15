@@ -17,7 +17,6 @@ const HeaderAnimated = ({
   startAnim,
   horizontal,
   scrollY,
-
   horizotalRef,
   verticalRef,
 }) => {
