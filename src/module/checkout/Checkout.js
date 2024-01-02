@@ -1,5 +1,5 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import Header from '../../common/Header';
 import ButlerCard from '../../common/ButlerCard';
@@ -11,13 +11,11 @@ import {interRegular} from '../../common/MText';
 import {windowWidth} from '../../utils/Measure';
 import CartItem from '../../common/CartItem';
 import {placeOrder} from './Helper';
-import {GET_ALL_ADDRESS} from '../../service/ApiEndPoint';
-import API from '../../service/API';
 
 const Checkout = ({navigation}) => {
   const {cart} = useSelector(state => state.orders);
   const {activeLocation} = useSelector(state => state.app);
-  const [addressList, setAddressList] = useState([]);
+
   const selected = activeLocation?.selected;
 
   const subTotal = () => {
@@ -27,6 +25,7 @@ const Checkout = ({navigation}) => {
     });
     return count;
   };
+
   return (
     <ScreenWrapper>
       <Header title="Checkout" />

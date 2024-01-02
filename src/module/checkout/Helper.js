@@ -1,5 +1,5 @@
 import API from '../../service/API';
-import {PLACED_ORDER} from '../../service/ApiEndPoint';
+import {PLACED_ORDER, PLACE_ORDER_WITH_SSL} from '../../service/ApiEndPoint';
 
 export const placeOrder = async (cart, selected, navigation) => {
   let items = [];
@@ -36,15 +36,23 @@ export const placeOrder = async (cart, selected, navigation) => {
       deliveryCharge: 10,
       totalAmount: subTotal() + 10,
       vat: 0,
-      wallet: 0,
-      card: 0,
+      online: 0,
       cash: subTotal() + 10,
     },
-    paymentMethod: 'cash', // "cash", "card", "wallet"
+    paymentMethod: 'online', // "cash", "card", "wallet"
     specialInstruction: '',
   };
+
   console.log(json);
-  let response = await API.post(PLACED_ORDER, json);
-  navigation?.navigate('OrderConfirmation', {orderData: response?.data?.order});
-  console.log(response);
+
+  if (false) {
+    let response = await API.post(PLACE_ORDER_WITH_SSL, json);
+    console.log(response);
+  } else {
+    let response = await API.post(PLACED_ORDER, json);
+    navigation?.navigate('OrderConfirmation', {
+      orderData: response?.data?.order,
+    });
+    console.log(response);
+  }
 };

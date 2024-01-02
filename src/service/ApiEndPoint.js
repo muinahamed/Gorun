@@ -42,4 +42,6 @@ export const DELETE_ADDRESS = BASE_URL + `app/user/address/delete`;
 
 export const PLACED_ORDER = BASE_URL + `app/user/order/place-order`;
 
+export const PLACE_ORDER_WITH_SSL = BASE_URL + `app/user/order/place-order-ssl`;
+
 export const CATEGORY_WISE_SHOP = BASE_URL + `app/user/shop/type-wise`;
