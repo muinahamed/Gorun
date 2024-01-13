@@ -1,6 +1,12 @@
 import {Image, StyleSheet, View} from 'react-native';
 import React from 'react';
-import MText, {interRegular, medium, semiMedium} from './MText';
+import MText, {
+  extraSmall,
+  interRegular,
+  medium,
+  semiMedium,
+  small,
+} from './MText';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {LITE_BLACK, RED} from '../utils/Color';
@@ -19,7 +25,8 @@ const ShopHorizontalListChild = ({item, index}) => {
         style={styles.image}
         resizeMethod={'scale'}
         imageStyle={{borderRadius: 7}}
-        source={{uri: item?.image}}></Image>
+        source={{uri: item?.image}}
+      />
 
       <View style={styles.content}>
         <MText
@@ -28,14 +35,14 @@ const ShopHorizontalListChild = ({item, index}) => {
           numberOfLines={1}
           color={LITE_BLACK}
           style={{
-            fontWeight: '500',
+            fontWeight: '700',
             flex: 1,
           }}>
           {item?.name}
           {index}
         </MText>
         <MText
-          size={semiMedium}
+          size={extraSmall}
           fontType={interRegular}
           numberOfLines={1}
           color={'#323736'}
@@ -44,6 +51,17 @@ const ShopHorizontalListChild = ({item, index}) => {
             flex: 1,
           }}>
           {item?.shopAddress?.address}
+        </MText>
+        <MText
+          size={extraSmall}
+          fontType={interRegular}
+          numberOfLines={1}
+          color={'#323736'}
+          style={{
+            fontWeight: '400',
+            flex: 1,
+          }}>
+          $20
         </MText>
       </View>
     </TouchableOpacity>
@@ -59,7 +77,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   }),
   image: {
-    width: (windowWidth - 45) / 2,
+    width: (windowWidth - 45) / 1.5,
     height: 137,
     borderRadius: 7,
     resizeMode: 'cover',

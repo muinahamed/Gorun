@@ -19,7 +19,7 @@ const ShopHorizontalList = ({title, data, type, category}) => {
           fontType={interRegular}
           color={LITE_BLACK}
           style={{
-            fontWeight: '500',
+            fontWeight: '700',
             lineHeight: 19,
             paddingTop: 5,
           }}>

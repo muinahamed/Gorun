@@ -36,18 +36,21 @@ export const placeOrder = async (cart, selected, navigation) => {
       deliveryCharge: 10,
       totalAmount: subTotal() + 10,
       vat: 0,
-      online: 0,
-      cash: subTotal() + 10,
+      online: subTotal() + 10,
+      cash: 0,
     },
     paymentMethod: 'online', // "cash", "card", "wallet"
     specialInstruction: '',
   };
 
-  console.log(json);
+  // console.log(json);
 
-  if (false) {
-    let response = await API.post(PLACE_ORDER_WITH_SSL, json);
-    console.log(response);
+  if (true) {
+    return new Promise(async (resolve, reject) => {
+      let response = await API.post(PLACE_ORDER_WITH_SSL, json);
+      console.log(response);
+      resolve(response);
+    });
   } else {
     let response = await API.post(PLACED_ORDER, json);
     navigation?.navigate('OrderConfirmation', {

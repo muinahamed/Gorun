@@ -21,6 +21,12 @@ export const ADD_PRODUCT_TO_SHOP = `${BASE_URL}app/shop/product/add`;
 export const GET_SHOP_ALL_CATEGORIES =
   BASE_URL + `app/shop/category?page=1&pageSize=50`;
 
+export const GET_CATEGORY_WISE_PRODUCT =
+  BASE_URL + `app/user/shop/type-wise?page=1&pageSize=3&`;
+
+export const GET_SINGLE_ORDER_DETAILS =
+  BASE_URL + `app/user/order/single?orderId=`;
+
 export const GET_ALL_SHOP_LIST = BASE_URL + `app/user/shop?page=1&pageSize=50`;
 
 export const GET_PRODUCT_BY_SHOP =
@@ -45,3 +51,5 @@ export const PLACED_ORDER = BASE_URL + `app/user/order/place-order`;
 export const PLACE_ORDER_WITH_SSL = BASE_URL + `app/user/order/place-order-ssl`;
 
 export const CATEGORY_WISE_SHOP = BASE_URL + `app/user/shop/type-wise`;
+
+// http://192.168.0.183:5001/

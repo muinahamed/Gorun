@@ -4,6 +4,7 @@ import FULL_CIRCLE from '../../image/svg/circleFull.svg';
 import HALF_CIRCLE from '../../image/svg/circleHalf.svg';
 import {windowWidth} from '../../utils/Measure';
 import {banner} from '../../utils/Dummy';
+import {GRAY_300, GRAY_700} from '../../utils/Color';
 
 const HomeScreenBanner = ({}) => {
   const [active, setActive] = useState(0);
@@ -13,15 +14,14 @@ const HomeScreenBanner = ({}) => {
       <Pressable
         onPress={() => {}}
         style={{
-          height: 180,
           borderRadius: 8,
-          marginHorizontal: 15,
+          marginLeft: 10,
         }}>
         <Image
           source={item.image}
           style={{
-            width: windowWidth - 30,
-            height: 180,
+            width: windowWidth / 1.5,
+            height: 120,
             borderRadius: 8,
           }}
           resizeMode="cover"
@@ -33,7 +33,11 @@ const HomeScreenBanner = ({}) => {
   const renderItems = ({item, index}) => {
     return (
       <View style={{marginHorizontal: 2.5}}>
-        {active == index ? <FULL_CIRCLE /> : <HALF_CIRCLE />}
+        {active == index ? (
+          <View style={styles.inactive} />
+        ) : (
+          <View style={styles.active} />
+        )}
       </View>
     );
   };
@@ -42,9 +46,8 @@ const HomeScreenBanner = ({}) => {
     <View style={styles.container}>
       <FlatList
         data={banner}
-        pagingEnabled
         horizontal
-        contentContainerStyle={{}}
+        contentContainerStyle={{paddingRight: 10}}
         onMomentumScrollEnd={e =>
           setActive(Math.round(e.nativeEvent.contentOffset.x / windowWidth))
         }
@@ -77,10 +80,14 @@ const styles = StyleSheet.create({
     height: 165,
   },
   indicator: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 6,
     alignItems: 'center',
+    marginVertical: 10,
   },
+  inactive: {
+    width: 6,
+    height: 6,
+    borderRadius: 20,
+    backgroundColor: GRAY_300,
+  },
+  active: {width: 6, height: 6, borderRadius: 20, backgroundColor: GRAY_700},
 });

@@ -22,6 +22,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 import ARROW from '../../image/svg/arrowDown.svg';
+import LazyImage from '../../common/LazyImage';
 const categoryType = [
   {Image: RADIO_ON, name: 'All', active: true, slug: 'both'},
   {Image: RADIO_OFF, name: 'Virtual shop', active: false, slug: 'online'},
@@ -132,8 +133,10 @@ const HomeTopCategories = ({category}) => {
                   alignItems: 'center',
                   zIndex: 10,
                 }}>
-                <FOOD fill={'#363636'} width={60} height={60} />
-
+                <LazyImage
+                  source={{uri: item?.image}}
+                  style={{height: 60, width: 60, borderRadius: 10}}
+                />
                 <MText
                   size={semiMedium}
                   fontType={interRegular}

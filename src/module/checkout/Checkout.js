@@ -1,4 +1,10 @@
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {
+  Linking,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import Header from '../../common/Header';
@@ -11,10 +17,12 @@ import {interRegular} from '../../common/MText';
 import {windowWidth} from '../../utils/Measure';
 import CartItem from '../../common/CartItem';
 import {placeOrder} from './Helper';
+import WebView from 'react-native-webview';
 
 const Checkout = ({navigation}) => {
   const {cart} = useSelector(state => state.orders);
   const {activeLocation} = useSelector(state => state.app);
+  const [sslWeb, setSslWeb] = useState(false);
 
   const selected = activeLocation?.selected;
 
@@ -25,6 +33,39 @@ const Checkout = ({navigation}) => {
     });
     return count;
   };
+
+  const placeOrderFunction = async () => {
+    let res = await placeOrder(cart, selected, navigation);
+    // console.log(res, 'muin');
+    setSslWeb(res?.url);
+    // await Linking.openURL(res?.url);
+  };
+
+  const handleNavigationStateChange = event => {
+    // Check the URL to determine if the payment was successful
+    if (event.url.includes('payment-success')) {
+      setSslWeb();
+      navigation?.navigate('OrderConfirmation', {
+        orderData: {},
+        orderId: url?.split('=')[1],
+      });
+    } else if (event.url.includes('payment-failure')) {
+      console.log('muin opol');
+    }
+  };
+
+  let url =
+    'https://gorun.onrender.com/app/user/order/ssl-payment-success?orderId=65a289be259484aae0b2d60e';
+
+  if (sslWeb)
+    return (
+      <SafeAreaView style={{flex: 1}}>
+        <WebView
+          source={{uri: sslWeb}}
+          onNavigationStateChange={handleNavigationStateChange}
+        />
+      </SafeAreaView>
+    );
 
   return (
     <ScreenWrapper>
@@ -70,7 +111,7 @@ const Checkout = ({navigation}) => {
         borderRadius={10}
         fontFamily={interRegular}
         fontWeight={'600'}
-        onPress={() => placeOrder(cart, selected, navigation)}
+        onPress={() => placeOrderFunction()}
         paddingVertical={7}
         width={windowWidth - 30}
       />
