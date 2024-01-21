@@ -56,11 +56,6 @@ const HomeSearch = () => {
             </View>
           </View>
         </View>
-
-        <TouchableOpacity style={[styles.filterFlex, {paddingRight: 12}]}>
-          <View style={styles.divide} />
-          <FILTER />
-        </TouchableOpacity>
       </TouchableOpacity>
     </Animated.View>
   );

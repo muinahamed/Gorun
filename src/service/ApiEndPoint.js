@@ -27,7 +27,7 @@ export const GET_CATEGORY_WISE_PRODUCT =
 export const GET_SINGLE_ORDER_DETAILS =
   BASE_URL + `app/user/order/single?orderId=`;
 
-export const GET_ALL_SHOP_LIST = BASE_URL + `app/user/shop?page=1&pageSize=50`;
+export const GET_ALL_SHOP_LIST = BASE_URL + `app/user/shop?`;
 
 export const GET_SHOP = BASE_URL + `app/user/shop?`;
 

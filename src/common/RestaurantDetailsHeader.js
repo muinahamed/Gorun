@@ -8,8 +8,9 @@ import {LITE_BLACK, RED, WHITE} from '../utils/Color';
 import MText, {interRegular, semiMedium} from './MText';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import MakeLove from './MakeLove';
 
-const RestaurantDetailsHeader = ({scrollY}) => {
+const RestaurantDetailsHeader = ({scrollY, details}) => {
   const navigation = useNavigation();
   const {user} = useSelector(state => state.app);
 
@@ -26,7 +27,7 @@ const RestaurantDetailsHeader = ({scrollY}) => {
   return (
     <View style={styles.flex(height, scrollY)}>
       <Item Image={<ARROW stroke={LITE_BLACK} />} />
-      <View style={styles.childFlex}></View>
+
       <Animated.View
         style={[
           StyleSheet.absoluteFill,
@@ -62,7 +63,21 @@ const RestaurantDetailsHeader = ({scrollY}) => {
             </MText>
           </Animated.View>
         </View>
+        <View>
+          <MakeLove
+            baseStyleDisbale={true}
+            redHeart={true}
+            item={details}
+            style={[styles.round, {opacity: user?.shopType ? 0 : 1}]}
+          />
+        </View>
       </Animated.View>
+
+      <MakeLove
+        baseStyleDisbale={true}
+        item={details}
+        style={[styles.round, {opacity: user?.shopType ? 0 : 1}]}
+      />
     </View>
   );
 };

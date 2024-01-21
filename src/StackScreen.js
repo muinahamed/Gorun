@@ -56,11 +56,7 @@ const StackScreen = () => {
         component={Home}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="categoryDetails"
-        component={CategoryDetails}
-        options={{headerShown: false}}
-      />
+      <Stack.Screen name="categoryDetails" component={CategoryDetails} />
       <Stack.Screen name="more" component={More} />
       <Stack.Screen
         name="myProfile"

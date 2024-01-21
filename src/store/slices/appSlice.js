@@ -30,6 +30,7 @@ export const appSlice = createSlice({
     addressList: [],
     selectedAddress: {},
     activeLocation: {},
+    favouriteShop: [],
   },
   reducers: {
     setConfirmation: (state, action) => {
@@ -50,6 +51,9 @@ export const appSlice = createSlice({
     setSelectAddress: (state, action) => {
       state.selectedAddress = action.payload;
     },
+    setFavouriteShop: (state, action) => {
+      state.favouriteShop = action.payload;
+    },
     setActiveLocation: (state, action) => {
       state.activeLocation = action.payload;
     },
@@ -64,6 +68,7 @@ export const {
   setAddressList,
   setSelectAddress,
   setActiveLocation,
+  setFavouriteShop,
 } = appSlice.actions;
 
 export default appSlice.reducer;

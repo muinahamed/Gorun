@@ -29,7 +29,7 @@ const ProductDetailsHeader = () => {
         onPress={() => navigation.goBack()}
         Image={<ARROW stroke={LITE_BLACK} />}
       />
-      <View style={styles.childFlex}>
+      {/* <View style={styles.childFlex}>
         <Item
           onPress={() => {}}
           Image={<SHARE stroke={LITE_BLACK} />}
@@ -40,7 +40,7 @@ const ProductDetailsHeader = () => {
           Image={<HEART stroke={LITE_BLACK} fill={WHITE} />}
           marginLeft={10}
         />
-      </View>
+      </View> */}
     </View>
   );
 };

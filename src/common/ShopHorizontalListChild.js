@@ -11,6 +11,7 @@ import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {LITE_BLACK, RED} from '../utils/Color';
 import {windowWidth} from '../utils/Measure';
+import MakeLove from './MakeLove';
 
 const ShopHorizontalListChild = ({item, index}) => {
   const navigation = useNavigation();
@@ -27,6 +28,8 @@ const ShopHorizontalListChild = ({item, index}) => {
         imageStyle={{borderRadius: 7}}
         source={{uri: item?.image}}
       />
+
+      <MakeLove item={item} />
 
       <View style={styles.content}>
         <MText
