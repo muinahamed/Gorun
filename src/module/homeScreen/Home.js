@@ -16,6 +16,8 @@ import {
   GET_ALL_SHOP_LIST,
   GET_ALL_SHOP_TYPE,
   GET_CATEGORY_WISE_PRODUCT,
+  GET_FEATURED_SHOP,
+  GET_SHOP,
 } from '../../service/ApiEndPoint';
 import HomeSearch from './HomeSearch';
 import {PRIMARY_COLOR, WHITE} from '../../utils/Color';
@@ -33,21 +35,11 @@ const Home = () => {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {activeLocation} = useSelector(state => state.app);
-  const [shop, setShop] = useState();
+  const [featuredShop, setFeaturedShop] = useState();
   const [category, setCategory] = useState();
   const [selectLocation, setSelectLocation] = useState(false);
   const [categoryWiseShop, setCategoryWiseShop] = useState();
   const refRBSheet = useRef();
-
-  let getAllShop = async () => {
-    let res = await API.get(GET_ALL_SHOP_LIST);
-    setShop(res?.data);
-  };
-
-  let getCategory = async () => {
-    let res = await API.get(GET_ALL_SHOP_TYPE);
-    setCategory(res?.data?.shopTypes);
-  };
 
   const onRefresh = async newLonLat => {
     requestLocationPermission()
@@ -61,24 +53,39 @@ const Home = () => {
       .catch(e => refRBSheet.current.open());
   };
 
+  let getCategory = async () => {
+    let res = await API.get(GET_ALL_SHOP_TYPE);
+    setCategory(res?.data?.shopTypes);
+  };
+
+  let getFeaturedShop = async () => {
+    let res = await API.get(
+      GET_SHOP +
+        `isFeatured=true&latitude=23.780702292166644&longitude=90.40941180206971&page=1&pageSize=5`,
+    );
+
+    setFeaturedShop(res?.data);
+  };
+
   const getCategoryWWiseShop = async () => {
     let response = await API.get(
       GET_CATEGORY_WISE_PRODUCT +
         `latitude=23.780702292166644&longitude=90.40941180206971`,
     );
+
     if (response?.status) {
       setCategoryWiseShop(response?.data?.typeWiseShops);
     }
   };
 
   useEffect(() => {
-    getCategoryWWiseShop();
     onRefresh();
-    getAllShop();
     getCategory();
+    getFeaturedShop();
+    getCategoryWWiseShop();
   }, []);
 
-  console.log(categoryWiseShop);
+  // console.log(categoryWiseShop);
 
   return (
     <View style={{flex: 1, backgroundColor: WHITE}}>
@@ -99,9 +106,9 @@ const Home = () => {
                 <HomeScreenBanner />
                 <LineBreak height={4} />
                 <ShopHorizontalList
-                  type={'Featured'}
+                  type={'Featured Shop'}
                   title={'Featured Shop'}
-                  data={shop?.shops}
+                  data={featuredShop?.shops}
                 />
 
                 {categoryWiseShop &&
@@ -110,6 +117,7 @@ const Home = () => {
                       <ShopHorizontalList
                         key={index}
                         type={item?.shopType?.name}
+                        shopTypeId={item?.shopType?._id}
                         title={item?.shopType?.name}
                         data={item?.shops}
                       />

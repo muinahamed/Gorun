@@ -12,15 +12,17 @@ import {
 } from '../../service/ApiEndPoint';
 import PLUS from '../../image/svg/addCard.svg';
 import AddAddressModal from './AddAddressModal';
+import LoaderIndicator from '../../common/LoaderIndicator';
 
 const MyAddress = () => {
   const [addressList, setAddressList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [editObj, setEditObj] = useState({});
   const [addressModal, setAddressModal] = useState(false);
 
   let getAddress = async () => {
     let response = await API(GET_ALL_ADDRESS);
+    setLoading(false);
     setAddressList(response?.data?.userAddresses);
   };
 
@@ -61,14 +63,16 @@ const MyAddress = () => {
           setEditObj({});
         }}
       />
-      <FlatList
-        data={addressList}
-        renderItem={renderItem}
-        ListEmptyComponent={() =>
-          !loading ? <Empty msg={'No Address available!'} /> : null
-        }
-        keyExtractor={(item, index) => index}
-      />
+      {loading ? (
+        <LoaderIndicator loading={true} backColor={'rgba(0,0,0,0)'} />
+      ) : (
+        <FlatList
+          data={addressList}
+          renderItem={renderItem}
+          ListEmptyComponent={<Empty msg={'No Address available!'} />}
+          keyExtractor={(item, index) => index}
+        />
+      )}
       <AddAddressModal
         addressModal={addressModal}
         setAddressModal={setAddressModal}

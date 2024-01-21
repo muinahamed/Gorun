@@ -22,12 +22,14 @@ export const GET_SHOP_ALL_CATEGORIES =
   BASE_URL + `app/shop/category?page=1&pageSize=50`;
 
 export const GET_CATEGORY_WISE_PRODUCT =
-  BASE_URL + `app/user/shop/type-wise?page=1&pageSize=3&`;
+  BASE_URL + `app/user/shop/type-wise?page=1&pageSize=5&`;
 
 export const GET_SINGLE_ORDER_DETAILS =
   BASE_URL + `app/user/order/single?orderId=`;
 
 export const GET_ALL_SHOP_LIST = BASE_URL + `app/user/shop?page=1&pageSize=50`;
+
+export const GET_SHOP = BASE_URL + `app/user/shop?`;
 
 export const GET_PRODUCT_BY_SHOP =
   BASE_URL + `app/user/product?page=1&pageSize=50&shopId=`;

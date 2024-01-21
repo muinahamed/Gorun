@@ -8,13 +8,14 @@ import {
 import React from 'react';
 import MText, {interRegular, medium, small} from '../../common/MText';
 import {CYAN_GRAY, LITE_BLACK, WHITE} from '../../utils/Color';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PEN from '../../image/svg/pen.svg';
 import HOME from '../../image/svg/home.svg';
 import SwipeAbleDeleteWithIcon from '../../common/SwipeAbleDeleteWithIcon';
 import {useNavigation} from '@react-navigation/native';
 import {DELETE_ADDRESS} from '../../service/ApiEndPoint';
 import API from '../../service/API';
+import {setActiveLocation} from '../../store/slices/appSlice';
 
 const MyAddressNewChild = ({
   item,
@@ -23,6 +24,9 @@ const MyAddressNewChild = ({
   setEditObj,
   setAddressModal,
 }) => {
+  const dispatch = useDispatch();
+  const {activeLocation} = useSelector(state => state.app);
+
   const deleteAddressFinal = async id => {
     let data = {
       addressId: id,
@@ -52,7 +56,9 @@ const MyAddressNewChild = ({
     ]);
   };
 
-  const getSelected = async () => {};
+  const getSelected = async () => {
+    dispatch(setActiveLocation({...activeLocation, selected: item}));
+  };
 
   return (
     <View style={styles.container}>
@@ -62,7 +68,9 @@ const MyAddressNewChild = ({
             deleteItem(item?._id);
           }}>
           <Pressable onPress={() => getSelected(item)} style={[styles.item]}>
-            {true && <View style={styles.select} />}
+            {activeLocation?.selected?._id == item?._id && (
+              <View style={styles.select} />
+            )}
             <HOME />
             <View style={{flex: 1, marginHorizontal: 10}}>
               <MText

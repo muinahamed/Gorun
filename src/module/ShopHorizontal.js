@@ -1,19 +1,23 @@
 import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import MText, {interRegular, large} from '../common/MText';
+import MText, {interRegular, large, semiSmall, small} from '../common/MText';
 
 import {useNavigation} from '@react-navigation/native';
-import {LITE_BLACK} from '../utils/Color';
+import {CYAN_GRAY, LITE_BLACK} from '../utils/Color';
 import ShopHorizontalListChild from '../common/ShopHorizontalListChild';
+import ARROW from '../image/svg/arrow.svg';
 
-const ShopHorizontalList = ({title, data, type, category}) => {
+const ShopHorizontalList = ({title, data, type, shopTypeId}) => {
+  const navigation = useNavigation();
   const renderItem = ({item, index}) => (
     <ShopHorizontalListChild item={item} index={index} />
   );
 
   return (
     <View>
-      <TouchableOpacity style={styles.header} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.header}
+        onPress={() => navigation.navigate('viewAll', {type, shopTypeId})}>
         <MText
           size={large}
           fontType={interRegular}
@@ -25,6 +29,18 @@ const ShopHorizontalList = ({title, data, type, category}) => {
           }}>
           {title}
         </MText>
+        <View style={styles.flex}>
+          <MText
+            size={semiSmall}
+            fontType={interRegular}
+            color={CYAN_GRAY}
+            style={{
+              fontWeight: '700',
+            }}>
+            See All{`  `}
+          </MText>
+          <ARROW style={styles.rotate} stroke={CYAN_GRAY} />
+        </View>
       </TouchableOpacity>
 
       <FlatList
@@ -49,7 +65,11 @@ const styles = StyleSheet.create({
     marginTop: 25,
     paddingVertical: 3,
   },
+  flex: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   rotate: {
-    transform: [{rotate: '-90deg'}],
+    transform: [{rotate: '180deg'}],
   },
 });
