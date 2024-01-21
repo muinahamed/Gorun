@@ -54,7 +54,7 @@ const HomeHeader = ({locationPress}) => {
               lineHeight: 18,
               marginLeft: 5,
             }}>
-            GoRun
+            Gorun
           </MText>
         </View>
         <TouchableOpacity

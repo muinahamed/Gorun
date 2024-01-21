@@ -9,7 +9,13 @@ import {
 import MText, {interRegular, semiMedium, semiSmall} from '../../common/MText';
 import FOOD from '../../image/svg/home/food.svg';
 import {useNavigation} from '@react-navigation/native';
-import {LITE_BLACK, PRIMARY_COLOR, WHITE} from '../../utils/Color';
+import {
+  CYAN_GRAY,
+  GRAY_100,
+  LITE_BLACK,
+  PRIMARY_COLOR,
+  WHITE,
+} from '../../utils/Color';
 import {windowWidth} from '../../utils/Measure';
 import RADIO_ON from '../../image/svg/radioOn.svg';
 import RADIO_OFF from '../../image/svg/radioOff.svg';
@@ -133,10 +139,17 @@ const HomeTopCategories = ({category}) => {
                   alignItems: 'center',
                   zIndex: 10,
                 }}>
-                <LazyImage
-                  source={{uri: item?.image}}
-                  style={{height: 60, width: 60, borderRadius: 10}}
-                />
+                <View
+                  style={{
+                    backgroundColor: GRAY_100,
+                    borderRadius: 10,
+                    padding: 2,
+                  }}>
+                  <LazyImage
+                    source={{uri: item?.image}}
+                    style={{height: 60, width: 60, borderRadius: 10}}
+                  />
+                </View>
                 <MText
                   size={semiMedium}
                   fontType={interRegular}
