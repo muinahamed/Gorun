@@ -14,7 +14,9 @@ const ShopListViewLarge = ({item}) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => {}} style={styles.container}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('shopDetails', {shopDetails: item})}
+      style={styles.container}>
       <ImageBackgroundLazy
         style={styles.image}
         resizeMethod={'scale'}

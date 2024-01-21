@@ -11,13 +11,13 @@ import {
   LITE_PENDING_YELLOW,
   WHITE,
 } from '../../utils/Color';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {parseDate} from '../../utils/BaseUtils';
 
 const UpcomingOrderChild = ({item}) => {
-  const route = useRoute();
+  const navigation = useNavigation();
 
   const totalItem = () => {
     let result = 0;
@@ -44,17 +44,10 @@ const UpcomingOrderChild = ({item}) => {
   );
 
   let goTo = () => {
-    // if (type == 'support') {
-    //   navigation.navigate('GetSupportReason', {
-    //     type: 'orderSupport',
-    //     orderData: item,
-    //   });
-    //   return;
-    // }
-    // navigation.navigate('OrderConfirmation', {
-    //   orderData: item,
-    //   from: 'My Orders',
-    // });
+    navigation.navigate('OrderConfirmation', {
+      orderData: item,
+      from: 'My Orders',
+    });
   };
 
   return (
