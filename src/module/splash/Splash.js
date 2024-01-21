@@ -1,15 +1,16 @@
-import {Animated, Image, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import {Animated, Image, Platform, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-import {LOGO} from '../../image/PicturePath';
-import {WHITE} from '../../utils/Color';
+import {LOGO, startingVideo} from '../../image/PicturePath';
+import {RED, WHITE} from '../../utils/Color';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import Video from 'react-native-video';
+import {windowWidth} from '../../utils/Measure';
 
 const Splash = () => {
   const navigation = useNavigation();
   const {user} = useSelector(state => state.app);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   let checkLogin = () => {
     if (user) {
@@ -38,37 +39,15 @@ const Splash = () => {
     mAuth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
   };
 
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 4,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start(() => checkLogin());
-  }, []);
-
   return (
     <View
-      style={{
-        flex: 1,
-        backgroundColor: WHITE,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Animated.Image
-        source={LOGO}
-        style={[
-          styles.logo,
-          {
-            transform: [
-              {
-                scale: fadeAnim.interpolate({
-                  inputRange: [0, 1, 4],
-                  outputRange: [0.7, 0.6, 1],
-                }),
-              },
-            ],
-          },
-        ]}
+      style={styles.container}
+      onLayout={e => console.log(e.nativeEvent.layout)}>
+      <Video
+        source={startingVideo}
+        style={styles.backgroundVideo}
+        resizeMode="cover"
+        onEnd={checkLogin}
       />
     </View>
   );
@@ -77,8 +56,14 @@ const Splash = () => {
 export default Splash;
 
 const styles = StyleSheet.create({
-  logo: {
-    width: 200,
-    height: 200,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: WHITE,
+  },
+  backgroundVideo: {
+    width: windowWidth,
+    height: 0.5625 * windowWidth,
   },
 });

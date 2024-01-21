@@ -19,3 +19,5 @@ export const LOCATION_TRACER = require('./picture/locationTracker.png');
 
 export const USER_PIN = require('./picture/userPin.png');
 export const FOOD = require('./picture/restaurant.png');
+
+export const startingVideo = require('../video/startingAnimation.mp4');
