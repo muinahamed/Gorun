@@ -21,6 +21,7 @@ import MyAddress from './module/myAddress/MyAddress';
 import OrderConfirmation from './module/orderConfirmation/OrderConfirmation';
 import ViewAll from './module/viewAllShop/ViewAll';
 import MyOrder from './module/myOrder/MyOrder';
+import MyFavourite from './module/favourite/MyFavourite';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -89,27 +90,16 @@ const StackScreen = () => {
         component={ShopRegistration}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="cartScreen"
-        component={CartScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="checkout"
-        component={Checkout}
-        options={{headerShown: false}}
-      />
+      <Stack.Screen name="cartScreen" component={CartScreen} />
+      <Stack.Screen name="checkout" component={Checkout} />
       <Stack.Screen
         name="MyAddress"
         component={MyAddress}
         options={{headerShown: false}}
       />
       <Stack.Screen name="myOrder" component={MyOrder} />
-      <Stack.Screen
-        name="OrderConfirmation"
-        component={OrderConfirmation}
-        options={{headerShown: false}}
-      />
+      <Stack.Screen name="myFavourite" component={MyFavourite} />
+      <Stack.Screen name="OrderConfirmation" component={OrderConfirmation} />
     </Stack.Navigator>
   );
 };

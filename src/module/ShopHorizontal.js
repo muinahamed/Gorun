@@ -49,6 +49,7 @@ const ShopHorizontalList = ({title, data, type, shopTypeId}) => {
         horizontal
         keyExtractor={(item, index) => index}
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{paddingRight: 5}}
       />
     </View>
   );

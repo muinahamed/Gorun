@@ -8,6 +8,7 @@ import ImageBackgroundLazy from './ImageBackgroundLazy';
 import {windowWidth} from '../utils/Measure';
 import MText, {interRegular, medium, semiMedium} from './MText';
 import Location from '../image/svg/location.svg';
+import MakeLove from './MakeLove';
 
 const ShopListViewLarge = ({item}) => {
   const navigation = useNavigation();
@@ -29,6 +30,8 @@ const ShopListViewLarge = ({item}) => {
           </View>
         </LinearGradient>
       </ImageBackgroundLazy>
+
+      <MakeLove item={item} />
 
       <View style={{flex: 1, marginTop: 10}}>
         <MText

@@ -1,18 +1,17 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import ScreenWrapper from '../../common/ScreenWrapper';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
+import React, {useEffect} from 'react';
 import Header from '../../common/Header';
 import {useSelector} from 'react-redux';
 import AppleStyleSwipeableRow from '../../common/AppleStyleSwipeableRow';
 import CartItem from '../../common/CartItem';
 import Summary from '../../common/Summary';
 import {MButton} from '../../common/MButton';
-import {PRIMARY_COLOR, WHITE} from '../../utils/Color';
-import {interRegular} from '../../common/MText';
+import {WHITE} from '../../utils/Color';
 import {windowWidth} from '../../utils/Measure';
 
 const CartScreen = ({navigation}) => {
   const {cart} = useSelector(state => state.orders);
+
   const subTotal = () => {
     let count = 0;
     cart?.map(item => {
@@ -20,10 +19,13 @@ const CartScreen = ({navigation}) => {
     });
     return count;
   };
-  return (
-    <ScreenWrapper>
-      <Header title="My Basket" />
 
+  useEffect(() => {
+    navigation.setOptions({title: 'My Baskets'});
+  }, []);
+
+  return (
+    <View style={styles.container}>
       {cart?.map((item, index) => {
         return (
           <View key={index} style={{marginTop: 16}}>
@@ -44,21 +46,22 @@ const CartScreen = ({navigation}) => {
       <View style={{flex: 1}} />
       <MButton
         title={'Checkout'}
-        color={PRIMARY_COLOR}
-        textColor={WHITE}
         marginTop={10}
         marginBottom={10}
         borderRadius={10}
-        fontFamily={interRegular}
-        fontWeight={'600'}
         onPress={() => navigation.navigate('checkout')}
-        paddingVertical={7}
         width={windowWidth - 30}
       />
-    </ScreenWrapper>
+      <SafeAreaView />
+    </View>
   );
 };
 
 export default CartScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: WHITE,
+  },
+});

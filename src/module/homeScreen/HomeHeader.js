@@ -1,22 +1,33 @@
-import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Animated,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useRef, useState} from 'react';
-import USER from '../../image/svg/user.svg';
 import LOCATION from '../../image/svg/location.svg';
-import MText, {
-  interRegular,
-  medium,
-  semiSmall,
-  small,
-} from '../../common/MText';
-import {PRIMARY_COLOR, RED, WHITE} from '../../utils/Color';
+import MText, {interRegular, semiSmall, small} from '../../common/MText';
+import {
+  BORDER_COLOR,
+  CYAN_GRAY,
+  LITE_BLACK,
+  PRIMARY_COLOR,
+  RED,
+  WHITE,
+} from '../../utils/Color';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import {LOGO} from '../../image/PicturePath';
+import ARROW from '../../image/svg/arrow.svg';
+import Batch from './Batch';
 let show = false;
 
 const HomeHeader = ({locationPress}) => {
   const navigation = useNavigation();
+  const {activeLocation, user} = useSelector(state => state.app);
+  const {selected} = activeLocation;
   const [loading, setLoading] = useState(false);
-  const {user} = useSelector(state => state.app);
   const translate = useRef(new Animated.Value(0)).current;
   const timeOut = useRef();
 
@@ -30,24 +41,20 @@ const HomeHeader = ({locationPress}) => {
   };
 
   return (
-    <View style={[styles.container]}>
-      <TouchableOpacity onPress={() => navigation.navigate('more')}>
-        <USER />
-      </TouchableOpacity>
-
-      <View style={{marginHorizontal: 6, flex: 1}}>
-        <View style={styles.flex}>
+    <>
+      <View style={[styles.container]}>
+        <View style={[styles.flex, {flex: 1}]}>
+          <Image source={LOGO} style={{height: 30, width: 30}} />
           <MText
-            size={medium}
+            size={small}
             fontType={interRegular}
-            color={WHITE}
-            numberOfLines={1}
+            color={LITE_BLACK}
             style={{
-              fontWeight: '400',
-              marginRight: 6,
-              textTransform: 'capitalize',
+              fontWeight: '600',
+              lineHeight: 18,
+              marginLeft: 5,
             }}>
-            {user?.name}
+            GoRun
           </MText>
         </View>
         <TouchableOpacity
@@ -69,6 +76,8 @@ const HomeHeader = ({locationPress}) => {
             backgroundColor: WHITE,
             borderRadius: 30,
             marginTop: 2,
+            borderWidth: 1,
+            borderColor: BORDER_COLOR,
           }}>
           <Animated.View
             style={{
@@ -109,11 +118,30 @@ const HomeHeader = ({locationPress}) => {
             </MText>
           )}
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('more')}>
+          <Image source={{uri: user?.image}} style={styles.profile} />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity style={{padding: 10}} onPress={locationPress}>
-        <LOCATION />
+      <TouchableOpacity
+        onPress={locationPress}
+        style={[styles.flex, {marginHorizontal: 15, marginTop: 8}]}>
+        <LOCATION fill={CYAN_GRAY} />
+        <MText
+          size={small}
+          fontType={interRegular}
+          color={CYAN_GRAY}
+          style={{
+            fontWeight: '600',
+            lineHeight: 18,
+            marginLeft: 5,
+            flex: 1,
+          }}>
+          {selected?.address}
+        </MText>
+        <ARROW stroke={CYAN_GRAY} style={styles.rotation} />
       </TouchableOpacity>
-    </View>
+      <Batch />
+    </>
   );
 };
 
@@ -129,11 +157,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 15,
-    backgroundColor: PRIMARY_COLOR,
-    paddingTop: 2,
-    paddingBottom: 10,
-    borderBottomEndRadius: 5,
-    borderBottomLeftRadius: 5,
+    marginTop: 10,
   },
 
   flex: {
@@ -147,5 +171,14 @@ const styles = StyleSheet.create({
     borderColor: RED,
     borderRadius: 7,
     marginRight: 13,
+  },
+  profile: {
+    width: 28,
+    height: 28,
+    borderRadius: 30,
+    marginLeft: 10,
+  },
+  rotation: {
+    transform: [{rotate: '180deg'}],
   },
 });

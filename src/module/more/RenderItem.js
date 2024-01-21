@@ -32,7 +32,7 @@ const RenderItem = ({item, index}) => {
             // navigation.navigate('PaymentModule');
             break;
           case 6:
-            navigation.navigate('MyFavourite');
+            navigation.navigate('myFavourite');
             break;
           case 7:
             navigation.navigate('InviteFriend');

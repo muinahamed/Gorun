@@ -2,7 +2,7 @@ import {Animated, Image, Platform, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-import {LOGO, startingVideo} from '../../image/PicturePath';
+import {startingVideo} from '../../image/PicturePath';
 import {RED, WHITE} from '../../utils/Color';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import Video from 'react-native-video';

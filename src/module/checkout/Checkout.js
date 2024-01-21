@@ -1,30 +1,28 @@
-import {
-  Linking,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
-import React, {useState} from 'react';
-import ScreenWrapper from '../../common/ScreenWrapper';
-import Header from '../../common/Header';
+import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import ButlerCard from '../../common/ButlerCard';
 import Summary from '../../common/Summary';
 import {useSelector} from 'react-redux';
 import {MButton} from '../../common/MButton';
-import {PRIMARY_COLOR, WHITE} from '../../utils/Color';
-import {interRegular} from '../../common/MText';
+import {WHITE} from '../../utils/Color';
 import {windowWidth} from '../../utils/Measure';
 import CartItem from '../../common/CartItem';
 import {placeOrder} from './Helper';
 import WebView from 'react-native-webview';
+import PaymentOption from '../../common/PaymentOption';
+import {showErrorMessage} from '../../utils/BaseUtils';
 
 const Checkout = ({navigation}) => {
   const {cart} = useSelector(state => state.orders);
   const {activeLocation} = useSelector(state => state.app);
+  const [payment, setPayment] = useState('cash');
   const [sslWeb, setSslWeb] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const selected = activeLocation?.selected;
+
+  useEffect(() => {
+    navigation.setOptions({title: 'Checkout'});
+  }, []);
 
   const subTotal = () => {
     let count = 0;
@@ -35,27 +33,24 @@ const Checkout = ({navigation}) => {
   };
 
   const placeOrderFunction = async () => {
-    let res = await placeOrder(cart, selected, navigation);
-    // console.log(res, 'muin');
+    setLoading(true);
+    let res = await placeOrder(cart, selected, payment, navigation);
+    setLoading(false);
     setSslWeb(res?.url);
-    // await Linking.openURL(res?.url);
   };
 
   const handleNavigationStateChange = event => {
-    // Check the URL to determine if the payment was successful
     if (event.url.includes('payment-success')) {
-      setSslWeb();
       navigation?.navigate('OrderConfirmation', {
         orderData: {},
-        orderId: url?.split('=')[1],
+        orderId: event.url?.split('=')[1],
+        from: 'checkout',
       });
     } else if (event.url.includes('payment-failure')) {
-      console.log('muin opol');
+      showErrorMessage('There is an error!');
+      setSslWeb(false);
     }
   };
-
-  let url =
-    'https://gorun.onrender.com/app/user/order/ssl-payment-success?orderId=65a289be259484aae0b2d60e';
 
   if (sslWeb)
     return (
@@ -68,8 +63,7 @@ const Checkout = ({navigation}) => {
     );
 
   return (
-    <ScreenWrapper>
-      <Header title="Checkout" />
+    <View style={styles.container}>
       <ScrollView>
         {cart?.map((item, index) => {
           return (
@@ -93,6 +87,7 @@ const Checkout = ({navigation}) => {
           deliveryTime={'Today 10Pm'}
           onPress={() => {}}
         />
+        <PaymentOption props={{payment, setPayment}} />
         <ButlerCard title={'Payment Method'} payment={true} />
         <Summary
           currency={`$`}
@@ -104,21 +99,22 @@ const Checkout = ({navigation}) => {
       </ScrollView>
       <MButton
         title={'Order Now'}
-        color={PRIMARY_COLOR}
-        textColor={WHITE}
         marginTop={10}
         marginBottom={10}
-        borderRadius={10}
-        fontFamily={interRegular}
-        fontWeight={'600'}
+        loading={loading}
         onPress={() => placeOrderFunction()}
-        paddingVertical={7}
         width={windowWidth - 30}
       />
-    </ScreenWrapper>
+      <SafeAreaView />
+    </View>
   );
 };
 
 export default Checkout;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: WHITE,
+  },
+});

@@ -1,7 +1,7 @@
 import API from '../../service/API';
 import {PLACED_ORDER, PLACE_ORDER_WITH_SSL} from '../../service/ApiEndPoint';
 
-export const placeOrder = async (cart, selected, navigation) => {
+export const placeOrder = async (cart, selected, payment, navigation) => {
   let items = [];
   cart?.map(item => {
     let obj = {
@@ -23,6 +23,8 @@ export const placeOrder = async (cart, selected, navigation) => {
     return count;
   };
 
+  let total = subTotal() + 10;
+
   let json = {
     deliveryAddressId: selected?._id,
     items,
@@ -36,26 +38,29 @@ export const placeOrder = async (cart, selected, navigation) => {
       deliveryCharge: 10,
       totalAmount: subTotal() + 10,
       vat: 0,
-      online: subTotal() + 10,
-      cash: 0,
+      online: payment == 'cash' ? 0 : total,
+      cash: payment == 'cash' ? total : 0,
     },
-    paymentMethod: 'online', // "cash", "card", "wallet"
+    paymentMethod: payment, // "cash", "card", "wallet"
     specialInstruction: '',
   };
 
-  // console.log(json);
-
-  if (true) {
+  if (payment == 'online') {
+    console.log(payment);
     return new Promise(async (resolve, reject) => {
       let response = await API.post(PLACE_ORDER_WITH_SSL, json);
-      console.log(response);
       resolve(response);
     });
   } else {
-    let response = await API.post(PLACED_ORDER, json);
-    navigation?.navigate('OrderConfirmation', {
-      orderData: response?.data?.order,
+    return new Promise(async (resolve, reject) => {
+      let response = await API.post(PLACED_ORDER, json).catch(e => {
+        console.log(e);
+      });
+      navigation?.navigate('OrderConfirmation', {
+        orderData: response?.data?.order,
+        from: 'checkout',
+      });
+      resolve(response);
     });
-    console.log(response);
   }
 };

@@ -23,8 +23,9 @@ import {useNavigation} from '@react-navigation/native';
 
 const ViewCard = props => {
   const navigation = useNavigation();
-
   const {cart} = useSelector(state => state.orders);
+
+  if (!cart?.length) return;
 
   const countTotal = () => {
     let count = 0;

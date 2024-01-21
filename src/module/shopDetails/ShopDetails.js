@@ -21,14 +21,15 @@ import {
 } from './ShopDetailsHelper';
 import {useSelector} from 'react-redux';
 import AddShopProduct from './AddShopProduct';
+import {useNavigation} from '@react-navigation/native';
 const {StatusBarManager} = NativeModules;
 const height = StatusBarManager.HEIGHT;
 const AnimatedStatusBar = Animated.createAnimatedComponent(StatusBar);
-
 let array = {};
 let barStatus = false;
 
 const ShopDetails = props => {
+  const navigation = useNavigation();
   const shopDetails = props?.route?.params?.shopDetails;
   const shopId = shopDetails?._id;
   const {user} = useSelector(state => state.app);
@@ -51,6 +52,7 @@ const ShopDetails = props => {
   let active = -1;
 
   useEffect(() => {
+    navigation.setOptions({title: 'Shop Details'});
     if (user?.shopType) {
       setDetails({...user});
       getAllCategories(setAllCategories);

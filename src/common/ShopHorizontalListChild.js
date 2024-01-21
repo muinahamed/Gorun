@@ -76,7 +76,7 @@ export default ShopHorizontalListChild;
 const styles = StyleSheet.create({
   container: index => ({
     marginLeft: 15,
-    marginRight: index % 2 == 1 ? 15 : 0,
+    marginRight: 10,
     marginTop: 10,
   }),
   image: {

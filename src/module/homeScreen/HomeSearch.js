@@ -16,7 +16,7 @@ const HomeSearch = () => {
           zIndex: 0,
           backgroundColor: WHITE,
           marginBottom: 4,
-          marginTop: 10,
+          marginTop: 5,
         },
       ]}>
       <TouchableOpacity
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginHorizontal: 13,
+    marginHorizontal: 15,
   },
 
   divide: {

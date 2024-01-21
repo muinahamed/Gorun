@@ -12,11 +12,8 @@ import HomeScreenBanner from './HomeScreenBanner';
 import ShopHorizontalList from '../ShopHorizontal';
 import API from '../../service/API';
 import {
-  CATEGORY_WISE_SHOP,
-  GET_ALL_SHOP_LIST,
   GET_ALL_SHOP_TYPE,
   GET_CATEGORY_WISE_PRODUCT,
-  GET_FEATURED_SHOP,
   GET_SHOP,
 } from '../../service/ApiEndPoint';
 import HomeSearch from './HomeSearch';
@@ -92,8 +89,8 @@ const Home = () => {
 
   return (
     <View style={{flex: 1, backgroundColor: WHITE}}>
-      <StatusBar barStyle={'light-content'} />
-      <SafeAreaView style={{flex: 0, backgroundColor: PRIMARY_COLOR}} />
+      <StatusBar barStyle={'dark-content'} />
+      <SafeAreaView style={{flex: 0}} />
       <View style={{flex: 1}}>
         <HomeHeader
           locationPress={() => setSelectLocation({status: true, anim: false})}
@@ -107,7 +104,6 @@ const Home = () => {
                 <HomeSearch placeHolder={'Search'} />
                 <HomeTopCategories category={category} />
                 <HomeScreenBanner />
-                <LineBreak height={4} />
                 <ShopHorizontalList
                   type={'Featured Shop'}
                   title={'Featured Shop'}
