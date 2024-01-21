@@ -20,6 +20,7 @@ import CategoryDetails from './module/categoryDetails/CategoryDetails';
 import MyAddress from './module/myAddress/MyAddress';
 import OrderConfirmation from './module/orderConfirmation/OrderConfirmation';
 import ViewAll from './module/viewAllShop/ViewAll';
+import MyOrder from './module/myOrder/MyOrder';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -60,11 +61,7 @@ const StackScreen = () => {
         component={CategoryDetails}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="more"
-        component={More}
-        options={{headerShown: false}}
-      />
+      <Stack.Screen name="more" component={More} />
       <Stack.Screen
         name="myProfile"
         component={MyProfile}
@@ -111,6 +108,7 @@ const StackScreen = () => {
         component={MyAddress}
         options={{headerShown: false}}
       />
+      <Stack.Screen name="myOrder" component={MyOrder} />
       <Stack.Screen
         name="OrderConfirmation"
         component={OrderConfirmation}

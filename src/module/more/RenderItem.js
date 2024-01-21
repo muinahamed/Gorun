@@ -14,7 +14,7 @@ const RenderItem = ({item, index}) => {
       onPress={() => {
         switch (item.id) {
           case 1:
-            navigation.navigate('MyOrderNew');
+            navigation.navigate('myOrder');
             // navigation.navigate('MyOrders');
             break;
           case 2:

@@ -54,4 +54,6 @@ export const PLACE_ORDER_WITH_SSL = BASE_URL + `app/user/order/place-order-ssl`;
 
 export const CATEGORY_WISE_SHOP = BASE_URL + `app/user/shop/type-wise`;
 
+export const ONGOING_ORDER = BASE_URL + `app/user/order?`;
+
 // http://192.168.0.183:5001/

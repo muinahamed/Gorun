@@ -32,14 +32,16 @@ const ViewAll = () => {
 
     let res = await API.get(url);
 
-    if (number == 1) {
-      setShop({...res?.data, status: 'end'});
-    } else {
-      setShop(state => ({
-        ...res?.data,
-        shops: [...state?.shops, ...res?.data?.shops],
-        status: 'end',
-      }));
+    if (res?.status) {
+      if (number == 1) {
+        setShop({...res?.data, status: 'end'});
+      } else {
+        setShop(state => ({
+          ...res?.data,
+          shops: [...state?.shops, ...res?.data?.shops],
+          status: 'end',
+        }));
+      }
     }
   };
 

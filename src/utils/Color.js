@@ -25,3 +25,4 @@ export const CHAT_ICON_BG = '#323736';
 export const MODAL_HEADER = '#E5E7E9';
 export const CYAN_GRAY = '#8F93A0';
 export const IAMGE_BORDER_COLOR = `#F3F3F3`;
+export const BORDER_COLOR = '#E5E5E5';

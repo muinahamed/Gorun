@@ -30,9 +30,11 @@ import ModalHeader from '../../common/ModalHeader';
 import {windowHeight} from '../../utils/Measure';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LineBreak from '../../common/LineBreak';
+import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const {activeLocation} = useSelector(state => state.app);
   const [featuredShop, setFeaturedShop] = useState();
@@ -83,6 +85,7 @@ const Home = () => {
     getCategory();
     getFeaturedShop();
     getCategoryWWiseShop();
+    navigation.setOptions({title: 'Home'});
   }, []);
 
   // console.log(categoryWiseShop);
