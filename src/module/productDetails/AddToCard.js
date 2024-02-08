@@ -1,7 +1,6 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Alert} from 'react-native';
 import {
-  RED,
   WHITE,
   LITE_BLACK,
   ORDER_ID_GRAY,
@@ -15,21 +14,20 @@ import MText, {
   small,
 } from '../../common/MText';
 import BASKETIMAGE from '../../image/svg/myOrder.svg';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {moderateScale} from '../../utils/scaling';
 import {MButton} from '../../common/MButton';
 import {windowWidth} from '../../utils/Measure';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToCart} from '../../store/slices/orderSlice';
-import {
-  addToCartHelper,
-  addToMainCartHelper,
-} from '../../store/reduxHelperFunction';
+import {addToMainCartHelper} from '../../store/reduxHelperFunction';
 
 const AddToCard = props => {
+  const route = useRoute();
+  let {from} = route?.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const {cart} = useSelector(state => state.orders);
+  const {cart, shopId} = useSelector(state => state.orders);
   const {tempCart} = props;
 
   const countTotal = () => {
@@ -39,6 +37,23 @@ const AddToCard = props => {
   const totalAmount = () => {
     return tempCart?.total;
   };
+
+  const createAlert = () =>
+    Alert.alert('Already have card!', 'Do you wants to continue?', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          const updateCart = addToMainCartHelper(cart, tempCart?.item);
+          dispatch(addToCart({updateCart, shopId: props?.shopId}));
+          navigation.goBack();
+        },
+      },
+    ]);
 
   return (
     <View style={styles.parent}>
@@ -110,8 +125,13 @@ const AddToCard = props => {
               fontWeight={'600'}
               fontSize={moderateScale(14)}
               onPress={() => {
-                dispatch(addToCart(addToMainCartHelper(cart, tempCart?.item)));
-                navigation.goBack();
+                if (props?.shopId !== shopId && shopId) {
+                  createAlert();
+                } else {
+                  const updateCart = addToMainCartHelper(cart, tempCart?.item);
+                  dispatch(addToCart({updateCart, shopId: props?.shopId}));
+                  navigation.goBack();
+                }
               }}
               paddingVertical={7}
               width={162}

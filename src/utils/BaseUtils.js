@@ -31,3 +31,8 @@ export var parseDate = date => {
   var m = moment(date).format('DD MMM YYYY');
   return m;
 };
+
+export var parseTime = date => {
+  var m = moment(date, 'HH:mm').format('hh:mm A');
+  return m;
+};

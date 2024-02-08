@@ -20,12 +20,14 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {LOGO} from '../../image/PicturePath';
 import ARROW from '../../image/svg/arrow.svg';
+import CART from '../../image/svg/shopping-cart.svg';
 import Batch from './Batch';
 let show = false;
 
 const HomeHeader = ({locationPress}) => {
   const navigation = useNavigation();
   const {activeLocation, user} = useSelector(state => state.app);
+  const {cart, shopId} = useSelector(state => state.orders);
   const {selected} = activeLocation;
   const [loading, setLoading] = useState(false);
   const translate = useRef(new Animated.Value(0)).current;
@@ -57,6 +59,13 @@ const HomeHeader = ({locationPress}) => {
             Gorun
           </MText>
         </View>
+        {shopId && (
+          <TouchableOpacity
+            style={{paddingHorizontal: 5}}
+            onPress={() => navigation.navigate('cartScreen')}>
+            <CART />
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           onPress={() => {
             show = !show;

@@ -33,6 +33,7 @@ const ShopDetails = props => {
   const shopDetails = props?.route?.params?.shopDetails;
   const shopId = shopDetails?._id;
   const {user} = useSelector(state => state.app);
+  const {cart, subTotal} = useSelector(state => state.orders);
   const [details, setDetails] = useState(null);
   const [categoryItems, setCategoryItems] = useState([]);
   const [width, setWidth] = React.useState(null);
@@ -97,10 +98,8 @@ const ShopDetails = props => {
     return 0;
   };
 
-  const toggle = () => {
-    setBarStyle(style =>
-      style === 'light-content' ? 'dark-content' : 'light-content',
-    );
+  const toggle = status => {
+    setBarStyle(status);
   };
 
   return (
@@ -136,12 +135,10 @@ const ShopDetails = props => {
                   horizontal +
                   (height + 35 + 12);
 
-                if (temp > -200 && !barStatus) {
-                  barStatus = true;
-                  toggle();
-                } else if (temp < -200 && barStatus) {
-                  barStatus = false;
-                  toggle();
+                if (temp > 0) {
+                  toggle(`dark-content`);
+                } else {
+                  toggle(`light-content`);
                 }
 
                 for (let i = obj.length - 1; i >= 0; i--) {

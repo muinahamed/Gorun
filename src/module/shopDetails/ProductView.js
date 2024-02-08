@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import React, {useRef, useState} from 'react';
 import MText, {interRegular, medium, small} from '../../common/MText';
 import {LITE_BLACK, RED, TEXT_GRAY, WHITE} from '../../utils/Color';
@@ -19,13 +19,15 @@ import {
   removeFromCartHelper,
 } from '../../store/reduxHelperFunction';
 import {addToCart, removeFromCart} from '../../store/slices/orderSlice';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 const ProductView = ({item}) => {
+  const route = useRoute();
+  const shopDetails = route?.params?.shopDetails;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {user} = useSelector(state => state.app);
-  const {cart, subTotal} = useSelector(state => state.orders);
+  const {cart, shopId} = useSelector(state => state.orders);
   const [expand, setExpand] = useState(false);
   let shopType = user?.shopType;
   const timer = useRef();
@@ -61,6 +63,22 @@ const ProductView = ({item}) => {
   };
 
   let count = countFunction();
+
+  const createAlert = () =>
+    Alert.alert('Already have card!', 'Do you wants to continue?', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          const updateCart = addToCartHelper(cart, item);
+          dispatch(addToCart({updateCart, shopId: shopDetails?._id}));
+        },
+      },
+    ]);
 
   return (
     <TouchableOpacity
@@ -153,7 +171,12 @@ const ProductView = ({item}) => {
               style={[styles.plus]}
               onPress={() => {
                 if (expand || (!expand && count == 0)) {
-                  dispatch(addToCart(addToCartHelper(cart, item)));
+                  if (shopDetails?._id !== shopId && shopId) {
+                    createAlert();
+                  } else {
+                    const updateCart = addToCartHelper(cart, item);
+                    dispatch(addToCart({updateCart, shopId: shopDetails?._id}));
+                  }
                 }
                 totalWidth.value = withTiming(92);
                 setExpand(true);

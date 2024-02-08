@@ -7,22 +7,19 @@ import {MButton} from '../../common/MButton';
 import {WHITE} from '../../utils/Color';
 import {windowWidth} from '../../utils/Measure';
 import CartItem from '../../common/CartItem';
-import {placeOrder} from './Helper';
+import {getDeliveryChargeAndVat, placeOrder} from './Helper';
 import WebView from 'react-native-webview';
 import PaymentOption from '../../common/PaymentOption';
 import {showErrorMessage} from '../../utils/BaseUtils';
 
 const Checkout = ({navigation}) => {
-  const {cart} = useSelector(state => state.orders);
+  const {cart, shopId} = useSelector(state => state.orders);
   const {activeLocation} = useSelector(state => state.app);
   const [payment, setPayment] = useState('cash');
   const [sslWeb, setSslWeb] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [deliveryCharge, setDeliveryCharge] = useState({});
   const selected = activeLocation?.selected;
-
-  useEffect(() => {
-    navigation.setOptions({title: 'Checkout'});
-  }, []);
 
   const subTotal = () => {
     let count = 0;
@@ -32,9 +29,20 @@ const Checkout = ({navigation}) => {
     return count;
   };
 
+  useEffect(() => {
+    getDeliveryChargeAndVat(subTotal(), shopId, selected, setDeliveryCharge);
+    navigation.setOptions({title: 'Checkout'});
+  }, []);
+
   const placeOrderFunction = async () => {
     setLoading(true);
-    let res = await placeOrder(cart, selected, payment, navigation);
+    let res = await placeOrder(
+      cart,
+      deliveryCharge,
+      selected,
+      payment,
+      navigation,
+    );
     setLoading(false);
     setSslWeb(res?.url);
   };
@@ -92,15 +100,18 @@ const Checkout = ({navigation}) => {
         <Summary
           currency={`$`}
           subTotal={subTotal()}
-          deliveryCharge={10}
-          total={subTotal() + 10}
-          cash={subTotal() + 10}
+          deliveryCharge={deliveryCharge?.deliveryCharge}
+          vat={deliveryCharge?.vat}
+          total={
+            subTotal() + deliveryCharge?.deliveryCharge + deliveryCharge?.vat
+          }
         />
       </ScrollView>
       <MButton
         title={'Order Now'}
         marginTop={10}
         marginBottom={10}
+        disabled={!deliveryCharge?.deliveryCharge || !deliveryCharge?.vat}
         loading={loading}
         onPress={() => placeOrderFunction()}
         width={windowWidth - 30}

@@ -1,7 +1,18 @@
 import API from '../../service/API';
-import {PLACED_ORDER, PLACE_ORDER_WITH_SSL} from '../../service/ApiEndPoint';
+import {
+  GET_DELIVERY_CHARGE,
+  GET_VAT,
+  PLACED_ORDER,
+  PLACE_ORDER_WITH_SSL,
+} from '../../service/ApiEndPoint';
 
-export const placeOrder = async (cart, selected, payment, navigation) => {
+export const placeOrder = async (
+  cart,
+  deliveryCharge,
+  selected,
+  payment,
+  navigation,
+) => {
   let items = [];
   cart?.map(item => {
     let obj = {
@@ -23,7 +34,7 @@ export const placeOrder = async (cart, selected, payment, navigation) => {
     return count;
   };
 
-  let total = subTotal() + 10;
+  let total = subTotal() + deliveryCharge?.deliveryCharge + deliveryCharge?.vat;
 
   let json = {
     deliveryAddressId: selected?._id,
@@ -35,9 +46,9 @@ export const placeOrder = async (cart, selected, payment, navigation) => {
     },
     summary: {
       itemAmount: subTotal(),
-      deliveryCharge: 10,
-      totalAmount: subTotal() + 10,
-      vat: 0,
+      deliveryCharge: deliveryCharge?.deliveryCharge,
+      totalAmount: subTotal() + deliveryCharge?.vat,
+      vat: deliveryCharge?.vat,
       online: payment == 'cash' ? 0 : total,
       cash: payment == 'cash' ? total : 0,
     },
@@ -46,7 +57,6 @@ export const placeOrder = async (cart, selected, payment, navigation) => {
   };
 
   if (payment == 'online') {
-    console.log(payment);
     return new Promise(async (resolve, reject) => {
       let response = await API.post(PLACE_ORDER_WITH_SSL, json);
       resolve(response);
@@ -62,5 +72,29 @@ export const placeOrder = async (cart, selected, payment, navigation) => {
       });
       resolve(response);
     });
+  }
+};
+
+export const getDeliveryChargeAndVat = async (
+  subTotal,
+  shopId,
+  selected,
+  setDeliveryCharge,
+) => {
+  const latitude = selected?.latitude;
+  const longitude = selected?.longitude;
+
+  let response = await API.get(
+    GET_DELIVERY_CHARGE +
+      `shopId=${shopId}&latitude=${latitude}&longitude=${longitude}`,
+  );
+  if (response?.status) {
+    let deliveryCharge = response?.data?.orderDeliveryCharge?.deliveryFee;
+
+    let res = await API.get(GET_VAT + `amount=${subTotal + deliveryCharge}`);
+    if (res?.status) {
+      let vat = res?.data?.vat;
+      setDeliveryCharge({deliveryCharge, vat});
+    }
   }
 };

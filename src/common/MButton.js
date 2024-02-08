@@ -10,6 +10,7 @@ import {
 import {moderateScale} from '../utils/scaling';
 import {PRIMARY_COLOR, WHITE} from '../utils/Color';
 import {interRegular} from './MText';
+import {windowWidth} from '../utils/Measure';
 
 export const MButton = props => {
   const {
@@ -41,7 +42,6 @@ export const MButton = props => {
       disabled={disabled || loading}
       onPress={onPress}
       style={{
-        ...style,
         marginTop: marginTop,
         alignSelf: 'center',
         marginBottom: marginBottom,
@@ -58,6 +58,7 @@ export const MButton = props => {
           alignItems: 'center',
           justifyContent: 'center',
           opacity: disabled ? 0.5 : 1,
+          ...style,
         }}>
         {isNaN(leftIcon) ? (
           leftIcon

@@ -1,6 +1,5 @@
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
-import Header from '../../common/Header';
 import {useSelector} from 'react-redux';
 import AppleStyleSwipeableRow from '../../common/AppleStyleSwipeableRow';
 import CartItem from '../../common/CartItem';

@@ -15,7 +15,8 @@ const AnimatedStatusBar = Animated.createAnimatedComponent(StatusBar);
 let barStatus = false;
 
 const ProductDetails = ({route}) => {
-  let {productDetails} = route?.params;
+  let {productDetails, from} = route?.params;
+  const shopId = productDetails?.shop?._id;
   const [tempCart, setTempCart] = useState({
     item: {...productDetails},
     total: productDetails?.price,
@@ -72,7 +73,7 @@ const ProductDetails = ({route}) => {
       </Animated.ScrollView>
 
       <SafeAreaView />
-      <AddToCard tempCart={tempCart} />
+      <AddToCard tempCart={tempCart} shopId={shopId} />
     </View>
   );
 };

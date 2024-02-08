@@ -56,4 +56,25 @@ export const CATEGORY_WISE_SHOP = BASE_URL + `app/user/shop/type-wise`;
 
 export const ONGOING_ORDER = BASE_URL + `app/user/order?`;
 
+export const GET_DELIVERY_CHARGE =
+  BASE_URL + `app/user/order/get-delivery-charge?`;
+
+export const GET_VAT = BASE_URL + `app/user/order/get-vat?`;
+
+export const CREATE_OFFLINE_REQUEST =
+  BASE_URL + `app/user/offline-purchase-request/create`;
+
+export const OFFLINE_PURCHES_HISTORY =
+  BASE_URL + `app/user/offline-purchase-request?`;
+
+export const GET_OFFLINEPURCHES_HISTORY =
+  BASE_URL + `app/shop/offline-purchase-request?`;
+
+export const ACCEPT_REJECT_OFFLINE_PURCHES_REQUEST =
+  BASE_URL + `app/shop/offline-purchase-request/update-status`;
+
+export const BALANCE_URL = BASE_URL + `app/user/wallet/balance`;
+
+export const GET_TRANSECTION = BASE_URL + `app/user/wallet/transactions`;
+
 // http://192.168.0.183:5001/

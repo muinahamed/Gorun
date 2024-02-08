@@ -5,6 +5,8 @@ import MYORDERS from '../image/svg/myOrder.svg';
 import ADDRESS from '../image/svg/address.svg';
 import MYFAVOURITE from '../image/svg/favourite.svg';
 
+import BALANCE from '../image/svg/manageCard.svg';
+
 import GETSUPPORT from '../image/svg/getSuppport.svg';
 import LEGAL from '../image/svg/legal.svg';
 
@@ -43,6 +45,14 @@ export const ACTIVE_STATUS = [
   {id: 3, name: 'both'},
 ];
 
+export const moreFirstShop = [
+  {
+    id: 20,
+    IMAGE: LEGAL,
+    name: 'Purchases Request',
+  },
+];
+
 export const moreFirst = [
   {
     id: 1,
@@ -55,9 +65,19 @@ export const moreFirst = [
     name: 'Address',
   },
   {
+    id: 3,
+    IMAGE: BALANCE,
+    name: 'Balance',
+  },
+  {
     id: 6,
     IMAGE: MYFAVOURITE,
     name: 'My Favourite',
+  },
+  {
+    id: 7,
+    IMAGE: LEGAL,
+    name: 'Offline Purchases',
   },
 ];
 

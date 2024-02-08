@@ -13,6 +13,10 @@ const RenderItem = ({item, index}) => {
     <TouchableOpacity
       onPress={() => {
         switch (item.id) {
+          case 20:
+            navigation.navigate('purchasesRequest');
+            // for shop
+            break;
           case 1:
             navigation.navigate('myOrder');
             // navigation.navigate('MyOrders');
@@ -21,7 +25,7 @@ const RenderItem = ({item, index}) => {
             navigation.navigate('MyAddress');
             break;
           case 3:
-            navigation.navigate('Coupon');
+            navigation.navigate('balance');
             break;
           case 4:
             navigation.navigate('PaymentModule');
@@ -35,7 +39,7 @@ const RenderItem = ({item, index}) => {
             navigation.navigate('myFavourite');
             break;
           case 7:
-            navigation.navigate('InviteFriend');
+            navigation.navigate('offlinePurchesHistory');
             // navigation.navigate('ChatsList');
             break;
           case 8:

@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import ShopListViewLarge from '../../common/ShopListViewLarge';
 import Empty from '../../common/Empty';
 import {useSelector} from 'react-redux';
+import {WHITE} from '../../utils/Color';
 
 const MyFavourite = () => {
   const navigation = useNavigation();
@@ -18,7 +19,7 @@ const MyFavourite = () => {
   const renderItem = ({item}) => <ShopListViewLarge item={item} />;
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={favouriteShop}
         keyExtractor={(item, index) => index}
@@ -31,4 +32,9 @@ const MyFavourite = () => {
 
 export default MyFavourite;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: WHITE,
+  },
+});

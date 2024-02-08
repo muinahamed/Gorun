@@ -14,7 +14,10 @@ const SearchItem = ({item, from}) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() =>
-        navigation.navigate('productDetails', {productDetails: item})
+        navigation.navigate('productDetails', {
+          productDetails: item,
+          from: 'search',
+        })
       }>
       <View>
         <Image

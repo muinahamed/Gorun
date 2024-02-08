@@ -6,10 +6,13 @@ import {useSelector} from 'react-redux';
 import ProfileImage from './ProfileImage';
 import {parseDate} from '../../utils/BaseUtils';
 import MyProfileBody from './MyProfileBody';
+import {WHITE} from '../../utils/Color';
+import {useNavigation} from '@react-navigation/native';
 
 const MyProfile = () => {
   const {user} = useSelector(state => state.app);
   const [userInfo, setUserInfo] = useState(null);
+  const navigation = useNavigation();
 
   let setData = () => {
     let categoryData = [];
@@ -47,19 +50,24 @@ const MyProfile = () => {
 
   useEffect(() => {
     setData();
+    navigation.setOptions({title: 'My Profile'});
   }, []);
 
   return (
-    <ScreenWrapper>
-      <Header title="My Profile" />
+    <View style={styles.container}>
       <ScrollView>
         <ProfileImage user={user} />
         <MyProfileBody userInfo={userInfo} />
       </ScrollView>
-    </ScreenWrapper>
+    </View>
   );
 };
 
 export default MyProfile;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: WHITE,
+  },
+});

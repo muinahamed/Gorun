@@ -1,16 +1,33 @@
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
-import {LITE_BLACK, ORDER_ID_GRAY, RATTING_GREEN, WHITE} from '../utils/Color';
+import {
+  BORDER_COLOR,
+  LITE_BLACK,
+  ORDER_ID_GRAY,
+  PRIMARY_COLOR,
+  RATTING_GREEN,
+  WHITE,
+} from '../utils/Color';
 import EXCLAMATORY from '../image/svg/exclamatorysign.svg';
-import MText, {extraSmall, interRegular, semiXLarge} from './MText';
+import MText, {
+  extraSmall,
+  interRegular,
+  medium,
+  semiXLarge,
+  small,
+} from './MText';
 import START from '../image/svg/star.svg';
 import {windowWidth} from '../utils/Measure';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
+import OfflinePurchesRequest from './OfflinePurchesRequest';
+const physicalShop = ['both', 'offline'];
 
 const RestaurantDetailsCart = ({details, setModalVisible}) => {
   const {user} = useSelector(state => state.app);
+  const [dialog, setDialog] = useState(false);
   const navigation = useNavigation();
+
   return (
     <View
       style={{
@@ -19,17 +36,17 @@ const RestaurantDetailsCart = ({details, setModalVisible}) => {
         right: 0,
         top: 212 - 121 + 60,
       }}>
+      <OfflinePurchesRequest props={{dialog, setDialog, details}} />
       <View style={styles.container}>
         <View style={styles.flex}>
-          <TouchableOpacity onPress={() => navigation.navigate('more')}>
+          <TouchableOpacity
+            disabled={!user?.shopType}
+            onPress={() => navigation.navigate('more')}>
             <Image source={{uri: details?.image}} style={styles.logo} />
           </TouchableOpacity>
 
-          <View style={{marginLeft: 10}}>
-            <TouchableOpacity
-              disabled={!user?.shopType}
-              onPress={() => setModalVisible(true)}
-              style={[styles.flex]}>
+          <View style={{marginLeft: 10, flex: 1}}>
+            <View disabled={!user?.shopType} style={[styles.flex]}>
               <MText
                 size={semiXLarge}
                 fontType={interRegular}
@@ -42,7 +59,21 @@ const RestaurantDetailsCart = ({details, setModalVisible}) => {
                 {details?.name}
               </MText>
               <EXCLAMATORY />
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={{flex: 1, alignItems: 'flex-end'}}
+                onPress={() => {
+                  if (user?.shopType) setModalVisible(true);
+                  else setDialog(true);
+                }}>
+                <MText
+                  size={small}
+                  fontType={interRegular}
+                  color={PRIMARY_COLOR}
+                  style={styles.button}>
+                  {user?.shopType ? `Add Product` : `Offline Points`}
+                </MText>
+              </TouchableOpacity>
+            </View>
 
             <View style={[styles.flex]}>
               <TouchableOpacity onPress={() => {}} style={[styles.flex]}>
@@ -116,5 +147,12 @@ const styles = StyleSheet.create({
   gradient: {
     padding: 2,
     borderRadius: 52,
+  },
+  button: {
+    borderWidth: 1,
+    fontWeight: '500',
+    borderColor: BORDER_COLOR,
+    borderRadius: 5,
+    padding: 2,
   },
 });

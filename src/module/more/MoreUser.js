@@ -17,7 +17,7 @@ import {
   PRIMARY_COLOR,
   WHITE,
 } from '../../utils/Color';
-import {moreFirst, moreThird} from '../../utils/Data';
+import {moreFirst, moreFirstShop, moreThird} from '../../utils/Data';
 import RenderItem from './RenderItem';
 
 const MoreUser = () => {
@@ -75,7 +75,7 @@ const MoreUser = () => {
         </View>
       </View>
       <View style={styles.card}>
-        {moreFirst?.map((item, index) => {
+        {(user?.shopType ? moreFirstShop : moreFirst)?.map((item, index) => {
           return (
             <View key={index + 'First'}>
               <RenderItem item={item} index={index} />

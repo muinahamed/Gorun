@@ -22,6 +22,9 @@ import OrderConfirmation from './module/orderConfirmation/OrderConfirmation';
 import ViewAll from './module/viewAllShop/ViewAll';
 import MyOrder from './module/myOrder/MyOrder';
 import MyFavourite from './module/favourite/MyFavourite';
+import OfflinePurchesHistory from './module/offlinePurchesHistory/OfflinePurchesHistory';
+import PurchasesRequest from './module/purchasesRequest/PurchasesRequest';
+import Balance from './module/balance/Balance';
 const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
@@ -59,11 +62,7 @@ const StackScreen = () => {
       />
       <Stack.Screen name="categoryDetails" component={CategoryDetails} />
       <Stack.Screen name="more" component={More} />
-      <Stack.Screen
-        name="myProfile"
-        component={MyProfile}
-        options={{headerShown: false}}
-      />
+      <Stack.Screen name="myProfile" component={MyProfile} />
       <Stack.Screen
         name="shopDetails"
         component={ShopDetails}
@@ -100,6 +99,12 @@ const StackScreen = () => {
       <Stack.Screen name="myOrder" component={MyOrder} />
       <Stack.Screen name="myFavourite" component={MyFavourite} />
       <Stack.Screen name="OrderConfirmation" component={OrderConfirmation} />
+      <Stack.Screen
+        name="offlinePurchesHistory"
+        component={OfflinePurchesHistory}
+      />
+      <Stack.Screen name="purchasesRequest" component={PurchasesRequest} />
+      <Stack.Screen name="balance" component={Balance} />
     </Stack.Navigator>
   );
 };

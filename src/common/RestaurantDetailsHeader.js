@@ -1,4 +1,10 @@
-import {Animated, StyleSheet, View, TouchableOpacity} from 'react-native';
+import {
+  Animated,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {NativeModules} from 'react-native';
 const {StatusBarManager} = NativeModules;
 const height = StatusBarManager.HEIGHT;
@@ -46,18 +52,21 @@ const RestaurantDetailsHeader = ({scrollY, details}) => {
           <Animated.View
             style={{
               marginLeft: 10,
-              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
               opacity: scrollY.interpolate({
                 inputRange: [0, 110, 120],
                 outputRange: [0, 0, 1],
               }),
             }}>
+            <Image source={{uri: details?.image}} style={styles.icon} />
             <MText
               size={semiMedium}
               color={LITE_BLACK}
               fontType={interRegular}
               style={{
                 fontWeight: '500',
+                marginLeft: 10,
               }}>
               Delivery
             </MText>
@@ -108,5 +117,10 @@ const styles = StyleSheet.create({
   childFlex: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  icon: {
+    width: 30,
+    height: 30,
+    borderRadius: 30,
   },
 });
